@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CARD สถานะนักเรียน</title>
+    <title>สร้างการ์ดอัพเดทสถานะ</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&display=swap');
@@ -75,13 +75,13 @@
         }
         
         #previewModal .modal-content {
-            background-color: #1A1A1A;
-            color: #FFFFFF;
+            background-color: white;
+            color: black;
         }
         #previewFlexMessage {
-            background-color: #2A2A2A;
+            background-color: white;
             border-radius: 10px;
-            padding: 20px;
+            padding: 30px;
         }
         
          @media (max-width: 768px) {
@@ -101,9 +101,9 @@
 </head>
 <body>
     <div class="container mt-4">
-    <center><img src="https://cdn-icons-png.flaticon.com/128/6518/6518509.png"></center><p></p>
+    <center><img src="https://cdn-icons-png.flaticon.com/128/8061/8061970.png"></center><p></p>
         <h4 class="text-center mb-4">สร้างการ์ดอัพเดทสถานะ</h4>
-  <h4 class="text-center mb-4">สำหรับส่งให้นักเรียน</h4><p></p>
+ <p></p>
         <form id="shareForm">
             <div class="form-group">
                 <label for="date">วันที่:</label>
@@ -226,40 +226,32 @@
     "layout": "vertical",
     "contents": [
       {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "text",
-            "text": "ขอแสดงความยินดีต้อนรับเข้าสู่",
-            "color": "#C0A080",
-            "align": "center",
-            "size": "xs",
-            "weight": "bold"
-          },
-          {
-            "type": "text",
-            "text": "คลาสเรียน TikTok Shop\nครูส้มโอ ส่งออก AEC",
-            "weight": "bold",
-            "size": "lg",
-            "align": "center",
-            "color": "#FFFFFF",
-            "margin": "md",
-            "wrap": true
-          }
-        ]
+        "type": "text",
+        "text": "ยินดีต้อนรับ",
+        "color": "#FFFFFF",
+        "align": "center",
+        "weight": "bold",
+        "size": "lg"
+      },
+      {
+        "type": "text",
+        "text": "คลาสเรียน TikTok Shop\nครูส้มโอ ส่งออก AEC",
+        "color": "#FFFFFF",
+        "align": "center",
+        "size": "md",
+        "wrap": true
       }
     ],
+    "backgroundColor": "#333333",
     "paddingAll": "20px",
-    "backgroundColor": "#1A1A1A",
-    "paddingTop": "22px",
-    "paddingBottom": "22px"
+    "paddingTop": "15px",
+    "paddingBottom": "15px"
   },
   "hero": {
     "type": "image",
     "url": "https://lh3.googleusercontent.com/d/11YT2lfYzCPB954v3OIGByeUQLwX59o0j",
     "size": "full",
-    "aspectRatio": "20:13",
+    "aspectRatio": "16:9",
     "aspectMode": "cover"
   },
   "body": {
@@ -268,53 +260,27 @@
     "contents": [
       {
         "type": "text",
-        "text": date,
+        "text": "วันที่: " + date,
         "size": "sm",
         "color": "#FFFFFF",
-        "margin": "md",
-        "align": "center"
+        "align": "center",
+        "margin": "md"
       },
       {
         "type": "text",
-        "text": location,
+        "text": "สถานที่: " + location,
         "size": "sm",
         "color": "#FFFFFF",
-        "margin": "md",
-        "align": "center"
+        "align": "center",
+        "margin": "md"
       },
       {
         "type": "text",
-        "text": time,
+        "text": "เวลา: " + time,
         "size": "sm",
         "color": "#FFFFFF",
-        "margin": "md",
-        "align": "center"
-      },
-      {
-        "type": "separator",
-        "margin": "xl",
-        "color": "#C0A080"
-      },
-      {
-        "type": "box",
-        "layout": "horizontal",
-        "contents": [
-          {
-            "type": "text",
-            "text": name,
-            "size": "md",
-            "color": "#FFFFFF",
-            "weight": "bold",
-            "wrap": true,
-            "align": "center"
-          }
-        ],
-        "margin": "xl"
-      },
-      {
-        "type": "separator",
-        "margin": "xl",
-        "color": "#C0A080"
+        "align": "center",
+        "margin": "md"
       },
       {
         "type": "box",
@@ -323,44 +289,21 @@
           {
             "type": "text",
             "text": "สถานะ:",
-            "size": "lg",
-            "color": "#FFFFFF",
-            "weight": "bold",
-            "wrap": true,
-            "align": "end",
-            "offsetTop": "1px",
+            "size": "sm",
+            "color": "#C0A080",
             "flex": 1,
-            "offsetStart": "xs"
+            "align": "end"
           },
           {
             "type": "text",
             "text": status,
-            "size": "lg",
-            "color": "#C0A080",
-            "align": "end",
-            "weight": "bold",
-            "offsetTop": "-1px"
-          },
-          {
-            "type": "image",
-            "url": "https://bucket.ex10.tech/images/fa432e85-5a5b-11ef-ab4d-0242ac12000e/originalContentUrl.png",
-            "aspectMode": "cover",
-            "aspectRatio": "1:1",
-            "size": "xxs",
-            "offsetStart": "lg",
-            "offsetTop": "none",
-            "animated": true,
-            "offsetBottom": "none",
+            "size": "sm",
+            "color": "#FFFFFF",
+            "flex": 1,
             "align": "start"
           }
         ],
-        "margin": "xl",
-        "offsetTop": "none"
-      },
-      {
-        "type": "separator",
-        "margin": "xxl",
-        "color": "#C0A080"
+        "margin": "md"
       },
       {
         "type": "box",
@@ -368,26 +311,22 @@
         "contents": [
           {
             "type": "text",
-            "text": "อาหาร: ",
+            "text": "อาหาร:",
             "size": "sm",
             "color": "#C0A080",
             "flex": 1,
-            "align": "end",
-            "offsetEnd": "5px"
+            "align": "end"
           },
           {
             "type": "text",
             "text": food,
             "size": "sm",
             "color": "#FFFFFF",
-            "align": "start",
             "flex": 1,
-            "offsetStart": "5px",
-            "offsetTop": "1px"
+            "align": "start"
           }
         ],
-        "margin": "md",
-        "offsetTop": "xs"
+        "margin": "md"
       }
     ],
     "backgroundColor": "#2A2A2A",
@@ -399,6 +338,7 @@
     }
   }
 };
+
 
             liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลการลงทะเบียน", contents: flexMessage }])
                 .then(() => liff.closeWindow())
