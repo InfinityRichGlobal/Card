@@ -231,24 +231,22 @@
         "color": "#06C755",
         "align": "center",
         "weight": "bold",
-        "size": "md"
+        "size": "xl"
       },
       {
         "type": "text",
         "text": "TikTok Shop จับมือทำ\nครูส้มโอ ส่งออก AEC",
-        "color": "#000000",
+        "color": "#111111",
         "align": "center",
         "size": "sm",
         "wrap": true,
-        "weight": "bold",
-        "offsetTop": "5px"
+        "weight": "bold"
       }
     ],
-    "backgroundColor": "#F5F7F8",
-    "paddingAll": "20px",
-    "paddingTop": "15px",
-    "paddingBottom": "15px",
-    "borderWidth": "light"
+    "backgroundColor": "#FEFEFE",
+    "borderWidth": "light",
+    "paddingTop": "25px",
+    "paddingBottom": "20px"
   },
   "hero": {
     "type": "image",
@@ -270,34 +268,13 @@
         "color": "#06C755",
         "align": "center",
         "weight": "bold",
-        "style": "normal"
+        "style": "normal",
+        "offsetBottom": "5px"
       },
       {
-        "type": "text",
-        "text": date,
-        "size": "sm",
-        "color": "#000000",
-        "align": "center",
-        "margin": "md",
-        "weight": "bold"
-      },
-      {
-        "type": "text",
-        "text": location,
-        "size": "sm",
-        "color": "#000000",
-        "align": "center",
-        "margin": "md",
-        "weight": "bold"
-      },
-      {
-        "type": "text",
-        "text": time,
-        "size": "sm",
-        "color": "#000000",
-        "align": "center",
-        "margin": "md",
-        "weight": "bold"
+        "type": "separator",
+        "color": "#cccccc",
+        "margin": "md"
       },
       {
         "type": "box",
@@ -305,47 +282,107 @@
         "contents": [
           {
             "type": "text",
-            "text": "สถานะ",
+            "text": date,
+            "margin": "md",
             "size": "sm",
-            "color": "#000000",
-            "flex": 1,
-            "align": "start",
-            "weight": "bold"
+            "color": "#111111",
+            "weight": "bold",
+            "align": "center"
           },
           {
             "type": "text",
-            "text": "อาหาร",
+            "text": location,
+            "margin": "md",
             "size": "sm",
-            "color": "#000000",
+            "color": "#111111",
+            "weight": "bold",
+            "align": "center"
+          },
+          {
+            "type": "text",
+            "text": time,
+            "margin": "md",
+            "size": "sm",
+            "color": "#111111",
+            "weight": "bold",
+            "align": "center"
+          }
+        ],
+        "paddingAll": "10px"
+      },
+      {
+        "type": "separator",
+        "color": "#cccccc",
+        "margin": "lg"
+      },
+      {
+        "margin": "md",
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "text",
+            "text": "อาหาร",
+            "color": "#111111",
+            "weight": "bold",
+            "size": "sm",
+            "align": "start",
+            "gravity": "center",
+            "margin": "none"
+          },
+          {
+            "type": "text",
+            "text": "สถานะ",
+            "color": "#111111",
+            "weight": "bold",
+            "size": "sm",
             "align": "end",
-            "flex": 1,
-            "weight": "bold"
+            "gravity": "center",
+            "margin": "none"
+          }
+        ],
+        "spacing": "lg",
+        "paddingTop": "10px"
+      },
+      {
+        "margin": "sm",
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "text",
+            "text": food,
+            "color": "#111111",
+            "weight": "bold",
+            "size": "sm",
+            "align": "start",
+            "gravity": "center",
+            "margin": "none"
           },
           {
             "type": "text",
             "text": status,
-            "size": "sm",
             "color": "#FF334B",
-            "flex": 1,
-            "align": "start"
-          },
-          {
-            "type": "text",
-            "text": food,
+            "weight": "bold",
             "size": "sm",
-            "color": "#000000",
-            "flex": 1,
-            "align": "end"
+            "align": "end",
+            "gravity": "center",
+            "margin": "none"
           }
         ],
-        "margin": "md"
+        "spacing": "none",
+        "paddingBottom": "20px"
       }
     ],
-    "backgroundColor": "#F5F7F8",
-    "paddingAll": "20px",
-    "borderWidth": "normal"
+    "borderWidth": "normal",
+    "margin": "none",
+    "paddingAll": "25px"
   },
   "styles": {
+    "body": {
+      "backgroundColor": "#FEFEFE",
+      "separator": false
+    },
     "footer": {
       "separator": false
     }
