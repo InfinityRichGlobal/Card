@@ -220,39 +220,44 @@
 
             const flexMessage = {
   "type": "bubble",
-  "size": "giga",
+  "size": "mega",
   "header": {
     "type": "box",
     "layout": "vertical",
     "contents": [
       {
         "type": "text",
-        "text": "ยินดีต้อนรับ",
-        "color": "#FFFFFF",
+        "text": "ยินดีต้อนรับเข้าสู่",
+        "color": "#06C755",
         "align": "center",
         "weight": "bold",
-        "size": "lg"
+        "size": "md"
       },
       {
         "type": "text",
-        "text": "คลาสเรียน TikTok Shop\nครูส้มโอ ส่งออก AEC",
-        "color": "#FFFFFF",
+        "text": "TikTok Shop จับมือทำ\nครูส้มโอ ส่งออก AEC",
+        "color": "#000000",
         "align": "center",
-        "size": "md",
-        "wrap": true
+        "size": "sm",
+        "wrap": true,
+        "weight": "bold",
+        "offsetTop": "5px"
       }
     ],
-    "backgroundColor": "#333333",
+    "backgroundColor": "#F5F7F8",
     "paddingAll": "20px",
     "paddingTop": "15px",
-    "paddingBottom": "15px"
+    "paddingBottom": "15px",
+    "borderWidth": "light"
   },
   "hero": {
     "type": "image",
     "url": "https://lh3.googleusercontent.com/d/11YT2lfYzCPB954v3OIGByeUQLwX59o0j",
     "size": "full",
     "aspectRatio": "16:9",
-    "aspectMode": "cover"
+    "aspectMode": "fit",
+    "animated": false,
+    "align": "center"
   },
   "body": {
     "type": "box",
@@ -260,77 +265,85 @@
     "contents": [
       {
         "type": "text",
-        "text": "วันที่: " + date,
-        "size": "sm",
-        "color": "#FFFFFF",
+        "text": name,
+        "size": "lg",
+        "color": "#06C755",
         "align": "center",
-        "margin": "md"
+        "weight": "bold",
+        "style": "normal"
       },
       {
         "type": "text",
-        "text": "สถานที่: " + location,
+        "text": date,
         "size": "sm",
-        "color": "#FFFFFF",
+        "color": "#000000",
         "align": "center",
-        "margin": "md"
+        "margin": "md",
+        "weight": "bold"
       },
       {
         "type": "text",
-        "text": "เวลา: " + time,
+        "text": location,
         "size": "sm",
-        "color": "#FFFFFF",
+        "color": "#000000",
         "align": "center",
-        "margin": "md"
+        "margin": "md",
+        "weight": "bold"
+      },
+      {
+        "type": "text",
+        "text": time,
+        "size": "sm",
+        "color": "#000000",
+        "align": "center",
+        "margin": "md",
+        "weight": "bold"
       },
       {
         "type": "box",
-        "layout": "horizontal",
+        "layout": "vertical",
         "contents": [
           {
             "type": "text",
-            "text": "สถานะ:",
+            "text": "สถานะ",
             "size": "sm",
-            "color": "#C0A080",
+            "color": "#000000",
             "flex": 1,
-            "align": "end"
+            "align": "start",
+            "weight": "bold"
+          },
+          {
+            "type": "text",
+            "text": "อาหาร",
+            "size": "sm",
+            "color": "#000000",
+            "align": "end",
+            "flex": 1,
+            "weight": "bold"
           },
           {
             "type": "text",
             "text": status,
             "size": "sm",
-            "color": "#FFFFFF",
+            "color": "#FF334B",
             "flex": 1,
             "align": "start"
-          }
-        ],
-        "margin": "md"
-      },
-      {
-        "type": "box",
-        "layout": "horizontal",
-        "contents": [
-          {
-            "type": "text",
-            "text": "อาหาร:",
-            "size": "sm",
-            "color": "#C0A080",
-            "flex": 1,
-            "align": "end"
           },
           {
             "type": "text",
             "text": food,
             "size": "sm",
-            "color": "#FFFFFF",
+            "color": "#000000",
             "flex": 1,
-            "align": "start"
+            "align": "end"
           }
         ],
         "margin": "md"
       }
     ],
-    "backgroundColor": "#2A2A2A",
-    "paddingAll": "20px"
+    "backgroundColor": "#F5F7F8",
+    "paddingAll": "20px",
+    "borderWidth": "normal"
   },
   "styles": {
     "footer": {
