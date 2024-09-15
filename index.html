@@ -301,175 +301,179 @@
             const food = document.getElementById('food').value;
 
             const flexMessage = {
-                "type": "bubble",
-                "size": "mega",
-                "header": {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                        {
-                            "type": "text",
-                            "text": "ยินดีต้อนรับเข้าสู่",
-                            "color": "#06C755",
-                            "align": "center",
-                            "weight": "bold",
-                            "size": "xl"
-                        },
-                        {
-                            "type": "text",
-                            "text": "TikTok Shop จับมือทำ\nครูส้มโอ ส่งออก AEC",
-                            "color": "#111111",
-                            "align": "center",
-                            "size": "sm",
-                            "wrap": true,
-                            "weight": "bold"
-                        }
-                    ],
-                    "backgroundColor": "#FEFEFE",
-                    "borderWidth": "light",
-                    "paddingTop": "25px",
-                    "paddingBottom": "20px"
-                },
-                "hero": {
-                    "type": "image",
-                    "url": functions,
-                    "size": "full",
-                    "aspectRatio": "16:9",
-                    "aspectMode": "fit",
-                    "animated": false,
-                    "align": "center"
-                },
-                "body": {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                        {
-                            "type": "text",
-                            "text": name,
-                            "size": "lg",
-                            "color": "#06C755",
-                            "align": "center",
-                            "weight": "bold",
-                            "style": "normal",
-                            "offsetBottom": "5px"
-                        },
-                        {
-                            "type": "separator",
-                            "color": "#cccccc",
-                            "margin": "md"
-                        },
-                        {
-                            "type": "box",
-                            "layout": "vertical",
-                            "contents": [
-                                {
-                                    "type": "text",
-                                    "text": date,
-                                    "margin": "md",
-                                    "size": "sm",
-                                    "color": "#111111",
-                                    "weight": "bold",
-                                    "align": "center"
-                                },
-                                {
-                                    "type": "text",
-                                    "text": location,
-                                    "margin": "md",
-                                    "size": "sm",
-                                    "color": "#111111",
-                                    "weight": "bold",
-                                    "align": "center"
-                                },
-                                {
-                                    "type": "text",
-                                    "text": time,
-                                    "margin": "md",
-                                    "size": "sm",
-                                    "color": "#111111",
-                                    "weight": "bold",
-                                    "align": "center"
-                                }
-                            ],
-                            "paddingAll": "10px"
-                        },
-                        {
-                            "type": "separator",
-                            "color": "#cccccc",
-                            "margin": "lg"
-                        },
-                        {
-                            "margin": "md",
-                            "type": "box",
-                            "layout": "horizontal",
-                            "contents": [
-                                {
-                                    "type": "text",
-                                    "text": "อาหาร",
-                                    "color": "#111111",
-                                    "weight": "bold",
-                                    "size": "sm",
-                                    "align": "start",
-                                    "gravity": "center",
-                                    "margin": "none"
-                                },
-                                {
-                                    "type": "text",
-                                    "text": "สถานะ",
-                                    "color": "#111111",
-                                    "weight": "bold",
-                                    "size": "sm",
-                                    "align": "end",
-                                    "gravity": "center",
-                                    "margin": "none"
-                                }
-                            ],
-                            "spacing": "lg",
-                            "paddingTop": "10px"
-                        },
-                        {
-                            "margin": "sm",
-                            "type": "box",
-                            "layout": "horizontal",
-                            "contents": [
-                                {
-                                    "type": "text",
-                                    "text": food,
-                                    "color": "#111111",
-                                    "weight": "bold",
-                                    "size": "sm",
-                                    "align": "start",
-                                    "gravity": "center",
-                                    "margin": "none"
-                                },
-                                {
-                                    "type": "text",
-                                    "text": status,
-                                    "color": "#FF334B",
-                                    "weight": "bold",
-                                    "size": "sm",
-                                    "align": "end",
-                                    "gravity": "center",
-                                    "margin": "none"
-                                }
-                            ],
-                            "spacing": "none",
-                            "paddingBottom": "20px"
-                        }
-                    ],
-                    "borderWidth": "normal",
-                    "margin": "none",
-                    "paddingAll": "25px"
-                },
-                "styles": {
-                    "body": {
-                        "backgroundColor": "#FEFEFE",
-                        "separator": false
-                    },
-                    "footer": {
-                        "separator": false
-                    }
-                }
-            };
+  "type": "bubble",
+  "size": "mega",
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "ยินดีต้อนรับเข้าสู่",
+            "color": "#06C755",
+            "align": "center",
+            "weight": "bold",
+            "size": "xl"
+          },
+          {
+            "type": "text",
+            "text": "TikTok Shop จับมือทำ\nครูส้มโอ ส่งออก AEC",
+            "color": "#111111",
+            "align": "center",
+            "size": "sm",
+            "wrap": true,
+            "weight": "bold"
+          }
+        ],
+        "backgroundColor": "#FEFEFE",
+        "borderWidth": "light"
+      },
+      {
+        "type": "separator",
+        "color": "#cccccc",
+        "margin": "md"
+      },
+      {
+        "type": "image",
+        "size": "full",
+        "aspectRatio": "16:9",
+        "align": "center",
+        "url": functions,
+        "margin": "md"
+      },
+      {
+        "type": "separator",
+        "color": "#cccccc",
+        "margin": "md"
+      },
+      {
+        "type": "text",
+        "text": name,
+        "size": "lg",
+        "color": "#06C755",
+        "align": "center",
+        "weight": "bold",
+        "style": "normal",
+        "margin": "md"
+      },
+      {
+        "type": "separator",
+        "color": "#cccccc",
+        "margin": "md"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": date,
+            "margin": "none",
+            "size": "sm",
+            "color": "#111111",
+            "weight": "bold",
+            "align": "center"
+          },
+          {
+            "type": "text",
+            "text": location,
+            "margin": "none",
+            "size": "sm",
+            "color": "#111111",
+            "weight": "bold",
+            "align": "center"
+          },
+          {
+            "type": "text",
+            "text": time,
+            "margin": "none",
+            "size": "sm",
+            "color": "#111111",
+            "weight": "bold",
+            "align": "center"
+          }
+        ],
+        "spacing": "none",
+        "margin": "md"
+      },
+      {
+        "type": "separator",
+        "color": "#cccccc",
+        "margin": "lg"
+      },
+      {
+        "margin": "md",
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "text",
+            "text": "อาหาร",
+            "color": "#111111",
+            "weight": "bold",
+            "size": "sm",
+            "align": "start",
+            "gravity": "center",
+            "margin": "none"
+          },
+          {
+            "type": "text",
+            "text": "สถานะ",
+            "color": "#111111",
+            "weight": "bold",
+            "size": "sm",
+            "align": "end",
+            "gravity": "center",
+            "margin": "none"
+          }
+        ],
+        "spacing": "lg",
+        "paddingTop": "10px"
+      },
+      {
+        "margin": "sm",
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "text",
+            "text": food,
+            "color": "#111111",
+            "weight": "bold",
+            "size": "sm",
+            "align": "start",
+            "gravity": "center",
+            "margin": "none"
+          },
+          {
+            "type": "text",
+            "text": status,
+            "color": "#FF334B",
+            "weight": "bold",
+            "size": "sm",
+            "align": "end",
+            "gravity": "center",
+            "margin": "none"
+          }
+        ],
+        "spacing": "none"
+      }
+    ],
+    "borderWidth": "normal",
+    "margin": "none",
+    "spacing": "none"
+  },
+  "styles": {
+    "body": {
+      "backgroundColor": "#FEFEFE",
+      "separator": false
+    }
+  }
+};
 
             liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลการลงทะเบียน", contents: flexMessage }])
                 .then(() => liff.closeWindow())
