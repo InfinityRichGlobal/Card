@@ -151,7 +151,7 @@
         <p></p>
         <form id="shareForm">
             <div class="form-group">
-                <label>เลือกรูปแบบการเรียน:</label>
+                <label>เลือกภาพรูปแบบการเรียน:</label>
                 <div id="functions" class="image-options"></div>
             </div>
 		<div class="form-group">
@@ -178,6 +178,13 @@
                 <label for="status">สถานะ:</label>
                 <select class="form-control" id="status"></select>
             </div>
+            
+   
+<div class="form-group">
+    <label>เลือกภาพสถานะการชำระเงิน:</label>
+    <div id="timecard" class="image-options"></div>
+</div>
+            
             <div class="form-group">
                 <label for="food">อาหาร:</label>
                 <input type="text" class="form-control" id="food" placeholder="อาหาร: ปกติ หรือ ยกเว้นอาหารประเภทอะไร">
@@ -229,6 +236,7 @@
         function loadSelectOptions() {
             $.getJSON('https://script.google.com/macros/s/AKfycbw67rT-2ZbqdQG_olDhbDV8rFO-ept6PoEnZ4M6cCj_qjB8IQ8Q5zG6kDSi9qNGdK0/exec', function(data) {
                 updateImageOptions('functions', data.functions);
+                updateImageOptions('timecard', data.timecard);
                 updateSelect('nameclass', data.nameclass);         
                 updateSelect('date', data.date);
                 updateSelect('location', data.location);
@@ -267,6 +275,7 @@
 
         function updatePreview() {
             const functions = $('input[name="functions"]:checked').val();
+            const timecard = $('input[name="timecard"]:checked').val();
             const nameclass = document.getElementById('nameclass').value;
             const date = document.getElementById('date').value;
             const location = document.getElementById('location').value;
@@ -285,6 +294,7 @@
             <hr>
             <p>ชื่อผู้ลงทะเบียน: ${name}</p>
             <p>สถานะ: ${status}</p>
+       		<img src="${timecard}" alt="Selected function" style="max-width: 100%; height: auto; margin-bottom: 15px;">
             <p>อาหาร: ${food}</p>
         </div>
     `;
@@ -300,6 +310,7 @@
      
      function shareMessage() {
             const functions = $('input[name="functions"]:checked').val();
+            const timecard = $('input[name="timecard"]:checked').val(); 
             const nameclass = document.getElementById('nameclass').value;
             const date = document.getElementById('date').value;
             const location = document.getElementById('location').value;
@@ -325,17 +336,18 @@
             "color": "#06C755",
             "align": "center",
             "weight": "bold",
-            "size": "lg"
+            "size": "xl"
           },
           {
             "type": "text",
             "text": nameclass,
             "color": "#111111",
             "align": "center",
-            "size": "sm",
+            "size": "xs",
             "wrap": true,
-            "weight": "bold"
- 	},
+            "weight": "bold",
+            "margin": "sm"
+          },
           {
             "type": "text",
             "text": "ครูส้มโอ ส่งออก AEC",
@@ -343,7 +355,8 @@
             "align": "center",
             "size": "sm",
             "wrap": true,
-            "weight": "bold"
+            "weight": "bold",
+            "margin": "xs"
           }
         ],
         "backgroundColor": "#FEFEFE",
@@ -358,14 +371,25 @@
         "margin": "md"
       },
       {
-        "type": "text",
-        "text": name,
-        "size": "lg",
-        "color": "#06C755",
-        "align": "center",
-        "weight": "bold",
-        "style": "normal",
-        "margin": "md"
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": name,
+            "size": "md",
+            "color": "#FFFFFF",
+            "align": "center",
+            "weight": "bold",
+            "style": "normal",
+            "margin": "md",
+            "wrap": true
+          }
+        ],
+        "margin": "md",
+        "backgroundColor": "#06C755",
+        "paddingAll": "10px",
+        "paddingTop": "2px"
       },
       {
         "type": "separator",
@@ -382,7 +406,7 @@
             "margin": "none",
             "size": "sm",
             "color": "#111111",
-            "weight": "bold",
+            "weight": "regular",
             "align": "center"
           },
           {
@@ -391,7 +415,7 @@
             "margin": "none",
             "size": "sm",
             "color": "#111111",
-            "weight": "bold",
+            "weight": "regular",
             "align": "center"
           },
           {
@@ -400,7 +424,7 @@
             "margin": "none",
             "size": "sm",
             "color": "#111111",
-            "weight": "bold",
+            "weight": "regular",
             "align": "center"
           }
         ],
@@ -435,7 +459,8 @@
             "size": "sm",
             "align": "end",
             "gravity": "center",
-            "margin": "none"
+            "margin": "none",
+            "offsetEnd": "30px"
           }
         ],
         "spacing": "none",
@@ -450,11 +475,12 @@
             "type": "text",
             "text": food,
             "color": "#111111",
-            "weight": "bold",
+            "weight": "regular",
             "size": "sm",
             "align": "start",
             "gravity": "center",
-            "margin": "none"
+            "margin": "none",
+            "wrap": true
           },
           {
             "type": "text",
@@ -464,10 +490,29 @@
             "size": "sm",
             "align": "end",
             "gravity": "center",
-            "margin": "none"
+            "margin": "none",
+            "offsetEnd": "30px"
           }
         ],
         "spacing": "none"
+      },
+      {
+        "type": "image",
+        "url": timecard,
+        "position": "absolute",
+        "animated": true,
+        "offsetStart": "250px",
+        "offsetTop": "388px",
+        "size": "xxs"
+      },
+      {
+        "type": "image",
+        "url": "https://lh3.googleusercontent.com/d/18lW8f6MR444Jm2lipdCjb-E0QqEKUTEo",
+        "position": "absolute",
+        "size": "xxs",
+        "animated": true,
+        "offsetTop": "10px",
+        "offsetStart": "30px"
       }
     ],
     "borderWidth": "normal",
