@@ -151,8 +151,12 @@
         <p></p>
         <form id="shareForm">
             <div class="form-group">
-                <label>รูปแบบการเรียน:</label>
+                <label>เลือกรูปแบบการเรียน:</label>
                 <div id="functions" class="image-options"></div>
+            </div>
+		<div class="form-group">
+                <label for="nameclass">ชื่อคลาสเรียน:</label>
+                <select class="form-control" id="nameclass"></select>
             </div>
             <div class="form-group">
                 <label for="date">วันที่:</label>
@@ -225,6 +229,7 @@
         function loadSelectOptions() {
             $.getJSON('https://script.google.com/macros/s/AKfycbw67rT-2ZbqdQG_olDhbDV8rFO-ept6PoEnZ4M6cCj_qjB8IQ8Q5zG6kDSi9qNGdK0/exec', function(data) {
                 updateImageOptions('functions', data.functions);
+                updateSelect('nameclass', data.nameclass);         
                 updateSelect('date', data.date);
                 updateSelect('location', data.location);
                 updateSelect('time', data.time);
@@ -262,6 +267,7 @@
 
         function updatePreview() {
             const functions = $('input[name="functions"]:checked').val();
+            const nameclass = document.getElementById('nameclass').value;
             const date = document.getElementById('date').value;
             const location = document.getElementById('location').value;
             const time = document.getElementById('time').value;
@@ -272,6 +278,7 @@
     const previewHtml = `
         <div>
             <img src="${functions}" alt="Selected function" style="max-width: 100%; height: auto; margin-bottom: 15px;">
+            <p>ชื่อคลาส: ${nameclass}</p>
             <p>วันที่: ${date}</p>
             <p>สถานที่: ${location}</p>
             <p>เวลา: ${time}</p>
@@ -293,6 +300,7 @@
      
      function shareMessage() {
             const functions = $('input[name="functions"]:checked').val();
+            const nameclass = document.getElementById('nameclass').value;
             const date = document.getElementById('date').value;
             const location = document.getElementById('location').value;
             const time = document.getElementById('time').value;
@@ -321,7 +329,7 @@
           },
           {
             "type": "text",
-            "text": "TikTok Shop จับมือทำ\nครูส้มโอ ส่งออก AEC",
+            "text": nameclass,
             "color": "#111111",
             "align": "center",
             "size": "sm",
