@@ -9,23 +9,21 @@
         @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&display=swap');
      
         h4 {
-    color: #FFFFF;
-}
+            color: #FFFFFF;
+        }
         :root {
             --primary-color: #00c8ff;
             --secondary-color: #0080ff;
             --bg-color: #FFFFFF;
             --text-color: #000000;
-            --container-bg: #WHITE;
+            --container-bg: #FFFFFF;
             --input-bg: #FFFFFF;
             --border-color: #475569;
         }
    
-        
-.mb-4, .my-4 {
-     margin-bottom: 0.4rem !important; */
- 
-}
+        .mb-4, .my-4 {
+            margin-bottom: 0.4rem !important;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -56,14 +54,12 @@
             box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.1);
-                        margin-bottom: 20px;
+            margin-bottom: 20px;
         }
         
         h4 {
             color: #000000;
         }
-        
-
         
         .btn-primary {
             background-color: #00B900;
@@ -84,29 +80,65 @@
             padding: 30px;
         }
 
-.modal-footer-text h6 {
-    margin-bottom: 0.5rem; /* Adjust spacing between lines */
-    font-size: 0.875rem; /* Adjust font size if necessary */
-}
+        .modal-footer-text h6 {
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
 
-.modal-footer-buttons {
-    margin-top: 1rem;
-}
+        .modal-footer-buttons {
+            margin-top: 1rem;
+        }
 
-.modal-footer-buttons .btn {
-    margin: 0 0.5rem; /* Adjust spacing between buttons */
-}
+        .modal-footer-buttons .btn {
+            margin: 0 0.5rem;
+        }
         
-         @media (max-width: 768px) {
+        @media (max-width: 768px) {
             .container {
                 width: 85%;
- 
             }
 
             h2 {
                 font-size: 1.75rem;
             }
         }
+
+        /* Styles for image selection */
+        .image-options {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .image-option {
+            text-align: center;
+            margin: 10px;
+        }
+        .image-option input[type="radio"] {
+            display: none;
+        }
+        .image-option label {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .image-option img {
+            
+            height: 100px;
+            object-fit: cover;
+            border: 5px solid transparent;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+        .image-option input[type="radio"]:checked + label img {
+            border-color: #00c8ff;
+        }
+.image-option span {
+    margin-top: 5px;
+    font-weight: bold;
+    display: none; /* หรือ visibility: hidden; */
+}
     </style>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -116,11 +148,11 @@
     <div class="container mt-4">
     <center><img src="https://cdn-icons-png.flaticon.com/128/8061/8061970.png"></center><p></p>
         <h4 class="text-center mb-4">สร้างการ์ดอัพเดทสถานะ</h4>
- <p></p>
+        <p></p>
         <form id="shareForm">
-                <div class="form-group">
-                <label for="functions">รูปแบบการเรียน:</label>
-                <select class="form-control" id="functions"></select>
+            <div class="form-group">
+                <label>รูปแบบการเรียน:</label>
+                <div id="functions" class="image-options"></div>
             </div>
             <div class="form-group">
                 <label for="date">วันที่:</label>
@@ -160,22 +192,21 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-<div class="modal-body">
-    <div id="previewFlexMessage"></div>
-</div>
-<div class="modal-footer">
-    <div class="modal-footer-text">
-        <h6 class="text-center mb-2">ใช้สำหรับส่งให้ลูกค้า PP เท่านั้น</h6>
-        <h6 class="text-center mb-2">ห้ามส่งออกนอกกลุ่มอื่นโดยเด็ดขาด</h6>
-        <h6 class="text-center mb-2">พบเห็นขออนุญาตยกเลิกการเข้าใช้งาน</h6>
-        <h6 class="text-center mb-4">ขอบคุณที่ให้ความร่วมมือนะครับ</h6>
-    </div>
-    <div class="modal-footer-buttons text-center">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
-        <button type="button" class="btn btn-primary" onclick="shareMessage()">ยืนยันและส่ง</button>
-    </div>
-</div>
-
+                <div class="modal-body">
+                    <div id="previewFlexMessage"></div>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-footer-text">
+                        <h6 class="text-center mb-2">ใช้สำหรับส่งให้ลูกค้า PP เท่านั้น</h6>
+                        <h6 class="text-center mb-2">ห้ามส่งออกนอกกลุ่มอื่นโดยเด็ดขาด</h6>
+                        <h6 class="text-center mb-2">พบเห็นขออนุญาตยกเลิกการเข้าใช้งาน</h6>
+                        <h6 class="text-center mb-4">ขอบคุณที่ให้ความร่วมมือนะครับ</h6>
+                    </div>
+                    <div class="modal-footer-buttons text-center">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+                        <button type="button" class="btn btn-primary" onclick="shareMessage()">ยืนยันและส่ง</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -193,11 +224,30 @@
 
         function loadSelectOptions() {
             $.getJSON('https://script.google.com/macros/s/AKfycbw67rT-2ZbqdQG_olDhbDV8rFO-ept6PoEnZ4M6cCj_qjB8IQ8Q5zG6kDSi9qNGdK0/exec', function(data) {
+                updateImageOptions('functions', data.functions);
                 updateSelect('date', data.date);
                 updateSelect('location', data.location);
                 updateSelect('time', data.time);
                 updateSelect('status', data.status);
-                updateSelect('functions', data.functions);
+            });
+        }
+
+        function updateImageOptions(id, options) {
+            var container = $('#' + id);
+            container.empty();
+            $.each(options, function(i, option) {
+                var radioBtn = $('<input>').attr({
+                    type: 'radio',
+                    id: option.value,
+                    name: id,
+                    value: option.value
+                });
+                var label = $('<label>').attr('for', option.value);
+                var img = $('<img>').attr('src', option.value);
+                var span = $('<span>').text(option.text);
+                
+                label.append(img).append(span);
+                container.append($('<div>').addClass('image-option').append(radioBtn).append(label));
             });
         }
 
@@ -211,7 +261,7 @@
         }
 
         function updatePreview() {
-        	const functions = document.getElementById('functions').value;
+            const functions = $('input[name="functions"]:checked').val();
             const date = document.getElementById('date').value;
             const location = document.getElementById('location').value;
             const time = document.getElementById('time').value;
@@ -219,27 +269,30 @@
             const status = document.getElementById('status').value;
             const food = document.getElementById('food').value;
 
-            const previewHtml = `
-                <div>
-                    <p>วันที่: ${date}</p>
-                    <p>สถานที่: ${location}</p>
-                    <p>เวลา: ${time}</p>
-                    <hr>
-                    <p>ชื่อผู้ลงทะเบียน: ${name}</p>
-                    <p>สถานะ: ${status}</p>
-                    <p>อาหาร: ${food}</p>
-                </div>
-            `;
+    const previewHtml = `
+        <div>
+            <img src="${functions}" alt="Selected function" style="max-width: 100%; height: auto; margin-bottom: 15px;">
+            <p>วันที่: ${date}</p>
+            <p>สถานที่: ${location}</p>
+            <p>เวลา: ${time}</p>
+            <hr>
+            <p>ชื่อผู้ลงทะเบียน: ${name}</p>
+            <p>สถานะ: ${status}</p>
+            <p>อาหาร: ${food}</p>
+        </div>
+    `;
 
-            document.getElementById('previewFlexMessage').innerHTML = previewHtml;
-        }
+    document.getElementById('previewFlexMessage').innerHTML = previewHtml;
+}
 
         $('#previewModal').on('show.bs.modal', function () {
             updatePreview();
         });
 
-        function shareMessage() {
-            const functions = document.getElementById('functions').value;
+     
+     
+     function shareMessage() {
+            const functions = $('input[name="functions"]:checked').val();
             const date = document.getElementById('date').value;
             const location = document.getElementById('location').value;
             const time = document.getElementById('time').value;
@@ -248,176 +301,175 @@
             const food = document.getElementById('food').value;
 
             const flexMessage = {
-  "type": "bubble",
-  "size": "mega",
-  "header": {
-    "type": "box",
-    "layout": "vertical",
-    "contents": [
-      {
-        "type": "text",
-        "text": "ยินดีต้อนรับเข้าสู่",
-        "color": "#06C755",
-        "align": "center",
-        "weight": "bold",
-        "size": "xl"
-      },
-      {
-        "type": "text",
-        "text": "TikTok Shop จับมือทำ\nครูส้มโอ ส่งออก AEC",
-        "color": "#111111",
-        "align": "center",
-        "size": "sm",
-        "wrap": true,
-        "weight": "bold"
-      }
-    ],
-    "backgroundColor": "#FEFEFE",
-    "borderWidth": "light",
-    "paddingTop": "25px",
-    "paddingBottom": "20px"
-  },
-  "hero": {
-    "type": "image",
-    "url": functions,
-    "size": "full",
-    "aspectRatio": "16:9",
-    "aspectMode": "fit",
-    "animated": false,
-    "align": "center"
-  },
-  "body": {
-    "type": "box",
-    "layout": "vertical",
-    "contents": [
-      {
-        "type": "text",
-        "text": name,
-        "size": "lg",
-        "color": "#06C755",
-        "align": "center",
-        "weight": "bold",
-        "style": "normal",
-        "offsetBottom": "5px"
-      },
-      {
-        "type": "separator",
-        "color": "#cccccc",
-        "margin": "md"
-      },
-      {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "text",
-            "text": date,
-            "margin": "md",
-            "size": "sm",
-            "color": "#111111",
-            "weight": "bold",
-            "align": "center"
-          },
-          {
-            "type": "text",
-            "text": location,
-            "margin": "md",
-            "size": "sm",
-            "color": "#111111",
-            "weight": "bold",
-            "align": "center"
-          },
-          {
-            "type": "text",
-            "text": time,
-            "margin": "md",
-            "size": "sm",
-            "color": "#111111",
-            "weight": "bold",
-            "align": "center"
-          }
-        ],
-        "paddingAll": "10px"
-      },
-      {
-        "type": "separator",
-        "color": "#cccccc",
-        "margin": "lg"
-      },
-      {
-        "margin": "md",
-        "type": "box",
-        "layout": "horizontal",
-        "contents": [
-          {
-            "type": "text",
-            "text": "อาหาร",
-            "color": "#111111",
-            "weight": "bold",
-            "size": "sm",
-            "align": "start",
-            "gravity": "center",
-            "margin": "none"
-          },
-          {
-            "type": "text",
-            "text": "สถานะ",
-            "color": "#111111",
-            "weight": "bold",
-            "size": "sm",
-            "align": "end",
-            "gravity": "center",
-            "margin": "none"
-          }
-        ],
-        "spacing": "lg",
-        "paddingTop": "10px"
-      },
-      {
-        "margin": "sm",
-        "type": "box",
-        "layout": "horizontal",
-        "contents": [
-          {
-            "type": "text",
-            "text": food,
-            "color": "#111111",
-            "weight": "bold",
-            "size": "sm",
-            "align": "start",
-            "gravity": "center",
-            "margin": "none"
-          },
-          {
-            "type": "text",
-            "text": status,
-            "color": "#FF334B",
-            "weight": "bold",
-            "size": "sm",
-            "align": "end",
-            "gravity": "center",
-            "margin": "none"
-          }
-        ],
-        "spacing": "none",
-        "paddingBottom": "20px"
-      }
-    ],
-    "borderWidth": "normal",
-    "margin": "none",
-    "paddingAll": "25px"
-  },
-  "styles": {
-    "body": {
-      "backgroundColor": "#FEFEFE",
-      "separator": false
-    },
-    "footer": {
-      "separator": false
-    }
-  }
-};
-
+                "type": "bubble",
+                "size": "mega",
+                "header": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                        {
+                            "type": "text",
+                            "text": "ยินดีต้อนรับเข้าสู่",
+                            "color": "#06C755",
+                            "align": "center",
+                            "weight": "bold",
+                            "size": "xl"
+                        },
+                        {
+                            "type": "text",
+                            "text": "TikTok Shop จับมือทำ\nครูส้มโอ ส่งออก AEC",
+                            "color": "#111111",
+                            "align": "center",
+                            "size": "sm",
+                            "wrap": true,
+                            "weight": "bold"
+                        }
+                    ],
+                    "backgroundColor": "#FEFEFE",
+                    "borderWidth": "light",
+                    "paddingTop": "25px",
+                    "paddingBottom": "20px"
+                },
+                "hero": {
+                    "type": "image",
+                    "url": functions,
+                    "size": "full",
+                    "aspectRatio": "16:9",
+                    "aspectMode": "fit",
+                    "animated": false,
+                    "align": "center"
+                },
+                "body": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                        {
+                            "type": "text",
+                            "text": name,
+                            "size": "lg",
+                            "color": "#06C755",
+                            "align": "center",
+                            "weight": "bold",
+                            "style": "normal",
+                            "offsetBottom": "5px"
+                        },
+                        {
+                            "type": "separator",
+                            "color": "#cccccc",
+                            "margin": "md"
+                        },
+                        {
+                            "type": "box",
+                            "layout": "vertical",
+                            "contents": [
+                                {
+                                    "type": "text",
+                                    "text": date,
+                                    "margin": "md",
+                                    "size": "sm",
+                                    "color": "#111111",
+                                    "weight": "bold",
+                                    "align": "center"
+                                },
+                                {
+                                    "type": "text",
+                                    "text": location,
+                                    "margin": "md",
+                                    "size": "sm",
+                                    "color": "#111111",
+                                    "weight": "bold",
+                                    "align": "center"
+                                },
+                                {
+                                    "type": "text",
+                                    "text": time,
+                                    "margin": "md",
+                                    "size": "sm",
+                                    "color": "#111111",
+                                    "weight": "bold",
+                                    "align": "center"
+                                }
+                            ],
+                            "paddingAll": "10px"
+                        },
+                        {
+                            "type": "separator",
+                            "color": "#cccccc",
+                            "margin": "lg"
+                        },
+                        {
+                            "margin": "md",
+                            "type": "box",
+                            "layout": "horizontal",
+                            "contents": [
+                                {
+                                    "type": "text",
+                                    "text": "อาหาร",
+                                    "color": "#111111",
+                                    "weight": "bold",
+                                    "size": "sm",
+                                    "align": "start",
+                                    "gravity": "center",
+                                    "margin": "none"
+                                },
+                                {
+                                    "type": "text",
+                                    "text": "สถานะ",
+                                    "color": "#111111",
+                                    "weight": "bold",
+                                    "size": "sm",
+                                    "align": "end",
+                                    "gravity": "center",
+                                    "margin": "none"
+                                }
+                            ],
+                            "spacing": "lg",
+                            "paddingTop": "10px"
+                        },
+                        {
+                            "margin": "sm",
+                            "type": "box",
+                            "layout": "horizontal",
+                            "contents": [
+                                {
+                                    "type": "text",
+                                    "text": food,
+                                    "color": "#111111",
+                                    "weight": "bold",
+                                    "size": "sm",
+                                    "align": "start",
+                                    "gravity": "center",
+                                    "margin": "none"
+                                },
+                                {
+                                    "type": "text",
+                                    "text": status,
+                                    "color": "#FF334B",
+                                    "weight": "bold",
+                                    "size": "sm",
+                                    "align": "end",
+                                    "gravity": "center",
+                                    "margin": "none"
+                                }
+                            ],
+                            "spacing": "none",
+                            "paddingBottom": "20px"
+                        }
+                    ],
+                    "borderWidth": "normal",
+                    "margin": "none",
+                    "paddingAll": "25px"
+                },
+                "styles": {
+                    "body": {
+                        "backgroundColor": "#FEFEFE",
+                        "separator": false
+                    },
+                    "footer": {
+                        "separator": false
+                    }
+                }
+            };
 
             liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลการลงทะเบียน", contents: flexMessage }])
                 .then(() => liff.closeWindow())
