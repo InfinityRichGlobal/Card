@@ -240,6 +240,9 @@
                 });
         }
 
+
+
+	    
         function loadSelectOptions() {
             $.getJSON('https://script.google.com/macros/s/AKfycbzLTl0CpxO4rMcHZogMNrU_fYu3Vu41G4O4c0BgH5xB_RenejqxIkAdhiiVTxLHrw9i/exec', function(data) {
                 updateImageOptions('functions', data.functions);
@@ -280,6 +283,47 @@
             });
         }
 
+
+
+
+        async function uploadFile() {
+            const fileInput = document.getElementById('input11');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Please select a file.');
+                return;
+            }
+
+            // Read the file as base64
+            const reader = new FileReader();
+            reader.onload = async function (event) {
+                const base64Data = event.target.result.split(',')[1]; // Extract base64 data
+                const fileName = file.name;
+
+                try {
+                    const response = await fetch('https://script.google.com/macros/s/AKfycbzLTl0CpxO4rMcHZogMNrU_fYu3Vu41G4O4c0BgH5xB_RenejqxIkAdhiiVTxLHrw9i/exec', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams({
+                            fileData: base64Data,
+                            fileName: fileName
+                        })
+                    });
+
+                    const result = await response.json();
+                    document.getElementById('result').innerHTML = `<a href="${result.fileUrl}" target="_blank">View File</a>`;
+                } catch (error) {
+                    console.error('Error uploading file:', error);
+                }
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+	    
 	    
 function previewFile() {
     const fileInput = document.getElementById('input11');
