@@ -158,6 +158,20 @@
                 <label>เลือกรูปแบบการเรียน:</label>
                 <div id="functions" class="image-options"></div>
             </div>
+
+
+            <div class="form-group">
+<label for="input11">สลิป:</label>
+<input type="file" id="input11" name="input11" class="form-control" accept="image/*" onchange="previewFile()">
+
+<div id="file-preview-container" style="display: none; text-align: center;">
+    <img id="file-preview" src="" alt="File Preview" style="max-height: 200px; margin-top: 10px;">
+</div>
+</div>
+
+
+
+
 		<div class="form-group">
                 <label for="nameclass">ชื่อคลาสเรียน:</label>
                 <select class="form-control" id="nameclass"></select>
@@ -268,6 +282,26 @@
 
 	    
 
+    function previewFile() {
+    const fileInput = document.getElementById('input11');
+    const filePreview = document.getElementById('file-preview');
+    const filePreviewContainer = document.getElementById('file-preview-container');
+
+    if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        
+        reader.onload = function (e) {
+            filePreview.src = e.target.result;
+            filePreviewContainer.style.display = 'block';
+        };
+        
+        reader.readAsDataURL(fileInput.files[0]);
+    } else {
+        filePreviewContainer.style.display = 'none';
+    }
+}
+
+
 
         function updatePreview() {
             const functions = $('input[name="functions"]:checked').val();
@@ -277,6 +311,7 @@
             const bank = document.getElementById('bank').value;
             const name = document.getElementById('name').value;
             const accname = document.getElementById('accname').value;
+                        const input11 = document.getElementById('fileUrl').value;
 
 
     const previewHtml = `
@@ -289,6 +324,7 @@
             <hr>
             <p>ชื่อบัญชี: ${name}</p>
             <p>เลขบัญชี: ${accname}</p>
+            <img src="${fileUrl}" alt="Slip Preview" style="max-width: 100%; height: auto;"/>
         </div>
     `;
 
@@ -309,6 +345,7 @@
             const bank = document.getElementById('bank').value;
             const name = document.getElementById('name').value;
             const accname = document.getElementById('accname').value;
+            const input11 = document.getElementById('fileUrl').value;
 
             const flexMessage = {
   "type": "bubble",
@@ -344,7 +381,7 @@
       },
       {
         "type": "image",
-        "url": functions,
+        "url": fileUrl,
         "size": "full",
         "margin": "md",
         "align": "center",
