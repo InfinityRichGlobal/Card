@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>สร้างการ์ดแนะนำตัวเอง</title>
+    <title>INTRODUCE</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&display=swap');
      
+        h4 {
+            color: #FFFFFF;
+        }
         :root {
             --primary-color: #00c8ff;
             --secondary-color: #0080ff;
@@ -20,6 +21,9 @@
             --border-color: #475569;
         }
    
+        .mb-4, .my-4 {
+            margin-bottom: 0.4rem !important;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -63,14 +67,13 @@
         }
         
         .btn-primary:hover {
-            background-color: #009900;
+            background-color: red;
         }
         
         #previewModal .modal-content {
             background-color: white;
             color: black;
         }
-
         #previewFlexMessage {
             background-color: white;
             border-radius: 10px;
@@ -100,55 +103,62 @@
             }
         }
 
-        #cropperContainer {
-            max-width: 100%;
-            margin: 20px auto;
+        /* Styles for image selection */
+        .image-options {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 10px;
         }
-
-        #cropperImage {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .cropper-view-box,
-        .cropper-face {
-            border-radius: 50%;
-        }
-
-        .modal-dialog.modal-lg {
-            max-width: 90%;
-        }
-
-        #file-preview-container {
+        .image-option {
             text-align: center;
-            margin-top: 20px;
+            margin: 10px;
         }
-
-        #file-preview {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        .image-option input[type="radio"] {
+            display: none;
         }
+        .image-option label {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .image-option img {
+            
+            height: 150px;
+            object-fit: cover;
+            border: 10px solid transparent;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+        .image-option input[type="radio"]:checked + label img {
+            border-color: #00c8ff;
+        }
+.image-option span {
+    margin-top: 5px;
+    font-weight: bold;
+    display: none; /* หรือ visibility: hidden; */
+}
     </style>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+
+
+	
 <body>
     <div class="container mt-4">
-        <center><img src="https://cdn-icons-gif.flaticon.com/16104/16104537.gif" width="200" height="200" alt="Icon"></center>
-        <h4 class="text-center mb-4">สร้างการ์ดแนะนำตัวเอง</h4>
+    <center><img src="https://cdn-icons-gif.flaticon.com/16104/16104537.gif" width="200" height="200"></center>
+<p></p>
+        <h4 class="text-center mb-4">สร้างการ์ดบัญชีรับเงิน</h4>
+        <p></p>
         <form id="shareForm">
             <div class="form-group">
-                <label for="input11">ภาพโปรไฟล์:</label>
-                <input type="file" id="input11" name="input11" class="form-control" accept="image/*" onchange="openCropModal(event)">
+                <label>เลือกรูปแบบการเรียน:</label>
+                <div id="functions" class="image-options"></div>
             </div>
-            <div id="file-preview-container" style="display: none;">
-                <img id="file-preview" src="" alt="File Preview">
-            </div>
-            
-            <div class="form-group">
+		<div class="form-group">
                 <label for="nameclass">ชื่อคลาสเรียน:</label>
                 <select class="form-control" id="nameclass"></select>
             </div>
@@ -170,9 +180,9 @@
             </div>
             <div class="form-group">
                 <label for="accname">เลขบัญชี ระบุตามรูปแบบให้ถูกต้อง:</label>
-                <input type="text" class="form-control" id="accname" placeholder="XXX-X-XXXXX-X">
+                <input type="text" class="form-control" id="accname" placeholder="XXX-X-XXXXX-X ">
             </div>
-            <button type="button" class="btn btn-primary btn-block" onclick="updatePreview()">ตรวจสอบและส่ง</button>
+            <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#previewModal">ตรวจสอบและส่ง</button>
         </form>
     </div>
 
@@ -204,166 +214,59 @@
             </div>
         </div>
     </div>
-    
-    <!-- Modal for Image Cropping -->
-    <div class="modal fade" id="cropModal" tabindex="-1" role="dialog" aria-labelledby="cropModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="cropModalLabel">ปรับแต่งรูปภาพ</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="cropperContainer">
-                        <img id="cropperImage" src="" alt="Image to crop">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                    <button type="button" class="btn btn-primary" onclick="cropAndUpload()">ตกลง</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal for Upload Progress -->
-    <div class="modal fade" id="uploadProgressModal" tabindex="-1" role="dialog" aria-labelledby="uploadProgressModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="uploadProgressModalLabel">กำลังอัปโหลด</h5>
-                </div>
-                <div class="modal-body">
-                    <div class="progress">
-                        <div id="uploadProgressBar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script>
-    let cropper;
-    let uploadedImageUrl = '';
+        function initializeLiff(myLiffId) {
+            liff.init({ liffId: myLiffId })
+                .then(() => {
+                    loadSelectOptions();
+                })
+                .catch((err) => {
+                    console.error('LIFF Initialization failed', err);
+                });
+        }
 
-    function initializeLiff(myLiffId) {
-        liff.init({ liffId: myLiffId })
-            .then(() => {
-                loadSelectOptions();
-            })
-            .catch((err) => {
-                console.error('LIFF Initialization failed', err);
-            });
-    }
-
-    function loadSelectOptions() {
-        fetch('https://script.google.com/macros/s/AKfycbzLTl0CpxO4rMcHZogMNrU_fYu3Vu41G4O4c0BgH5xB_RenejqxIkAdhiiVTxLHrw9i/exec?action=getData')
-            .then(response => response.json())
-            .then(data => {
+        function loadSelectOptions() {
+            $.getJSON('https://script.google.com/macros/s/AKfycbwfCoP_YnrbFqSGAfDnAL6_jaBg-G4jdloO5bFZwMWWhhC2Hq_T2pJm8mqXaxbRsDoj/exec', function(data) {
+                updateImageOptions('functions', data.functions);
                 updateSelect('nameclass', data.nameclass);         
                 updateSelect('seat', data.seat);
                 updateSelect('total', data.total);
                 updateSelect('bank', data.bank);
-            })
-            .catch(error => console.error('Error:', error));
-    }
+            });
+        }
 
-    function updateSelect(id, options) {
-        var select = $('#' + id);
-        select.empty();
-        select.append($('<option>').val('').text('เลือก' + select.prev('label').text().slice(0, -1)).prop('disabled', true).prop('selected', true));
-        $.each(options, function(i, option) {
-            select.append($('<option>').val(option.value).text(option.text));
-        });
-    }
 
-    function openCropModal(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('cropperImage').src = e.target.result;
-                $('#cropModal').modal('show');
-                
-                if (cropper) {
-                    cropper.destroy();
-                }
-                
-                cropper = new Cropper(document.getElementById('cropperImage'), {
-                    aspectRatio: 1,
-                    viewMode: 1,
-                    dragMode: 'move',
-                    cropBoxMovable: false,
-                    cropBoxResizable: false,
-                    minCropBoxWidth: 200,
-                    minCropBoxHeight: 200
+	    
+        function updateImageOptions(id, options) {
+            var container = $('#' + id);
+            container.empty();
+            $.each(options, function(i, option) {
+                var radioBtn = $('<input>').attr({
+                    type: 'radio',
+                    id: option.value,
+                    name: id,
+                    value: option.value
                 });
-            }
-            reader.readAsDataURL(file);
+                var label = $('<label>').attr('for', option.value);
+                var img = $('<img>').attr('src', option.value);
+                var span = $('<span>').text(option.text);
+                
+                label.append(img).append(span);
+                container.append($('<div>').addClass('image-option').append(radioBtn).append(label));
+            });
         }
-    }
 
-    function cropAndUpload() {
-        if (cropper) {
-            cropper.getCroppedCanvas().toBlob((blob) => {
-                uploadFile(blob);
-            }, 'image/png');
+        function updateSelect(id, options) {
+            var select = $('#' + id);
+            select.empty();
+            select.append($('<option>').val('').text('เลือก' + select.prev('label').text().slice(0, -1)).prop('disabled', true).prop('selected', true));
+            $.each(options, function(i, option) {
+                select.append($('<option>').val(option.value).text(option.text));
+            });
         }
-    }
 
-    function uploadFile(blob) {
-        $('#cropModal').modal('hide');
-        $('#uploadProgressModal').modal('show');
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            const base64Data = e.target.result.split(',')[1];
-            
-            fetch('https://script.google.com/macros/s/AKfycbzLTl0CpxO4rMcHZogMNrU_fYu3Vu41G4O4c0BgH5xB_RenejqxIkAdhiiVTxLHrw9i/exec', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    action: 'uploadFile',
-                    fileData: base64Data,
-                    fileName: 'cropped_image.png'
-                })
-            })
-            .then(response => response.json())
-            .then(result => handleUploadSuccess(result))
-            .catch(error => handleUploadFailure(error));
-        };
-        reader.readAsDataURL(blob);
-    }
-
-
-    function handleUploadSuccess(result) {
-        uploadedImageUrl = result.fileUrl;
-        document.getElementById('file-preview').src = uploadedImageUrl;
-        document.getElementById('file-preview-container').style.display = 'block';
-        updateUploadProgress(100);
-        setTimeout(() => {
-            $('#uploadProgressModal').modal('hide');
-        }, 500);
-    }
-
-    function handleUploadFailure(error) {
-        console.error('Upload failed:', error);
-        $('#uploadProgressModal').modal('hide');
-        alert('อัปโหลดไฟล์ไม่สำเร็จ กรุณาลองใหม่อีกครั้ง');
-    }
-
-    function updateUploadProgress(progress) {
-        const progressBar = document.getElementById('uploadProgressBar');
-        progressBar.style.width = `${progress}%`;
-        progressBar.setAttribute('aria-valuenow', progress);
-        progressBar.textContent = `${progress}%`;
-    }
-
-
+	    
 
 
         function updatePreview() {
@@ -374,48 +277,40 @@
             const bank = document.getElementById('bank').value;
             const name = document.getElementById('name').value;
             const accname = document.getElementById('accname').value;
-            
-            const previewHtml = `
-                <div>
 
-                    <p>ชื่อคลาส: ${nameclass}</p>
-                    <p>จำนวนที่นั่ง: ${seat}</p>
-                    <p>ยอดรวมโอน: ${total}</p>
-                    <p>แจ้งโอนเข้าบัญชีธนาคาร: ${bank}</p>
-                    <hr>
-                    <p>ชื่อบัญชี: ${name}</p>
-                    <p>เลขบัญชี: ${accname}</p>
-                    <img src="${uploadedImageUrl}" alt="Uploaded Image" style="max-width: 100%; height: auto; margin-top: 15px;">
-                </div>
-            `;
 
-            document.getElementById('previewFlexMessage').innerHTML = previewHtml;
-            $('#previewModal').modal('show');
-        }
-        
-        
+    const previewHtml = `
+        <div>
+            <img src="${functions}" alt="Selected function" style="max-width: 100%; height: auto; margin-bottom: 15px;">
+            <p>ชื่อคลาส: ${nameclass}</p>
+            <p>วันที่: ${seat}</p>
+            <p>สถานที่: ${total}</p>
+            <p>แจ้งโอนเข้าบัญชีธนาคาร: ${bank}</p>
+            <hr>
+            <p>ชื่อบัญชี: ${name}</p>
+            <p>เลขบัญชี: ${accname}</p>
+        </div>
+    `;
 
-function shareMessage() {
-    const functions = $('input[name="functions"]:checked').val();
-    const nameclass = document.getElementById('nameclass').value;
-    const seat = document.getElementById('seat').value;
-    const total = document.getElementById('total').value;
-    const bank = document.getElementById('bank').value;
-    const name = document.getElementById('name').value;
-    const accname = document.getElementById('accname').value;
-
-    if (uploadedImageUrl) {
-        sendFlexMessage(functions, nameclass, seat, total, bank, name, accname, uploadedImageUrl);
-    } else {
-        alert('กรุณาอัปโหลดรูปภาพก่อนแชร์ข้อมูล');
-    }
+    document.getElementById('previewFlexMessage').innerHTML = previewHtml;
 }
 
+        $('#previewModal').on('show.bs.modal', function () {
+            updatePreview();
+        });
 
+     
+     
+     function shareMessage() {
+            const functions = $('input[name="functions"]:checked').val();
+            const nameclass = document.getElementById('nameclass').value;
+            const seat = document.getElementById('seat').value;
+            const total = document.getElementById('total').value;
+            const bank = document.getElementById('bank').value;
+            const name = document.getElementById('name').value;
+            const accname = document.getElementById('accname').value;
 
-function sendFlexMessage(functions, nameclass, seat, total, bank, name, accname,uploadedImageUrl) {
-   const flexMessage = {
-
+            const flexMessage = {
   "type": "bubble",
   "body": {
     "type": "box",
@@ -449,7 +344,7 @@ function sendFlexMessage(functions, nameclass, seat, total, bank, name, accname,
       },
       {
         "type": "image",
-        "url": uploadedImageUrl,
+        "url": functions,
         "size": "full",
         "margin": "md",
         "align": "center",
@@ -641,12 +536,12 @@ function sendFlexMessage(functions, nameclass, seat, total, bank, name, accname,
   }
 };
 
-            liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลแนะนำตัวค่ะ", contents: flexMessage }])
+            liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลการชำระเงินค่ะ", contents: flexMessage }])
                 .then(() => liff.closeWindow())
                 .catch(err => console.error('Error sending message:', err));
         }
 
-        initializeLiff('2006306490-Jd0p0byn');
+        initializeLiff('2006306490-ZK4L42nO');
     </script>
 </body>
 </html>
