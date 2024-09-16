@@ -227,7 +227,7 @@
         }
 
         function loadSelectOptions() {
-            $.getJSON('https://script.google.com/macros/s/AKfycbwfCoP_YnrbFqSGAfDnAL6_jaBg-G4jdloO5bFZwMWWhhC2Hq_T2pJm8mqXaxbRsDoj/exec', function(data) {
+            $.getJSON('https://script.google.com/macros/s/AKfycbzLTl0CpxO4rMcHZogMNrU_fYu3Vu41G4O4c0BgH5xB_RenejqxIkAdhiiVTxLHrw9i/exec', function(data) {
                 updateImageOptions('functions', data.functions);
                 updateSelect('nameclass', data.nameclass);         
                 updateSelect('seat', data.seat);
@@ -536,12 +536,12 @@
   }
 };
 
-            liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลการชำระเงินค่ะ", contents: flexMessage }])
+            liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลการแนะนำตัวค่ะ", contents: flexMessage }])
                 .then(() => liff.closeWindow())
                 .catch(err => console.error('Error sending message:', err));
         }
 
-        initializeLiff('2006306490-ZK4L42nO');
+        initializeLiff('2006306490-Jd0p0byn');
     </script>
 </body>
 </html>
