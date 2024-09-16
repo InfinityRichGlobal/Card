@@ -281,8 +281,7 @@
         }
 
 	    
-
-    function previewFile() {
+function previewFile() {
     const fileInput = document.getElementById('input11');
     const filePreview = document.getElementById('file-preview');
     const filePreviewContainer = document.getElementById('file-preview-container');
@@ -293,6 +292,8 @@
         reader.onload = function (e) {
             filePreview.src = e.target.result;
             filePreviewContainer.style.display = 'block';
+            // เก็บ URL ของภาพใน data attribute
+            filePreview.setAttribute('data-file-url', e.target.result);
         };
         
         reader.readAsDataURL(fileInput.files[0]);
@@ -311,7 +312,8 @@
             const bank = document.getElementById('bank').value;
             const name = document.getElementById('name').value;
             const accname = document.getElementById('accname').value;
-	    const fileInput = document.getElementById('input11');
+    const filePreview = document.getElementById('file-preview');
+    const fileUrl = filePreview.getAttribute('data-file-url') || '';
 
 
     const previewHtml = `
@@ -324,7 +326,7 @@
             <hr>
             <p>ชื่อบัญชี: ${name}</p>
             <p>เลขบัญชี: ${accname}</p>
-            <img src="${input11}" alt="Slip Preview" style="max-width: 100%; height: auto;"/>
+      		<img src="${fileUrl}" alt="Slip Preview" style="max-width: 100%; height: auto;"/>
         </div>
     `;
 
@@ -345,8 +347,9 @@
             const bank = document.getElementById('bank').value;
             const name = document.getElementById('name').value;
             const accname = document.getElementById('accname').value;
-	    const fileInput = document.getElementById('input11');
-
+   		const filePreview = document.getElementById('file-preview');
+    		const fileUrl = filePreview.getAttribute('data-file-url') || '';
+	     
             const flexMessage = {
   "type": "bubble",
   "body": {
@@ -381,7 +384,7 @@
       },
       {
         "type": "image",
-        "url": input11,
+        "url": fileUrl,,
         "size": "full",
         "margin": "md",
         "align": "center",
