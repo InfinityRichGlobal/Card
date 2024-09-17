@@ -208,10 +208,15 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease; /* การเปลี่ยนแปลงอย่างนุ่มนวล */
         }
-        #cropButton:hover {
-            background-color: red;
-        }
+
+#cropButton:hover {
+    background-color: #f5ea03; /* สีที่เปลี่ยนเมื่อ hover */
+    transform: scale(1.05); /* ขยายขนาดเล็กน้อย */
+}
+
+        
     </style>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -419,7 +424,7 @@
                 aspectRatio: 1,
                 viewMode: 1,
                 dragMode: 'move',
-                autoCropArea: 1.0,
+                autoCropArea: 0.8,
                 restore: false,
                 modal: false,
                 guides: false,
@@ -431,7 +436,7 @@
         }
 
         function closeCropPopup() {
-            const popup = document.getlementById('cropPopup');
+            const popup = document.getElementById('cropPopup');
             const overlay = document.querySelector('.popup-overlay');
             popup.style.display = 'none';
             overlay.style.display = 'none';
