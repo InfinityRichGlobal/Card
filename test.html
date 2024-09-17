@@ -222,6 +222,38 @@ margin-top: 5px;
     background-color: #f5ea03; /* สีที่เปลี่ยนเมื่อ hover */
     transform: scale(1.05); /* ขยายขนาดเล็กน้อย */
 }
+
+
+        #uploadStatusPopup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+    text-align: center;
+}
+
+.loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto 0;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+        
         
     </style>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
@@ -332,6 +364,12 @@ margin-top: 5px;
         <button class="close-popup" onclick="closeCropPopup()">ยกเลิก</button>
     </div>
     
+    <div class="popup" id="uploadStatusPopup">
+    <div class="popup-content">
+        <p id="uploadStatusMessage">กำลังอัพโหลดภาพ กรุณาอย่าปิดหน้าต่างนี้</p>
+        <div class="loader"></div>
+    </div>
+</div>
 
     <script>
         function initializeLiff(myLiffId) {
@@ -452,37 +490,48 @@ margin-top: 5px;
             }
         }
 
-        function cropImage() {
-            if (cropper) {
-                const croppedCanvas = cropper.getCroppedCanvas({
-                    width: 500,
-                    height: 500
-                });
+        
+function cropImage() {
+    if (cropper) {
+        const croppedCanvas = cropper.getCroppedCanvas({
+            width: 500,
+            height: 500
+        });
 
-                croppedCanvas.toBlob(async function(blob) {
-                    const fileInput = document.getElementById('input11');
-                    const file = new File([blob], 'cropped_image.jpg', { type: 'image/jpeg' });
-                    const dataTransfer = new DataTransfer();
-                    dataTransfer.items.add(file);
-                    fileInput.files = dataTransfer.files;
+        croppedCanvas.toBlob(async function(blob) {
+            const fileInput = document.getElementById('input11');
+            const file = new File([blob], 'cropped_image.jpg', { type: 'image/jpeg' });
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            fileInput.files = dataTransfer.files;
 
-                    const filePreview = document.getElementById('file-preview');
-                    const filePreviewContainer = document.getElementById('file-preview-container');
-                    
-                    filePreview.src = croppedCanvas.toDataURL('image/jpeg');
-                    filePreviewContainer.style.display = 'block';
+            const filePreview = document.getElementById('file-preview');
+            const filePreviewContainer = document.getElementById('file-preview-container');
+            
+            filePreview.src = croppedCanvas.toDataURL('image/jpeg');
+            filePreviewContainer.style.display = 'block';
 
-                    try {
-                        const fileUrl = await uploadFile();
-                        filePreview.setAttribute('data-file-url', fileUrl);
-                    } catch (error) {
-                        console.error('Error uploading file:', error);
-                    }
+            // Show upload status popup
+            document.getElementById('uploadStatusPopup').style.display = 'block';
 
-                    closeCropPopup();
-                }, 'image/jpeg');
+            try {
+                const fileUrl = await uploadFile();
+                filePreview.setAttribute('data-file-url', fileUrl);
+                // Hide upload status popup
+                document.getElementById('uploadStatusPopup').style.display = 'none';
+                closeCropPopup();
+            } catch (error) {
+                console.error('Error uploading file:', error);
+                // Show error message in upload status popup
+                document.getElementById('uploadStatusMessage').textContent = 'เกิดข้อผิดพลาดในการอัพโหลด กรุณาลองใหม่อีกครั้ง';
+                // Hide upload status popup after 3 seconds
+                setTimeout(() => {
+                    document.getElementById('uploadStatusPopup').style.display = 'none';
+                }, 3000);
             }
-        }
+        }, 'image/jpeg');
+    }
+}
 
         async function uploadFile() {
             const fileInput = document.getElementById('input11');
