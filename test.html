@@ -160,6 +160,7 @@
  #cropContainer {
             max-width: 100%;
             max-height: 70vh;
+margin-top: 5px;
             margin-bottom: 20px;
         }
         .popup {
@@ -187,18 +188,19 @@
             background: rgba(0, 0, 0, 0.7);
             z-index: 999;
         }
-        .close-popup {
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            cursor: pointer;
-            background-color: transparent;
-            color: #333;
+
+.close-popup {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: red;
+            color: white;
             border: none;
-            font-size: 40px;
-            padding: 0;
-            width: auto;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease; /* การเปลี่ยนแปลงอย่างนุ่มนวล */
         }
+
         #cropButton {
             display: block;
             margin: 10px auto;
@@ -216,6 +218,10 @@
     transform: scale(1.05); /* ขยายขนาดเล็กน้อย */
 }
 
+.close-popup:hover {
+    background-color: #f5ea03; /* สีที่เปลี่ยนเมื่อ hover */
+    transform: scale(1.05); /* ขยายขนาดเล็กน้อย */
+}
         
     </style>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
@@ -320,9 +326,10 @@
 
       <div class="popup-overlay"></div>
     <div class="popup" id="cropPopup">
-        <button class="close-popup" onclick="closeCropPopup()">&times;</button>
+       
         <div id="cropContainer"></div>
         <button id="cropButton" onclick="cropImage()">ยืนยันการครอป</button>
+        <button class="close-popup" onclick="closeCropPopup()">ยกเลิก</button>
     </div>
     
 
@@ -424,7 +431,7 @@
                 aspectRatio: 1,
                 viewMode: 1,
                 dragMode: 'move',
-                autoCropArea: 0.9,
+                autoCropArea: 1,
                 restore: false,
                 modal: true,
                 guides: false,
@@ -448,8 +455,8 @@
         function cropImage() {
             if (cropper) {
                 const croppedCanvas = cropper.getCroppedCanvas({
-                    width: 300,
-                    height: 300
+                    width: 500,
+                    height: 500
                 });
 
                 croppedCanvas.toBlob(async function(blob) {
