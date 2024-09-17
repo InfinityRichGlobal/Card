@@ -414,20 +414,25 @@
             popup.style.display = 'block';
             overlay.style.display = 'block';
 
-            const image = document.getElementById('cropImage');
-            cropper = new Cropper(image, {
-                aspectRatio: 1,
-                viewMode: 1,
-                dragMode: 'move',
-                autoCropArea: 1.0,
-                restore: false,
-                modal: false,
-                guides: false,
-                highlight: false,
-                cropBoxMovable: false,
-                cropBoxResizable: false,
-                toggleDragModeOnDblclick: false,
-            });
+const image = document.getElementById('cropImage');
+cropper = new Cropper(image, {
+    aspectRatio: 1, // อัตราส่วนของพื้นที่ครอป (1:1 คือสี่เหลี่ยมจัตุรัส)
+    viewMode: 1, // โหมดการแสดงผล (1 คือ จำกัดขอบเขตของพื้นที่ครอปภายในขนาดของคอนเทนเนอร์)
+    dragMode: 'move', // โหมดการลาก ('move' คือ เคลื่อนย้ายรูปภาพ)
+    autoCropArea: 1.0, // ขนาดของพื้นที่ครอปอัตโนมัติ (1.0 คือ 100% ของพื้นที่รูปภาพ)
+    restore: false, // ไม่คืนค่าพื้นที่ครอปเมื่อปล่อยเมาส์
+    modal: true, // เปิดใช้งานโหมดโมดัล (พื้นที่นอกกรอบครอปจะมืดลง)
+    guides: true, // แสดงเส้นแนวนำในกรอบครอป
+    highlight: true, // ไฮไลท์พื้นที่ที่จะถูกครอป
+    cropBoxMovable: false, // ไม่อนุญาตให้เคลื่อนย้ายกรอบครอป
+    cropBoxResizable: false, // ไม่อนุญาตให้ปรับขนาดกรอบครอป
+    toggleDragModeOnDblclick: false, // ไม่เปลี่ยนโหมดการลากเมื่อดับเบิลคลิก
+    background: true, // แสดงพื้นหลังตารางในส่วนที่ไม่ได้ครอป
+    cropBoxHighlight: true, // ไฮไลท์กรอบครอป
+    cropBoxBorderWidth: 5, // ความหนาของเส้นกรอบครอป (หน่วยเป็นพิกเซล)
+    cropBoxBorderColor: 'rgba(255, 255, 255, 0.8)', // สีของกรอบครอป (ขาวโปร่งแสง)
+    modalOpacity: 1, // ความทึบของพื้นที่นอกกรอบครอป (0.5 คือ 50% โปร่งใส)
+});
         }
 
         function closeCropPopup() {
