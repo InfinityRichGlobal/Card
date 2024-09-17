@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +8,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&display=swap');
-     
+
         h4 {
             color: #FFFFFF;
         }
+
         :root {
             --primary-color: #00c8ff;
             --secondary-color: #0080ff;
@@ -20,10 +22,12 @@
             --input-bg: #FFFFFF;
             --border-color: #475569;
         }
-   
-        .mb-4, .my-4 {
+
+        .mb-4,
+        .my-4 {
             margin-bottom: 0.4rem !important;
         }
+
         * {
             margin: 0;
             padding: 0;
@@ -39,7 +43,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-image: 
+            background-image:
                 radial-gradient(circle at 10% 20%, rgba(0, 200, 255, 0.1) 0%, transparent 20%),
                 radial-gradient(circle at 90% 80%, rgba(0, 128, 255, 0.1) 0%, transparent 20%);
             background-attachment: fixed;
@@ -56,24 +60,25 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             margin-bottom: 20px;
         }
-        
+
         h4 {
             color: #000000;
         }
-        
+
         .btn-primary {
             background-color: #00B900;
             border: none;
         }
-        
+
         .btn-primary:hover {
             background-color: red;
         }
-        
+
         #previewModal .modal-content {
             background-color: white;
             color: black;
         }
+
         #previewFlexMessage {
             background-color: white;
             border-radius: 10px;
@@ -92,7 +97,7 @@
         .modal-footer-buttons .btn {
             margin: 0 0.5rem;
         }
-        
+
         @media (max-width: 768px) {
             .container {
                 width: 85%;
@@ -110,35 +115,42 @@
             flex-wrap: wrap;
             margin-top: 10px;
         }
+
         .image-option {
             text-align: center;
             margin: 10px;
         }
+
         .image-option input[type="radio"] {
             display: none;
         }
+
         .image-option label {
             cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+
         .image-option img {
-            
+
             height: 150px;
             object-fit: cover;
             border: 10px solid transparent;
             border-radius: 8px;
             transition: border-color 0.3s ease;
         }
-        .image-option input[type="radio"]:checked + label img {
+
+        .image-option input[type="radio"]:checked+label img {
             border-color: #00c8ff;
         }
-.image-option span {
-    margin-top: 5px;
-    font-weight: bold;
-    display: none; /* หรือ visibility: hidden; */
-}
+
+        .image-option span {
+            margin-top: 5px;
+            font-weight: bold;
+            display: none;
+            /* หรือ visibility: hidden; */
+        }
     </style>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -146,11 +158,11 @@
 </head>
 
 
-	
+
 <body>
     <div class="container mt-4">
-    <center><img src="https://cdn-icons-gif.flaticon.com/16059/16059825.gif" width="200" height="200"></center>
-<p></p>
+        <center><img src="https://cdn-icons-gif.flaticon.com/16059/16059825.gif" width="200" height="200"></center>
+        <p></p>
         <h4 class="text-center mb-4">สร้างการ์ดแนะนำตัวเอง</h4>
         <p></p>
         <form id="shareForm">
@@ -161,18 +173,19 @@
 
 
             <div class="form-group">
-<label for="input11">สลิป:</label>
-<input type="file" id="input11" name="input11" class="form-control" accept="image/*" onchange="previewFile()">
+                <label for="input11">สลิป:</label>
+                <input type="file" id="input11" name="input11" class="form-control" accept="image/*"
+                    onchange="previewFile()">
 
-<div id="file-preview-container" style="display: none; text-align: center;">
-    <img id="file-preview" src="" alt="File Preview" style="max-height: 200px; margin-top: 10px;">
-</div>
-</div>
+                <div id="file-preview-container" style="display: none; text-align: center;">
+                    <img id="file-preview" src="" alt="File Preview" style="max-height: 200px; margin-top: 10px;">
+                </div>
+            </div>
 
 
 
 
-		<div class="form-group">
+            <div class="form-group">
                 <label for="nameclass">ชื่อคลาสเรียน:</label>
                 <select class="form-control" id="nameclass"></select>
             </div>
@@ -196,12 +209,14 @@
                 <label for="accname">เลขบัญชี ระบุตามรูปแบบให้ถูกต้อง:</label>
                 <input type="text" class="form-control" id="accname" placeholder="XXX-X-XXXXX-X ">
             </div>
-            <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#previewModal">ตรวจสอบและส่ง</button>
+            <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
+                data-target="#previewModal">ตรวจสอบและส่ง</button>
         </form>
     </div>
 
     <!-- Modal for Flex Message Preview -->
-    <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true">
+    <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -242,11 +257,11 @@
 
 
 
-	    
+
         function loadSelectOptions() {
-            $.getJSON('https://script.google.com/macros/s/AKfycbzLTl0CpxO4rMcHZogMNrU_fYu3Vu41G4O4c0BgH5xB_RenejqxIkAdhiiVTxLHrw9i/exec', function(data) {
+            $.getJSON('https://script.google.com/macros/s/AKfycbzLTl0CpxO4rMcHZogMNrU_fYu3Vu41G4O4c0BgH5xB_RenejqxIkAdhiiVTxLHrw9i/exec', function (data) {
                 updateImageOptions('functions', data.functions);
-                updateSelect('nameclass', data.nameclass);         
+                updateSelect('nameclass', data.nameclass);
                 updateSelect('seat', data.seat);
                 updateSelect('total', data.total);
                 updateSelect('bank', data.bank);
@@ -254,11 +269,11 @@
         }
 
 
-	    
+
         function updateImageOptions(id, options) {
             var container = $('#' + id);
             container.empty();
-            $.each(options, function(i, option) {
+            $.each(options, function (i, option) {
                 var radioBtn = $('<input>').attr({
                     type: 'radio',
                     id: option.value,
@@ -268,7 +283,7 @@
                 var label = $('<label>').attr('for', option.value);
                 var img = $('<img>').attr('src', option.value);
                 var span = $('<span>').text(option.text);
-                
+
                 label.append(img).append(span);
                 container.append($('<div>').addClass('image-option').append(radioBtn).append(label));
             });
@@ -278,7 +293,7 @@
             var select = $('#' + id);
             select.empty();
             select.append($('<option>').val('').text('เลือก' + select.prev('label').text().slice(0, -1)).prop('disabled', true).prop('selected', true));
-            $.each(options, function(i, option) {
+            $.each(options, function (i, option) {
                 select.append($('<option>').val(option.value).text(option.text));
             });
         }
@@ -295,56 +310,60 @@
                 return;
             }
 
-            // Read the file as base64
-            const reader = new FileReader();
-            reader.onload = async function (event) {
-                const base64Data = event.target.result.split(',')[1]; // Extract base64 data
-                const fileName = file.name;
+            let fileUrl = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = async function (event) {
+                    const base64Data = event.target.result.split(',')[1]; // Extract base64 data
+                    const fileName = file.name;
 
-                try {
-                    const response = await fetch('https://script.google.com/macros/s/AKfycbzLTl0CpxO4rMcHZogMNrU_fYu3Vu41G4O4c0BgH5xB_RenejqxIkAdhiiVTxLHrw9i/exec', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        body: new URLSearchParams({
-                            fileData: base64Data,
-                            fileName: fileName
-                        })
-                    });
+                    try {
+                        const response = await fetch('https://script.google.com/macros/s/AKfycbzLTl0CpxO4rMcHZogMNrU_fYu3Vu41G4O4c0BgH5xB_RenejqxIkAdhiiVTxLHrw9i/exec', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: new URLSearchParams({
+                                fileData: base64Data,
+                                fileName: fileName
+                            })
+                        });
 
-                    const result = await response.json();
-                    document.getElementById('result').innerHTML = `<a href="${result.fileUrl}" target="_blank">View File</a>`;
-                } catch (error) {
-                    console.error('Error uploading file:', error);
-                }
-            };
+                        const result = await response.json();
+                        resolve(result.fileUrl);
+                    } catch (error) {
+                        console.error('Error uploading file:', error);
+                        reject(error);
+                    }
+                };
 
-            reader.readAsDataURL(file);
+                reader.readAsDataURL(file);
+            });
+            return fileUrl;
         }
 
-	    
-	    
-function previewFile() {
-    const fileInput = document.getElementById('input11');
-    const filePreview = document.getElementById('file-preview');
-    const filePreviewContainer = document.getElementById('file-preview-container');
 
-    if (fileInput.files && fileInput.files[0]) {
-        const reader = new FileReader();
-        
-        reader.onload = function (e) {
-            filePreview.src = e.target.result;
-            filePreviewContainer.style.display = 'block';
-            // เก็บ URL ของภาพใน data attribute
-            filePreview.setAttribute('data-file-url', e.target.result);
-        };
-        
-        reader.readAsDataURL(fileInput.files[0]);
-    } else {
-        filePreviewContainer.style.display = 'none';
-    }
-}
+
+        function previewFile() {
+            const fileInput = document.getElementById('input11');
+            const filePreview = document.getElementById('file-preview');
+            const filePreviewContainer = document.getElementById('file-preview-container');
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = async function (e) {
+                    filePreview.src = e.target.result;
+                    filePreviewContainer.style.display = 'block';
+                    // เก็บ URL ของภาพใน data attribute
+                    let fileUrl = await uploadFile();
+                    filePreview.setAttribute('data-file-url', e.target.result);
+                };
+
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                filePreviewContainer.style.display = 'none';
+            }
+        }
 
 
 
@@ -356,11 +375,11 @@ function previewFile() {
             const bank = document.getElementById('bank').value;
             const name = document.getElementById('name').value;
             const accname = document.getElementById('accname').value;
-    const filePreview = document.getElementById('file-preview');
-    const fileUrl = filePreview.getAttribute('data-file-url') || '';
+            const filePreview = document.getElementById('file-preview');
+            const fileUrl = filePreview.getAttribute('data-file-url') || '';
 
 
-    const previewHtml = `
+            const previewHtml = `
         <div>
             <img src="${functions}" alt="Selected function" style="max-width: 100%; height: auto; margin-bottom: 15px;">
             <p>ชื่อคลาส: ${nameclass}</p>
@@ -374,16 +393,16 @@ function previewFile() {
         </div>
     `;
 
-    document.getElementById('previewFlexMessage').innerHTML = previewHtml;
-}
+            document.getElementById('previewFlexMessage').innerHTML = previewHtml;
+        }
 
         $('#previewModal').on('show.bs.modal', function () {
             updatePreview();
         });
 
-     
-     
-     function shareMessage() {
+
+
+        function shareMessage() {
             const functions = $('input[name="functions"]:checked').val();
             const nameclass = document.getElementById('nameclass').value;
             const seat = document.getElementById('seat').value;
@@ -391,255 +410,255 @@ function previewFile() {
             const bank = document.getElementById('bank').value;
             const name = document.getElementById('name').value;
             const accname = document.getElementById('accname').value;
-   		const filePreview = document.getElementById('file-preview');
-    		const fileUrl = filePreview.getAttribute('data-file-url') || '';
-	     
+            const filePreview = document.getElementById('file-preview');
+            const fileUrl = filePreview.getAttribute('data-file-url') || '';
+
             const flexMessage = {
-  "type": "bubble",
-  "body": {
-    "type": "box",
-    "layout": "vertical",
-    "contents": [
-      {
-        "type": "image",
-        "url": "https://lh3.googleusercontent.com/d/1tKVP5FVXa4zZFbeVUQRCU3YapD5yu0I0",
-        "size": "xxs",
-        "animated": true,
-        "position": "absolute",
-        "flex": 1,
-        "offsetTop": "10px",
-        "offsetStart": "250px"
-      },
-      {
-        "type": "text",
-        "text": "ชำระค่าลงทะเบียน",
-        "weight": "bold",
-        "color": "#06C755",
-        "size": "md"
-      },
-      {
-        "type": "box",
-        "layout": "horizontal",
-        "contents": [
-          {
-            "type": "text",
-            "text": "คุณ",
-            "size": "md",
-            "weight": "bold",
-            "offsetStart": "80px"
-          },
-          {
-            "type": "image",
-            "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
-            "aspectRatio": "1:1",
-            "aspectMode": "cover",
-            "align": "start",
-            "offsetEnd": "20px"
-          }
-        ]
-      },
-      {
-        "type": "text",
-        "text": nameclass,
-        "size": "xs",
-        "color": "#111111",
-        "wrap": true,
-        "margin": "none",
-        "weight": "regular"
-      },
-      {
-        "type": "image",
-        "url": functions,
-        "size": "full",
-        "margin": "md",
-        "align": "center",
-        "aspectMode": "fit",
-        "aspectRatio": "16:9"
-      },
-      {
-        "type": "box",
-        "layout": "vertical",
-        "margin": "md",
-        "spacing": "sm",
-        "contents": [
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "text",
-                "text": "จำนวนที่นั่ง:",
-                "size": "sm",
-                "color": "#111111",
-                "flex": 0,
-                "weight": "bold"
-              },
-              {
-                "type": "text",
-                "text": seat,
-                "size": "sm",
-                "color": "#111111",
-                "align": "end",
-                "weight": "bold"
-              }
-            ],
-            "spacing": "none",
-            "margin": "none"
-          },
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "text",
-                "text": "รวมทั้งหมด:",
-                "size": "md",
-                "color": "#06C755",
-                "flex": 0,
-                "weight": "bold"
-              },
-              {
-                "type": "text",
-                "text": total,
-                "size": "md",
-                "color": "#FF334B",
-                "align": "end",
-                "weight": "bold",
-                "margin": "none"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "type": "box",
-        "layout": "vertical",
-        "margin": "md",
-        "spacing": "sm",
-        "contents": [
-          {
-            "type": "image",
-            "url": "https://www.kasikornbank.com/SiteCollectionDocuments/about/img/logo/logo.png",
-            "position": "absolute",
-            "size": "xxs",
-            "offsetStart": "210px",
-            "margin": "xxl",
-            "offsetTop": "10px"
-          },
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "margin": "none",
-            "contents": [
-              {
-                "type": "text",
-                "text": "ธนาคาร",
-                "size": "md",
-                "color": "#111111",
-                "offsetStart": "15px"
-              },
-              {
-                "type": "text",
-                "size": "md",
-                "color": "#FFFFFF",
-                "align": "start",
-                "text": bank,
-                "offsetEnd": "50px",
-                "weight": "bold"
-              }
-            ]
-          },
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "text",
-                "text": "ชื่อบัญชี",
-                "size": "md",
-                "color": "#111111",
-                "offsetStart": "15px"
-              },
-              {
-                "type": "text",
-                "text": name,
-                "size": "md",
-                "color": "#FFFFFF",
-                "align": "start",
-                "offsetEnd": "50px",
-                "weight": "bold",
-                "wrap": true
-              }
-            ]
-          },
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [
-              {
-                "type": "text",
-                "text": "เลชบัญชี",
-                "size": "md",
-                "color": "#111111",
-                "offsetStart": "15px"
-              },
-              {
-                "type": "text",
-                "text": accname,
-                "size": "md",
-                "color": "#FFFFFF",
-                "align": "start",
-                "offsetEnd": "50px",
-                "weight": "bold",
-                "offsetTop": "2px",
-                "wrap": true
-              }
-            ],
-            "cornerRadius": "none",
-            "justifyContent": "flex-start",
-            "alignItems": "center",
-            "flex": 1
-          }
-        ],
-        "backgroundColor": "#06C755",
-        "paddingTop": "12px",
-        "paddingBottom": "15px",
-        "cornerRadius": "5px",
-        "flex": 1
-      },
-      {
-        "type": "separator",
-        "margin": "lg"
-      },
-      {
-        "type": "box",
-        "layout": "horizontal",
-        "margin": "md",
-        "contents": [
-          {
-            "type": "text",
-            "text": "PAYMENT ID",
-            "size": "xxs",
-            "color": "#aaaaaa",
-            "flex": 0
-          },
-          {
-            "type": "text",
-            "text": "#743289384279",
-            "color": "#aaaaaa",
-            "size": "xxs",
-            "align": "end"
-          }
-        ]
-      }
-    ]
-  },
-  "styles": {
-    "footer": {
-      "separator": true
-    }
-  }
-};
+                "type": "bubble",
+                "body": {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                        {
+                            "type": "image",
+                            "url": "https://lh3.googleusercontent.com/d/1tKVP5FVXa4zZFbeVUQRCU3YapD5yu0I0",
+                            "size": "xxs",
+                            "animated": true,
+                            "position": "absolute",
+                            "flex": 1,
+                            "offsetTop": "10px",
+                            "offsetStart": "250px"
+                        },
+                        {
+                            "type": "text",
+                            "text": "ชำระค่าลงทะเบียน",
+                            "weight": "bold",
+                            "color": "#06C755",
+                            "size": "md"
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "contents": [
+                                {
+                                    "type": "text",
+                                    "text": "คุณ",
+                                    "size": "md",
+                                    "weight": "bold",
+                                    "offsetStart": "80px"
+                                },
+                                {
+                                    "type": "image",
+                                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+                                    "aspectRatio": "1:1",
+                                    "aspectMode": "cover",
+                                    "align": "start",
+                                    "offsetEnd": "20px"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "text",
+                            "text": nameclass,
+                            "size": "xs",
+                            "color": "#111111",
+                            "wrap": true,
+                            "margin": "none",
+                            "weight": "regular"
+                        },
+                        {
+                            "type": "image",
+                            "url": functions,
+                            "size": "full",
+                            "margin": "md",
+                            "align": "center",
+                            "aspectMode": "fit",
+                            "aspectRatio": "16:9"
+                        },
+                        {
+                            "type": "box",
+                            "layout": "vertical",
+                            "margin": "md",
+                            "spacing": "sm",
+                            "contents": [
+                                {
+                                    "type": "box",
+                                    "layout": "horizontal",
+                                    "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "จำนวนที่นั่ง:",
+                                            "size": "sm",
+                                            "color": "#111111",
+                                            "flex": 0,
+                                            "weight": "bold"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": seat,
+                                            "size": "sm",
+                                            "color": "#111111",
+                                            "align": "end",
+                                            "weight": "bold"
+                                        }
+                                    ],
+                                    "spacing": "none",
+                                    "margin": "none"
+                                },
+                                {
+                                    "type": "box",
+                                    "layout": "horizontal",
+                                    "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "รวมทั้งหมด:",
+                                            "size": "md",
+                                            "color": "#06C755",
+                                            "flex": 0,
+                                            "weight": "bold"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": total,
+                                            "size": "md",
+                                            "color": "#FF334B",
+                                            "align": "end",
+                                            "weight": "bold",
+                                            "margin": "none"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "box",
+                            "layout": "vertical",
+                            "margin": "md",
+                            "spacing": "sm",
+                            "contents": [
+                                {
+                                    "type": "image",
+                                    "url": "https://www.kasikornbank.com/SiteCollectionDocuments/about/img/logo/logo.png",
+                                    "position": "absolute",
+                                    "size": "xxs",
+                                    "offsetStart": "210px",
+                                    "margin": "xxl",
+                                    "offsetTop": "10px"
+                                },
+                                {
+                                    "type": "box",
+                                    "layout": "horizontal",
+                                    "margin": "none",
+                                    "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "ธนาคาร",
+                                            "size": "md",
+                                            "color": "#111111",
+                                            "offsetStart": "15px"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "size": "md",
+                                            "color": "#FFFFFF",
+                                            "align": "start",
+                                            "text": bank,
+                                            "offsetEnd": "50px",
+                                            "weight": "bold"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "box",
+                                    "layout": "horizontal",
+                                    "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "ชื่อบัญชี",
+                                            "size": "md",
+                                            "color": "#111111",
+                                            "offsetStart": "15px"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": name,
+                                            "size": "md",
+                                            "color": "#FFFFFF",
+                                            "align": "start",
+                                            "offsetEnd": "50px",
+                                            "weight": "bold",
+                                            "wrap": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "box",
+                                    "layout": "horizontal",
+                                    "contents": [
+                                        {
+                                            "type": "text",
+                                            "text": "เลชบัญชี",
+                                            "size": "md",
+                                            "color": "#111111",
+                                            "offsetStart": "15px"
+                                        },
+                                        {
+                                            "type": "text",
+                                            "text": accname,
+                                            "size": "md",
+                                            "color": "#FFFFFF",
+                                            "align": "start",
+                                            "offsetEnd": "50px",
+                                            "weight": "bold",
+                                            "offsetTop": "2px",
+                                            "wrap": true
+                                        }
+                                    ],
+                                    "cornerRadius": "none",
+                                    "justifyContent": "flex-start",
+                                    "alignItems": "center",
+                                    "flex": 1
+                                }
+                            ],
+                            "backgroundColor": "#06C755",
+                            "paddingTop": "12px",
+                            "paddingBottom": "15px",
+                            "cornerRadius": "5px",
+                            "flex": 1
+                        },
+                        {
+                            "type": "separator",
+                            "margin": "lg"
+                        },
+                        {
+                            "type": "box",
+                            "layout": "horizontal",
+                            "margin": "md",
+                            "contents": [
+                                {
+                                    "type": "text",
+                                    "text": "PAYMENT ID",
+                                    "size": "xxs",
+                                    "color": "#aaaaaa",
+                                    "flex": 0
+                                },
+                                {
+                                    "type": "text",
+                                    "text": "#743289384279",
+                                    "color": "#aaaaaa",
+                                    "size": "xxs",
+                                    "align": "end"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "styles": {
+                    "footer": {
+                        "separator": true
+                    }
+                }
+            };
 
             liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลการแนะนำตัวค่ะ", contents: flexMessage }])
                 .then(() => liff.closeWindow())
@@ -649,4 +668,5 @@ function previewFile() {
         initializeLiff('2006306490-Jd0p0byn');
     </script>
 </body>
+
 </html>
