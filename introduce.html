@@ -335,6 +335,7 @@
                         });
 
                         const result = await response.json();
+                        console.log('File uploaded:', result.fileUrl);
                         resolve(result.fileUrl);
                     } catch (error) {
                         console.error('Error uploading file:', error);
