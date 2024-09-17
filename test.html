@@ -210,7 +210,7 @@
             cursor: pointer;
         }
         #cropButton:hover {
-            background-color: #009900;
+            background-color: red;
         }
     </style>
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
@@ -419,7 +419,7 @@
                 aspectRatio: 1,
                 viewMode: 1,
                 dragMode: 'move',
-                autoCropArea: 0.8,
+                autoCropArea: 1.0,
                 restore: false,
                 modal: false,
                 guides: false,
@@ -431,7 +431,7 @@
         }
 
         function closeCropPopup() {
-            const popup = document.getElementById('cropPopup');
+            const popup = document.getlementById('cropPopup');
             const overlay = document.querySelector('.popup-overlay');
             popup.style.display = 'none';
             overlay.style.display = 'none';
