@@ -224,9 +224,10 @@ margin-top: 5px;
 }
 
 
+
         #uploadStatusPopup {
-                        width: 90%;
-            max-height: 90%;
+                        width: 70%;
+            max-height: 70%;
     display: none;
     position: fixed;
     top: 50%;
@@ -494,8 +495,6 @@ margin-top: 5px;
 
         
 function cropImage() {
-    const name = document.getElementById('name').value;
-    
     if (cropper) {
         const croppedCanvas = cropper.getCroppedCanvas({
             width: 500,
@@ -504,7 +503,7 @@ function cropImage() {
 
         croppedCanvas.toBlob(async function(blob) {
             const fileInput = document.getElementById('input11');
-            const file = new File([blob], '${name}.jpg', { type: 'image/jpeg' });
+            const file = new File([blob], 'croper-image.jpg', { type: 'image/jpeg' });
             const dataTransfer = new DataTransfer();
             dataTransfer.items.add(file);
             fileInput.files = dataTransfer.files;
