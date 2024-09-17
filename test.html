@@ -414,23 +414,21 @@
             popup.style.display = 'block';
             overlay.style.display = 'block';
 
-const image = document.getElementById('cropImage');
+            const image = document.getElementById('cropImage');
             cropper = new Cropper(image, {
                 aspectRatio: 1,
                 viewMode: 1,
                 dragMode: 'move',
                 autoCropArea: 1.0,
                 restore: false,
-                modal: true,
+                modal: false,
                 guides: false,
                 highlight: false,
                 cropBoxMovable: false,
                 cropBoxResizable: false,
                 toggleDragModeOnDblclick: false,
-                modalOpacity: 0.8,
             });
         }
-        
 
         function closeCropPopup() {
             const popup = document.getlementById('cropPopup');
