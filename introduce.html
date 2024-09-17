@@ -357,6 +357,11 @@
 
             if (fileInput.files && fileInput.files[0]) {
                 const reader = new FileReader();
+                // max size is 10mb
+                if(fileInput.files[0].size > 10 * 1024 * 1024) {
+                    alert('ไฟล์ขนาดใหญ่เกินไป กรุณาเลือกไฟล์ที่มีขนาดไม่เกิน 10mb');
+                    return;
+                }
 
                 reader.onload = async function (e) {
                     filePreview.src = e.target.result;
