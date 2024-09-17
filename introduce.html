@@ -456,7 +456,7 @@
                                 },
                                 {
                                     "type": "image",
-                                    "url": "https://scdn.line-apps.com/n/channel_devcenter/img/fx/01_1_cafe.png",
+                                    "url": fileUrl,
                                     "aspectRatio": "1:1",
                                     "aspectMode": "cover",
                                     "align": "start",
@@ -668,7 +668,11 @@
             };
 
             liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลการแนะนำตัวค่ะ", contents: flexMessage }])
-                .then(() => liff.closeWindow())
+                .then(() =>{
+                    console.log('message sent');
+                    $('#previewModal').modal('hide');
+                    liff.closeWindow();
+                })
                 .catch(err => console.error('Error sending message:', err));
         }
 
