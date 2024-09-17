@@ -363,7 +363,7 @@
                     filePreviewContainer.style.display = 'block';
                     // เก็บ URL ของภาพใน data attribute
                     let fileUrl = await uploadFile();
-                    filePreview.setAttribute('data-file-url', e.target.result);
+                    filePreview.setAttribute('data-file-url', fileUrl);
                 };
 
                 reader.readAsDataURL(fileInput.files[0]);
