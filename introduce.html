@@ -248,6 +248,12 @@
         function initializeLiff(myLiffId) {
             liff.init({ liffId: myLiffId })
                 .then(() => {
+                if(!liff.isLoggedIn()) {
+                    liff.login({
+                        redirectUri: window.location.href
+                    });
+                    return;
+                }
                     loadSelectOptions();
                 })
                 .catch((err) => {
