@@ -613,22 +613,32 @@ function cropImage() {
 function shareMessage() {
     console.log('Preparing to share message...');
 
+    // ตรวจสอบว่า LIFF SDK พร้อมใช้งาน
+    if (!liff.isLoggedIn() || !liff.isApiAvailable('shareTargetPicker')) {
+        console.error('LIFF is not logged in or shareTargetPicker is not available');
+        alert('ไม่สามารถส่งข้อความได้ กรุณาลองเข้าสู่ระบบใหม่');
+        return;
+    }
+
+    // เก็บข้อมูลจากฟอร์ม
     const functions = $('input[name="functions"]:checked').val();
     const nameclass = document.getElementById('nameclass').value;
     const role = document.getElementById('role').value;
     const name = document.getElementById('name').value;
-    const tel = `tel:${document.getElementById('tel').value}`;
+    const tel = document.getElementById('tel').value;
     const filePreview = document.getElementById('file-preview');
     const fileUrl = filePreview.getAttribute('data-file-url') || '';
 
     console.log('Collected data:', { functions, nameclass, role, name, tel, fileUrl });
 
+    // ตรวจสอบข้อมูลที่จำเป็น
     if (!functions || !nameclass || !role || !name || !tel || !fileUrl) {
         console.error('Missing required fields');
         alert('กรุณากรอกข้อมูลให้ครบทุกช่อง');
         return;
     }
 
+    // สร้าง Flex Message
     const flexMessage = {
         type: "bubble",
         hero: {
@@ -740,7 +750,7 @@ function shareMessage() {
                             action: {
                                 type: "uri",
                                 label: "โทรรับการติดต่อ",
-                                uri: tel
+                                uri: `tel:${tel}`
                             },
                             style: "primary"
                         },
@@ -769,31 +779,26 @@ function shareMessage() {
 
     console.log('Flex Message prepared:', flexMessage);
 
-    if (liff.isApiAvailable('shareTargetPicker')) {
-        console.log('ShareTargetPicker API is available');
-        liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลแนะนำตัวค่ะ", contents: flexMessage }])
-            .then((result) => {
-                console.log('ShareTargetPicker launched');
-                if (result) {
-                    console.log('Message sent successfully');
-                    $('#previewModal').modal('hide');
-                    alert('ส่งข้อความสำเร็จแล้ว คุณสามารถปิดหน้าต่างนี้ได้');
-                } else {
-                    console.log('TargetPicker was closed before sending');
-                    alert('TargetPicker ถูกปิดก่อนที่จะส่งข้อความ');
-                }
-            })
-            .catch(err => {
-                console.error('Error sending message:', err);
-                alert('เกิดข้อผิดพลาดในการส่งข้อความ: ' + err.message);
-            });
-    } else {
-        console.error('ShareTargetPicker API is not available');
-        alert('ShareTargetPicker API ไม่พร้อมใช้งาน');
-    }
-
-
+    // ส่ง Flex Message
+    liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลแนะนำตัวค่ะ", contents: flexMessage }])
+        .then((result) => {
+            console.log('ShareTargetPicker result:', result);
+            if (result) {
+                console.log('Message sent successfully');
+                $('#previewModal').modal('hide');
+                alert('ส่งข้อความสำเร็จแล้ว คุณสามารถปิดหน้าต่างนี้ได้');
+            } else {
+                console.log('TargetPicker was closed before sending');
+                alert('การส่งข้อความถูกยกเลิก');
             }
+        })
+        .catch(err => {
+            console.error('Error sending message:', err);
+            alert('เกิดข้อผิดพลาดในการส่งข้อความ: ' + err.message);
+        });
+}
+
+        
     </script>
 
 
