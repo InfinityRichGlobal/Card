@@ -612,7 +612,7 @@ function cropImage() {
             const nameclass = document.getElementById('nameclass').value;
             const role = document.getElementById('role').value;
             const name = document.getElementById('name').value;
-            const tel = document.getElementById('tel').value;
+            const tel = `tel:${document.getElementById('tel').value}`;
             const filePreview = document.getElementById('file-preview');
             const fileUrl = filePreview.getAttribute('data-file-url') || '';
             const flexMessage = {
