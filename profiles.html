@@ -371,21 +371,39 @@ margin-top: 5px;
 </div>
 
     <script>
-        function initializeLiff(myLiffId) {
-            liff.init({ liffId: myLiffId })
-                .then(() => {
-                if(!liff.isLoggedIn()) {
-                    liff.login({
-                        redirectUri: window.location.href
-                    });
-                    return;
-                }
-                    loadSelectOptions();
-                })
-                .catch((err) => {
-                    console.error('LIFF Initialization failed', err);
+// เพิ่มโค้ดนี้ที่ด้านล่างสุดของไฟล์ JavaScript หรือภายใน <script> tag ในส่วนท้ายของ HTML
+
+document.addEventListener('DOMContentLoaded', function() {
+    initializeLiff('2006306490-52jejzKZ');
+});
+
+// หรือถ้าคุณใช้ jQuery:
+// $(document).ready(function() {
+//     initializeLiff('2006306490-52jejzKZ');
+// });
+
+function initializeLiff(myLiffId) {
+    console.log('Initializing LIFF...');
+    liff.init({ liffId: myLiffId })
+        .then(() => {
+            console.log('LIFF initialized successfully');
+            if (!liff.isLoggedIn()) {
+                console.log('User not logged in. Redirecting to login...');
+                liff.login({
+                    redirectUri: window.location.href
                 });
-        }
+            } else {
+                console.log('User is logged in. Loading select options...');
+                loadSelectOptions();
+            }
+        })
+        .catch((err) => {
+            console.error('LIFF Initialization failed', err);
+            alert('LIFF の初期化に失敗しました。ページをリロードしてみてください。');
+        });
+}
+
+// ... (ส่วนที่เหลือของโค้ดคุณ, รวมถึงฟังก์ชัน shareMessage)
 
 
 
@@ -605,17 +623,26 @@ function cropImage() {
             updatePreview();
         });
 
+function shareMessage() {
+    console.log('Preparing to share message...');
 
+    const functions = $('input[name="functions"]:checked').val();
+    const nameclass = document.getElementById('nameclass').value;
+    const role = document.getElementById('role').value;
+    const name = document.getElementById('name').value;
+    const tel = `tel:${document.getElementById('tel').value}`;
+    const filePreview = document.getElementById('file-preview');
+    const fileUrl = filePreview.getAttribute('data-file-url') || '';
 
-        function shareMessage() {
-            const functions = $('input[name="functions"]:checked').val();
-            const nameclass = document.getElementById('nameclass').value;
-            const role = document.getElementById('role').value;
-            const name = document.getElementById('name').value;
-            const tel = `tel:${document.getElementById('tel').value}`;
-            const filePreview = document.getElementById('file-preview');
-            const fileUrl = filePreview.getAttribute('data-file-url') || '';
-            const flexMessage = {
+    console.log('Collected data:', { functions, nameclass, role, name, tel, fileUrl });
+
+    if (!functions || !nameclass || !role || !name || !tel || !fileUrl) {
+        console.error('Missing required fields');
+        alert('กรุณากรอกข้อมูลให้ครบทุกช่อง');
+        return;
+    }
+
+    const flexMessage =  {
   "type": "bubble",
   "hero": {
     "type": "image",
@@ -753,16 +780,31 @@ function cropImage() {
   }
 };
 
-            liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลแนะนำตัวค่ะ", contents: flexMessage }])
-                .then(() =>{
-                    console.log('message sent');
+    console.log('Flex Message prepared:', flexMessage);
+
+    if (liff.isApiAvailable('shareTargetPicker')) {
+        console.log('ShareTargetPicker API is available');
+        liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลแนะนำตัวค่ะ", contents: flexMessage }])
+            .then((result) => {
+                console.log('ShareTargetPicker launched');
+                if (result) {
+                    console.log('Message sent successfully');
                     $('#previewModal').modal('hide');
                     liff.closeWindow();
-                })
-                .catch(err => console.error('Error sending message:', err));
-        }
-
-        initializeLiff('2006306490-52jejzKZ');
+                } else {
+                    console.log('TargetPicker was closed before sending');
+                    alert('TargetPicker ถูกปิดก่อนที่จะส่งข้อความ');
+                }
+            })
+            .catch(err => {
+                console.error('Error sending message:', err);
+                alert('เกิดข้อผิดพลาดในการส่งข้อความ: ' + err.message);
+            });
+    } else {
+        console.error('ShareTargetPicker API is not available');
+        alert('ShareTargetPicker API ไม่พร้อมใช้งาน');
+    }
+}
     </script>
 
 
