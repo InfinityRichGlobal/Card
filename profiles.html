@@ -366,32 +366,22 @@ margin-top: 5px;
 </div>
 
     <script>
-
-        // Initialize LIFF when the page loads
-document.addEventListener('DOMContentLoaded', function() {
-    initializeLiff('2006306490-52jejzKZ'); // Replace with your actual LIFF ID
-});
-
-function initializeLiff(myLiffId) {
-    console.log('Initializing LIFF...');
-    liff.init({ liffId: myLiffId })
-        .then(() => {
-            console.log('LIFF initialized successfully');
-            if (!liff.isLoggedIn()) {
-                console.log('User not logged in. Redirecting to login...');
-                liff.login({
-                    redirectUri: window.location.href
+        function initializeLiff(myLiffId) {
+            liff.init({ liffId: myLiffId })
+                .then(() => {
+                if(!liff.isLoggedIn()) {
+                    liff.login({
+                        redirectUri: window.location.href
+                    });
+                    return;
+                }
+                    loadSelectOptions();
+                })
+                .catch((err) => {
+                    console.error('LIFF Initialization failed', err);
                 });
-            } else {
-                console.log('User is logged in. Loading select options...');
-                loadSelectOptions();
-            }
-        })
-        .catch((err) => {
-            console.error('LIFF Initialization failed', err);
-            alert('LIFF の初期化に失敗しました。ページをリロードしてみてください。');
-        });
-}
+        }
+
 
 
         function loadSelectOptions() {
@@ -777,29 +767,18 @@ function shareMessage() {
         }
     };
 
-    console.log('Flex Message prepared:', flexMessage);
+            liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลการแนะนำตัวค่ะ", contents: flexMessage }])
+                .then(() =>{
+                    console.log('message sent');
+                    $('#previewModal').modal('hide');
+                    liff.closeWindow();
+                })
+                .catch(err => console.error('Error sending message:', err));
+        }
 
-    // ส่ง Flex Message
-    liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลแนะนำตัวค่ะ", contents: flexMessage }])
-        .then((result) => {
-            console.log('ShareTargetPicker result:', result);
-            if (result) {
-                console.log('Message sent successfully');
-                $('#previewModal').modal('hide');
-                alert('ส่งข้อความสำเร็จแล้ว คุณสามารถปิดหน้าต่างนี้ได้');
-            } else {
-                console.log('TargetPicker was closed before sending');
-                alert('การส่งข้อความถูกยกเลิก');
-            }
-        })
-        .catch(err => {
-            console.error('Error sending message:', err);
-            alert('เกิดข้อผิดพลาดในการส่งข้อความ: ' + err.message);
-        });
-}
-
-        
+        initializeLiff('2006306490-52jejzKZ');
     </script>
+
 
 
 
