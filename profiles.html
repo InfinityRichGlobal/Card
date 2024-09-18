@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Profiles</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+    
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&display=swap');
+
+        h4 {
+            color: #FFFFFF;
+        }
+
+        :root {
+            --primary-color: #00c8ff;
+            --secondary-color: #0080ff;
+            --bg-color: #FFFFFF;
+            --text-color: #000000;
+            --container-bg: #FFFFFF;
+            --input-bg: #FFFFFF;
+            --border-color: #475569;
+        }
+
+        .mb-4,
+        .my-4 {
+            margin-bottom: 0.4rem !important;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Prompt', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(0, 200, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 128, 255, 0.1) 0%, transparent 20%);
+            background-attachment: fixed;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            padding: 2.5rem;
+            background-color: var(--container-bg);
+            border-radius: 20px;
+            box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        h4 {
+            color: #000000;
+        }
+
+        .btn-primary {
+            background-color: #00B900;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: red;
+        }
+
+        #previewModal .modal-content {
+            background-color: white;
+            color: black;
+        }
+
+        #previewFlexMessage {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+        }
+
+        .modal-footer-text h6 {
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .modal-footer-buttons {
+            margin-top: 1rem;
+        }
+
+        .modal-footer-buttons .btn {
+            margin: 0 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 85%;
+            }
+
+            h2 {
+                font-size: 1.75rem;
+            }
+        }
+
+        /* Styles for image selection */
+        .image-options {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .image-option {
+            text-align: center;
+            margin: 10px;
+        }
+
+        .image-option input[type="radio"] {
+            display: none;
+        }
+
+        .image-option label {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .image-option img {
+
+            height: 150px;
+            object-fit: cover;
+            border: 10px solid transparent;
+            border-radius: 8px;
+            transition: border-color 0.3s ease;
+        }
+
+        .image-option input[type="radio"]:checked+label img {
+            border-color: #00c8ff;
+        }
+
+        .image-option span {
+            margin-top: 5px;
+            font-weight: bold;
+            display: none;
+            /* หรือ visibility: hidden; */
+        }
+
+ #cropContainer {
+            max-width: 100%;
+            max-height: 70vh;
+margin-top: 5px;
+            margin-bottom: 20px;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+            width: 90%;
+            max-height: 90%;
+            overflow: auto;
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
+
+.close-popup {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease; /* การเปลี่ยนแปลงอย่างนุ่มนวล */
+        }
+
+        #cropButton {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: #00B900;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease; /* การเปลี่ยนแปลงอย่างนุ่มนวล */
+        }
+
+#cropButton:hover {
+    background-color: #f5ea03; /* สีที่เปลี่ยนเมื่อ hover */
+    transform: scale(1.05); /* ขยายขนาดเล็กน้อย */
+}
+
+.close-popup:hover {
+    background-color: #f5ea03; /* สีที่เปลี่ยนเมื่อ hover */
+    transform: scale(1.05); /* ขยายขนาดเล็กน้อย */
+}
+
+
+
+        #uploadStatusPopup {
+                        width: 70%;
+            max-height: 70%;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+    text-align: center;
+}
+
+.loader {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto 0;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+        
+        
+    </style>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+
+
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+
+
+
+<body>
+    <div class="container mt-4">
+        <center><img src="https://cdn-icons-gif.flaticon.com/14984/14984806.gif" width="200" height="200"></center>
+        <p></p>
+        <h4 class="text-center mb-4">สร้างการ์ดแนะนำตัวเอง</h4>
+        <p></p>
+        <form id="shareForm">
+            <div class="form-group">
+                <label>เลือกรูปแบบการเรียน:</label>
+                <div id="functions" class="image-options"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="nameclass">ชื่อคลาสเรียน:</label>
+                <select class="form-control" id="nameclass"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="input11">รูปโปรไฟล์พี่เลี้ยง:</label>
+                <input type="file" id="input11" name="input11" class="form-control" accept="image/*"
+                    onchange="previewFile()">
+
+                <div id="file-preview-container" style="display: none; text-align: center;">
+                    <img id="file-preview" src="" alt="File Preview" style="max-height: 200px; margin-top: 10px;">
+                </div>
+            </div>
+            
+             <div class="form-group">
+                <label for="name">ชื่อพี่เลี้ยง:</label>
+                <input type="text" class="form-control" id="name" placeholder="Ex. โค้ชซุปเปอร์ไอส์">
+            </div>
+
+
+            <div class="form-group">
+                <label for="role">ตำแหน่งใต้ชื่อ:</label>
+                <select class="form-control" id="role"></select>
+            </div>
+            
+            
+               <div class="form-group">
+                <label for="tel">เลขเบอร์มือถือพี่เลี้ยง:</label>
+                <input type="text" class="form-control" id="tel" placeholder="Ex. 0946669639 เขียนเลขติดกันได้เลย">
+            </div>
+               <p></p>
+                   <h6 class="text-center mb-4">ถ้าระบุไม่ครบ ระบบจะส่งข้อความไม่สำเร็จ</h6>
+   <p></p>
+            <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
+                data-target="#previewModal">ตรวจสอบและส่ง</button>
+        </form>
+    </div>
+
+    <!-- Modal for Flex Message Preview -->
+    <div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="previewModalLabel">ตรวจสอบข้อมูลก่อนส่ง</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="previewFlexMessage"></div>
+                </div>
+                <div class="modal-footer">
+                    <div class="modal-footer-text">
+                        <h6 class="text-center mb-2">ใช้สำหรับส่งให้ลูกค้า PP เท่านั้น</h6>
+                        <h6 class="text-center mb-2">ห้ามส่งออกนอกกลุ่มอื่นโดยเด็ดขาด</h6>
+                        <h6 class="text-center mb-2">พบเห็นขออนุญาตยกเลิกการเข้าใช้งาน</h6>
+                        <h6 class="text-center mb-4">ขอบคุณที่ให้ความร่วมมือนะครับ</h6>
+                    </div>
+                    <div class="modal-footer-buttons text-center">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">ปิด</button>
+                        <button type="button" class="btn btn-primary" onclick="shareMessage()">ยืนยันและส่ง</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+      <div class="popup-overlay"></div>
+    <div class="popup" id="cropPopup">
+       
+        <div id="cropContainer"></div>
+        <button id="cropButton" onclick="cropImage()">ยืนยันการครอป</button>
+        <button class="close-popup" onclick="closeCropPopup()">ยกเลิก</button>
+    </div>
+    
+    <div class="popup" id="uploadStatusPopup">
+    <div class="popup-content">
+        <p id="uploadStatusMessage">กำลังอัพโหลดภาพ กรุณาอย่าปิดหน้าต่างนี้</p>
+        <div class="loader"></div>
+    </div>
+</div>
+
+    <script>
+        function initializeLiff(myLiffId) {
+            liff.init({ liffId: myLiffId })
+                .then(() => {
+                if(!liff.isLoggedIn()) {
+                    liff.login({
+                        redirectUri: window.location.href
+                    });
+                    return;
+                }
+                    loadSelectOptions();
+                })
+                .catch((err) => {
+                    console.error('LIFF Initialization failed', err);
+                });
+        }
+
+
+
+
+        function loadSelectOptions() {
+            $.getJSON('https://script.google.com/macros/s/AKfycbz_2xTV8J6v7JqUzc9xuqJ1Dq-Mpyd6vz7Q3NTMO1Gm9q0RLm9wADbszlgVxyblvK43/exec', function (data) {
+                updateImageOptions('functions', data.functions);
+                updateSelect('nameclass', data.nameclass);
+                updateSelect('role', data.role);
+
+            });
+        }
+
+
+
+        function updateImageOptions(id, options) {
+            var container = $('#' + id);
+            container.empty();
+            $.each(options, function (i, option) {
+                var radioBtn = $('<input>').attr({
+                    type: 'radio',
+                    id: option.value,
+                    name: id,
+                    value: option.value
+                });
+                var label = $('<label>').attr('for', option.value);
+                var img = $('<img>').attr('src', option.value);
+                var span = $('<span>').text(option.text);
+
+                label.append(img).append(span);
+                container.append($('<div>').addClass('image-option').append(radioBtn).append(label));
+            });
+        }
+
+        function updateSelect(id, options) {
+            var select = $('#' + id);
+            select.empty();
+            select.append($('<option>').val('').text('เลือก' + select.prev('label').text().slice(0, -1)).prop('disabled', true).prop('selected', true));
+            $.each(options, function (i, option) {
+                select.append($('<option>').val(option.value).text(option.text));
+            });
+        }
+
+
+
+ let cropper;
+
+        function previewFile() {
+            const fileInput = document.getElementById('input11');
+            const file = fileInput.files[0];
+
+            if (file) {
+                if (file.size > 10 * 1024 * 1024) {
+                    alert('ไฟล์ขนาดใหญ่เกินไป กรุณาเลือกไฟล์ที่มีขนาดไม่เกิน 10 MB');
+                    fileInput.value = '';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    openCropPopup(e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function openCropPopup(imageSrc) {
+            const popup = document.getElementById('cropPopup');
+            const overlay = document.querySelector('.popup-overlay');
+            const cropContainer = document.getElementById('cropContainer');
+
+            cropContainer.innerHTML = `<img src="${imageSrc}" id="cropImage" style="max-width: 100%;">`;
+            
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
+
+            const image = document.getElementById('cropImage');
+            cropper = new Cropper(image, {
+                aspectRatio: 1,
+                viewMode: 1,
+                dragMode: 'move',
+                autoCropArea: 1,
+                restore: false,
+                modal: true,
+                guides: false,
+                highlight: false,
+                cropBoxMovable: false,
+                cropBoxResizable: false,
+                toggleDragModeOnDblclick: false,
+            });
+        }
+
+        function closeCropPopup() {
+            const popup = document.getElementById('cropPopup');
+            const overlay = document.querySelector('.popup-overlay');
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+            if (cropper) {
+                cropper.destroy();
+            }
+        }
+
+        
+function cropImage() {
+    if (cropper) {
+        const croppedCanvas = cropper.getCroppedCanvas({
+            width: 500,
+            height: 500
+        });
+
+        croppedCanvas.toBlob(async function(blob) {
+            const fileInput = document.getElementById('input11');
+            const file = new File([blob], 'profiles.jpg', { type: 'image/jpeg' });
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            fileInput.files = dataTransfer.files;
+
+            const filePreview = document.getElementById('file-preview');
+            const filePreviewContainer = document.getElementById('file-preview-container');
+            
+            filePreview.src = croppedCanvas.toDataURL('image/jpeg');
+            filePreviewContainer.style.display = 'block';
+
+            // Show upload status popup
+            document.getElementById('uploadStatusPopup').style.display = 'block';
+
+            try {
+                const fileUrl = await uploadFile();
+                filePreview.setAttribute('data-file-url', fileUrl);
+                // Hide upload status popup
+                document.getElementById('uploadStatusPopup').style.display = 'none';
+                closeCropPopup();
+            } catch (error) {
+                console.error('Error uploading file:', error);
+                // Show error message in upload status popup
+                document.getElementById('uploadStatusMessage').textContent = 'เกิดข้อผิดพลาดในการอัพโหลด กรุณาลองใหม่อีกครั้ง';
+                // Hide upload status popup after 3 seconds
+                setTimeout(() => {
+                    document.getElementById('uploadStatusPopup').style.display = 'none';
+                }, 3000);
+            }
+        }, 'image/jpeg');
+    }
+}
+
+        async function uploadFile() {
+            const fileInput = document.getElementById('input11');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Please select a file.');
+                return;
+            }
+
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = async function (event) {
+                    const base64Data = event.target.result.split(',')[1];
+                    const fileName = file.name;
+
+                    try {
+                        const response = await fetch('https://script.google.com/macros/s/AKfycbz_2xTV8J6v7JqUzc9xuqJ1Dq-Mpyd6vz7Q3NTMO1Gm9q0RLm9wADbszlgVxyblvK43/exec', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            },
+                            body: new URLSearchParams({
+                                fileData: base64Data,
+                                fileName: fileName
+                            })
+                        });
+
+                        const result = await response.json();
+                        console.log('File uploaded:', result.fileUrl);
+                        resolve(result.fileUrl);
+                    } catch (error) {
+                        console.error('Error uploading file:', error);
+                        reject(error);
+                    }
+                };
+
+                reader.readAsDataURL(file);
+            });
+        }
+
+
+        function updatePreview() {
+            const functions = $('input[name="functions"]:checked').val();
+            const nameclass = document.getElementById('nameclass').value;
+            const role = document.getElementById('role').value;
+            
+            const name = document.getElementById('name').value;
+            const tel = document.getElementById('tel').value;
+
+            const filePreview = document.getElementById('file-preview');
+            const fileUrl = filePreview.getAttribute('data-file-url') || '';
+
+
+            const previewHtml = `
+        <div>
+            <img src="${functions}" alt="รูปคลาสเรียน" style="max-width: 100%; height: auto; margin-bottom: 15px;">
+            <p>ชื่อคลาส: ${nameclass}</p>
+            
+            <img src="${fileUrl}" alt="รูปพี่เลี้ยง" style="max-width: 100%; height: auto;"/>
+            <p>ชื่อบัญชี: ${name}</p>
+            <p>คำใต้ชื่อ: ${role}</p>
+            <p>เบอร์มือถือ: ${tel}</p>
+            
+           
+        </div>
+    `;
+
+            document.getElementById('previewFlexMessage').innerHTML = previewHtml;
+        }
+
+        $('#previewModal').on('show.bs.modal', function () {
+            updatePreview();
+        });
+
+
+
+        function shareMessage() {
+            const functions = $('input[name="functions"]:checked').val();
+            const nameclass = document.getElementById('nameclass').value;
+            const role = document.getElementById('role').value;
+            const name = document.getElementById('name').value;
+            const tel = document.getElementById('tel').value;
+            const filePreview = document.getElementById('file-preview');
+            const fileUrl = filePreview.getAttribute('data-file-url') || '';
+            const flexMessage = {
+  "type": "bubble",
+  "hero": {
+    "type": "image",
+    "url": functions,
+    "size": "full",
+    "aspectMode": "fit",
+    "aspectRatio": "14.8:8.3",
+    "gravity": "top",
+    "align": "center",
+    "margin": "none"
+  },
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "text",
+        "text": "ยินดีด้วยค่ะ คุณได้รับสิทธิ์ 30 ท่านแรก\nที่คุณได้ลงทะเบียนไว้ มีพี่เลี้ยงดูแลตลอดการเรียนรู้",
+        "size": "xxs",
+        "color": "#111111",
+        "wrap": true,
+        "margin": "none",
+        "weight": "bold",
+        "align": "center"
+      },
+      {
+        "type": "text",
+        "text": nameclass,
+        "size": "xxs",
+        "color": "#111111",
+        "wrap": true,
+        "margin": "none",
+        "weight": "regular",
+        "align": "center"
+      },
+      {
+        "type": "separator",
+        "margin": "sm",
+        "color": "#000000"
+      },
+      {
+        "type": "text",
+        "text": "แนะนำตัวพี่เลี้ยงดูแลคุณตลอดการเรียนรู้",
+        "weight": "bold",
+        "color": "#06C755",
+        "size": "sm",
+        "align": "center",
+        "margin": "md"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "image",
+            "url": fileUrl,
+            "aspectRatio": "1:1",
+            "aspectMode": "cover",
+            "align": "center",
+            "size": "full"
+          }
+        ],
+        "cornerRadius": "20px",
+        "borderWidth": "normal",
+        "borderColor": "#999999",
+        "justifyContent": "center",
+        "maxWidth": "60%",
+        "offsetStart": "50px",
+        "margin": "md"
+      },
+      {
+        "type": "text",
+        "text": name,
+        "size": "md",
+        "weight": "bold",
+        "margin": "sm",
+        "align": "center"
+      },
+      {
+        "type": "text",
+        "text": role,
+        "size": "xs",
+        "weight": "bold",
+        "margin": "none",
+        "align": "center"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "margin": "md",
+        "spacing": "sm",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [],
+            "spacing": "none",
+            "margin": "none"
+          }
+        ]
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "button",
+            "action": {
+              "type": "uri",
+              "label": "โทรรับการติดต่อ",
+              "uri": tel
+            },
+            "style": "primary"
+          },
+          {
+            "type": "button",
+            "action": {
+              "type": "message",
+              "label": "ยืนยัน ลงทะเบียนรับสิทธิ์",
+              "text": "ลงทะเบียนรับสิทธิ์"
+            },
+            "style": "primary",
+            "margin": "sm",
+            "color": "#036af5"
+          }
+        ],
+        "offsetTop": "none",
+        "offsetBottom": "none",
+        "margin": "sm",
+        "paddingStart": "20px",
+        "paddingEnd": "20px"
+      }
+    ],
+    "offsetBottom": "10px"
+  }
+};
+
+            liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลแนะนำตัวค่ะ", contents: flexMessage }])
+                .then(() =>{
+                    console.log('message sent');
+                    $('#previewModal').modal('hide');
+                    liff.closeWindow();
+                })
+                .catch(err => console.error('Error sending message:', err));
+        }
+
+        initializeLiff('2006306490-52jejzKZ');
+    </script>
+
+
+
+
+
+
+</body>
+
+</html>
