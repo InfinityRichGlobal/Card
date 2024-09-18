@@ -367,10 +367,7 @@ margin-top: 5px;
 
     <script>
 
-        // Initialize LIFF when the page loads
-document.addEventListener('DOMContentLoaded', function() {
-    initializeLiff('2006306490-52jejzKZ'); // Replace with your actual LIFF ID
-});
+
 
 function initializeLiff(myLiffId) {
     console.log('Initializing LIFF...');
@@ -767,33 +764,18 @@ function shareMessage() {
         }
     };
 
-    console.log('Flex Message prepared:', flexMessage);
-
-    if (liff.isApiAvailable('shareTargetPicker')) {
-        console.log('ShareTargetPicker API is available');
-        liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลแนะนำตัวค่ะ", contents: flexMessage }])
-            .then((result) => {
-                console.log('ShareTargetPicker launched');
-                if (result) {
-                    console.log('Message sent successfully');
+            liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลการแนะนำตัวค่ะ", contents: flexMessage }])
+                .then(() =>{
+                    console.log('message sent');
                     $('#previewModal').modal('hide');
-                    alert('ส่งข้อความสำเร็จแล้ว คุณสามารถปิดหน้าต่างนี้ได้');
-                } else {
-                    console.log('TargetPicker was closed before sending');
-                    alert('TargetPicker ถูกปิดก่อนที่จะส่งข้อความ');
-                }
-            })
-            .catch(err => {
-                console.error('Error sending message:', err);
-                alert('เกิดข้อผิดพลาดในการส่งข้อความ: ' + err.message);
-            });
-    } else {
-        console.error('ShareTargetPicker API is not available');
-        alert('ShareTargetPicker API ไม่พร้อมใช้งาน');
-    }
+                    liff.closeWindow();
+                })
+                .catch(err => console.error('Error sending message:', err));
+        }
 
+        initializeLiff('2006306490-52jejzKZ');
 
-            }
+        
     </script>
 
 
