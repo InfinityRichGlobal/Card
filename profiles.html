@@ -371,16 +371,11 @@ margin-top: 5px;
 </div>
 
     <script>
-// เพิ่มโค้ดนี้ที่ด้านล่างสุดของไฟล์ JavaScript หรือภายใน <script> tag ในส่วนท้ายของ HTML
 
+        // Initialize LIFF when the page loads
 document.addEventListener('DOMContentLoaded', function() {
-    initializeLiff('2006306490-52jejzKZ');
+    initializeLiff('2006306490-52jejzKZ'); // Replace with your actual LIFF ID
 });
-
-// หรือถ้าคุณใช้ jQuery:
-// $(document).ready(function() {
-//     initializeLiff('2006306490-52jejzKZ');
-// });
 
 function initializeLiff(myLiffId) {
     console.log('Initializing LIFF...');
@@ -402,10 +397,6 @@ function initializeLiff(myLiffId) {
             alert('LIFF の初期化に失敗しました。ページをリロードしてみてください。');
         });
 }
-
-// ... (ส่วนที่เหลือของโค้ดคุณ, รวมถึงฟังก์ชัน shareMessage)
-
-
 
 
         function loadSelectOptions() {
@@ -623,6 +614,7 @@ function cropImage() {
             updatePreview();
         });
 
+
 function shareMessage() {
     console.log('Preparing to share message...');
 
@@ -642,171 +634,172 @@ function shareMessage() {
         return;
     }
 
-    const flexMessage =  {
-  "type": "bubble",
-  "hero": {
-    "type": "image",
-    "url": functions,
-    "size": "full",
-    "aspectMode": "fit",
-    "aspectRatio": "14.8:8.3",
-    "gravity": "top",
-    "align": "center",
-    "margin": "none"
-  },
-  "body": {
-    "type": "box",
-    "layout": "vertical",
-    "contents": [
-      {
-        "type": "text",
-        "text": "ยินดีด้วยค่ะ คุณได้รับสิทธิ์ 30 ท่านแรก\nที่คุณได้ลงทะเบียนไว้ มีพี่เลี้ยงดูแลตลอดการเรียนรู้",
-        "size": "xxs",
-        "color": "#111111",
-        "wrap": true,
-        "margin": "none",
-        "weight": "bold",
-        "align": "center"
-      },
-      {
-        "type": "text",
-        "text": nameclass,
-        "size": "xxs",
-        "color": "#111111",
-        "wrap": true,
-        "margin": "none",
-        "weight": "regular",
-        "align": "center"
-      },
-      {
-        "type": "separator",
-        "margin": "sm",
-        "color": "#000000"
-      },
-      {
-        "type": "text",
-        "text": "แนะนำตัวพี่เลี้ยงดูแลคุณตลอดการเรียนรู้",
-        "weight": "bold",
-        "color": "#06C755",
-        "size": "sm",
-        "align": "center",
-        "margin": "md"
-      },
-      {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "image",
-            "url": fileUrl,
-            "aspectRatio": "1:1",
-            "aspectMode": "cover",
-            "align": "center",
-            "size": "full"
-          }
-        ],
-        "cornerRadius": "20px",
-        "borderWidth": "normal",
-        "borderColor": "#999999",
-        "justifyContent": "center",
-        "maxWidth": "60%",
-        "offsetStart": "50px",
-        "margin": "md"
-      },
-      {
-        "type": "text",
-        "text": name,
-        "size": "md",
-        "weight": "bold",
-        "margin": "sm",
-        "align": "center"
-      },
-      {
-        "type": "text",
-        "text": role,
-        "size": "xs",
-        "weight": "bold",
-        "margin": "none",
-        "align": "center"
-      },
-      {
-        "type": "box",
-        "layout": "vertical",
-        "margin": "md",
-        "spacing": "sm",
-        "contents": [
-          {
-            "type": "box",
-            "layout": "horizontal",
-            "contents": [],
-            "spacing": "none",
-            "margin": "none"
-          }
-        ]
-      },
-      {
-        "type": "box",
-        "layout": "vertical",
-        "contents": [
-          {
-            "type": "button",
-            "action": {
-              "type": "uri",
-              "label": "โทรรับการติดต่อ",
-              "uri": tel
-            },
-            "style": "primary"
-          },
-          {
-            "type": "button",
-            "action": {
-              "type": "message",
-              "label": "ยืนยัน ลงทะเบียนรับสิทธิ์",
-              "text": "ลงทะเบียนรับสิทธิ์"
-            },
-            "style": "primary",
-            "margin": "sm",
-            "color": "#036af5"
-          }
-        ],
-        "offsetTop": "none",
-        "offsetBottom": "none",
-        "margin": "sm",
-        "paddingStart": "20px",
-        "paddingEnd": "20px"
-      }
-    ],
-    "offsetBottom": "10px"
-  }
-};
+    const flexMessage = {
+        type: "bubble",
+        hero: {
+            type: "image",
+            url: functions,
+            size: "full",
+            aspectMode: "fit",
+            aspectRatio: "14.8:8.3",
+            gravity: "top",
+            align: "center",
+            margin: "none"
+        },
+        body: {
+            type: "box",
+            layout: "vertical",
+            contents: [
+                {
+                    type: "text",
+                    text: "ยินดีด้วยค่ะ คุณได้รับสิทธิ์ 30 ท่านแรก\nที่คุณได้ลงทะเบียนไว้ มีพี่เลี้ยงดูแลตลอดการเรียนรู้",
+                    size: "xxs",
+                    color: "#111111",
+                    wrap: true,
+                    margin: "none",
+                    weight: "bold",
+                    align: "center"
+                },
+                {
+                    type: "text",
+                    text: nameclass,
+                    size: "xxs",
+                    color: "#111111",
+                    wrap: true,
+                    margin: "none",
+                    weight: "regular",
+                    align: "center"
+                },
+                {
+                    type: "separator",
+                    margin: "sm",
+                    color: "#000000"
+                },
+                {
+                    type: "text",
+                    text: "แนะนำตัวพี่เลี้ยงดูแลคุณตลอดการเรียนรู้",
+                    weight: "bold",
+                    color: "#06C755",
+                    size: "sm",
+                    align: "center",
+                    margin: "md"
+                },
+                {
+                    type: "box",
+                    layout: "vertical",
+                    contents: [
+                        {
+                            type: "image",
+                            url: fileUrl,
+                            aspectRatio: "1:1",
+                            aspectMode: "cover",
+                            align: "center",
+                            size: "full"
+                        }
+                    ],
+                    cornerRadius: "20px",
+                    borderWidth: "normal",
+                    borderColor: "#999999",
+                    justifyContent: "center",
+                    maxWidth: "60%",
+                    offsetStart: "50px",
+                    margin: "md"
+                },
+                {
+                    type: "text",
+                    text: name,
+                    size: "md",
+                    weight: "bold",
+                    margin: "sm",
+                    align: "center"
+                },
+                {
+                    type: "text",
+                    text: role,
+                    size: "xs",
+                    weight: "bold",
+                    margin: "none",
+                    align: "center"
+                },
+                {
+                    type: "box",
+                    layout: "vertical",
+                    margin: "md",
+                    spacing: "sm",
+                    contents: [
+                        {
+                            type: "box",
+                            layout: "horizontal",
+                            contents: [],
+                            spacing: "none",
+                            margin: "none"
+                        }
+                    ]
+                },
+                {
+                    type: "box",
+                    layout: "vertical",
+                    contents: [
+                        {
+                            type: "button",
+                            action: {
+                                type: "uri",
+                                label: "โทรรับการติดต่อ",
+                                uri: tel
+                            },
+                            style: "primary"
+                        },
+                        {
+                            type: "button",
+                            action: {
+                                type: "message",
+                                label: "ยืนยัน ลงทะเบียนรับสิทธิ์",
+                                text: "ลงทะเบียนรับสิทธิ์"
+                            },
+                            style: "primary",
+                            margin: "sm",
+                            color: "#036af5"
+                        }
+                    ],
+                    offsetTop: "none",
+                    offsetBottom: "none",
+                    margin: "sm",
+                    paddingStart: "20px",
+                    paddingEnd: "20px"
+                }
+            ],
+            offsetBottom: "10px"
+        }
+    };
 
     console.log('Flex Message prepared:', flexMessage);
 
-if (liff.isApiAvailable('shareTargetPicker')) {
-    console.log('ShareTargetPicker API is available');
-    liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลแนะนำตัวค่ะ", contents: flexMessage }])
-        .then((result) => {
-            console.log('ShareTargetPicker launched');
-            if (result) {
-                console.log('Message sent successfully');
-                $('#previewModal').modal('hide');
-                // แสดงข้อความแจ้งเตือนแทนการปิดหน้าต่าง
-                alert('ส่งข้อความสำเร็จแล้ว คุณสามารถปิดหน้าต่างนี้ได้');
-            } else {
-                console.log('TargetPicker was closed before sending');
-                alert('TargetPicker ถูกปิดก่อนที่จะส่งข้อความ');
-            }
-        })
-        .catch(err => {
-            console.error('Error sending message:', err);
-            alert('เกิดข้อผิดพลาดในการส่งข้อความ: ' + err.message);
-        });
-} else {
-    console.error('ShareTargetPicker API is not available');
-    alert('ShareTargetPicker API ไม่พร้อมใช้งาน');
+    if (liff.isApiAvailable('shareTargetPicker')) {
+        console.log('ShareTargetPicker API is available');
+        liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลแนะนำตัวค่ะ", contents: flexMessage }])
+            .then((result) => {
+                console.log('ShareTargetPicker launched');
+                if (result) {
+                    console.log('Message sent successfully');
+                    $('#previewModal').modal('hide');
+                    alert('ส่งข้อความสำเร็จแล้ว คุณสามารถปิดหน้าต่างนี้ได้');
+                } else {
+                    console.log('TargetPicker was closed before sending');
+                    alert('TargetPicker ถูกปิดก่อนที่จะส่งข้อความ');
+                }
+            })
+            .catch(err => {
+                console.error('Error sending message:', err);
+                alert('เกิดข้อผิดพลาดในการส่งข้อความ: ' + err.message);
+            });
+    } else {
+        console.error('ShareTargetPicker API is not available');
+        alert('ShareTargetPicker API ไม่พร้อมใช้งาน');
+    }
 }
 
-    }
+
+        
     </script>
 
 
