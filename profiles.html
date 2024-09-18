@@ -307,8 +307,8 @@ margin-top: 5px;
             
             
                <div class="form-group">
-                <label for="tel">เลขเบอร์มือถือพี่เลี้ยง:</label>
-                <input type="text" class="form-control" id="tel" placeholder="Ex. 0946669639 เขียนเลขติดกันได้เลย">
+                <label for="phone">เลขเบอร์มือถือพี่เลี้ยง:</label>
+                <input type="text" class="form-control" id="phone" placeholder="Ex. 0946669639 เขียนเลขติดกันได้เลย">
             </div>
                <p></p>
                    <h6 class="text-center mb-4">ถ้าระบุไม่ครบ ระบบจะส่งข้อความไม่สำเร็จ</h6>
@@ -582,7 +582,7 @@ function cropImage() {
             const role = document.getElementById('role').value;
             
             const name = document.getElementById('name').value;
-            const tel = document.getElementById('tel').value;
+            const phone = document.getElementById('phone').value;
 
             const filePreview = document.getElementById('file-preview');
             const fileUrl = filePreview.getAttribute('data-file-url') || '';
@@ -596,7 +596,7 @@ function cropImage() {
             </p><img src="${fileUrl}" alt="รูปพี่เลี้ยง" style="max-width: 100%; height: auto;"/>    </p>
             <p>ชื่อพี่เลี้ยง: ${name}</p>
             <p>คำใต้ชื่อ: ${role}</p>
-            <p>เบอร์มือถือ: ${tel}</p>
+            <p>เบอร์มือถือ: ${phone}</p>
             
            
         </div>
@@ -625,14 +625,14 @@ function shareMessage() {
     const nameclass = document.getElementById('nameclass').value;
     const role = document.getElementById('role').value;
     const name = document.getElementById('name').value;
-    const tel = document.getElementById('tel').value;
+    const phone = document.getElementById('phone').value;
     const filePreview = document.getElementById('file-preview');
     const fileUrl = filePreview.getAttribute('data-file-url') || '';
 
-    console.log('Collected data:', { functions, nameclass, role, name, tel, fileUrl });
+    console.log('Collected data:', { functions, nameclass, role, name, phone, fileUrl });
 
     // ตรวจสอบข้อมูลที่จำเป็น
-    if (!functions || !nameclass || !role || !name || !tel || !fileUrl) {
+    if (!functions || !nameclass || !role || !name || !phone || !fileUrl) {
         console.error('Missing required fields');
         alert('กรุณากรอกข้อมูลให้ครบทุกช่อง');
         return;
@@ -750,7 +750,7 @@ function shareMessage() {
                             action: {
                                 type: "uri",
                                 label: "โทรรับการติดต่อ",
-                                uri: `tel:${tel}`
+                                uri: `tel:${phone}`
                             },
                             style: "primary"
                         },
