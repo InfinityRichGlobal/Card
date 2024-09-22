@@ -328,225 +328,224 @@ function shareMessage() {
         return;
     }
 
-    const nameLines = name.split('\n');
-
-    const nameContents = nameLines.map(line => ({
-        "type": "text",
-        "text": line,
-        "size": "md",
-        "color": "#FFFFFF",
-        "align": "center",
-        "weight": "bold",
-        "style": "normal",
-        "wrap": true
-    }));
-
-    const flexMessage = {
-        "type": "bubble",
-        "size": "mega",
-        "body": {
-            "type": "box",
-            "layout": "vertical",
-            "contents": [
-                {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                        {
-                            "type": "text",
-                            "text": "ยินดีต้อนรับเข้าสู่",
-                            "color": "#06C755",
-                            "align": "center",
-                            "weight": "bold",
-                            "size": "xl"
-                        },
-                        {
-                            "type": "text",
-                            "text": nameclass,
-                            "color": "#111111",
-                            "align": "center",
-                            "size": "xs",
-                            "wrap": true,
-                            "weight": "bold",
-                            "margin": "sm"
-                        },
-                        {
-                            "type": "text",
-                            "text": "ครูส้มโอ ส่งออก AEC",
-                            "color": "#111111",
-                            "align": "center",
-                            "size": "sm",
-                            "wrap": true,
-                            "weight": "bold",
-                            "margin": "xs"
-                        }
-                    ],
-                    "backgroundColor": "#FEFEFE",
-                    "borderWidth": "light"
-                },
-                {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                        {
-                            "type": "image",
-                            "size": "full",
-                            "aspectRatio": "16:9",
-                            "align": "center",
-                            "url": functions,
-                            "margin": "none",
-                            "aspectMode": "fit"
-                        }
-                    ],
-                    "cornerRadius": "10px",
-                    "spacing": "none",
-                    "margin": "md"
-                },
-                {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": nameContents,
-                    "margin": "md",
-                    "backgroundColor": "#06C755",
-                    "paddingAll": "10px",
-                    "paddingTop": "2px",
-                    "cornerRadius": "10px"
-                },
-                {
-                    "type": "separator",
-                    "color": "#cccccc",
-                    "margin": "md"
-                },
-                {
-                    "type": "box",
-                    "layout": "vertical",
-                    "contents": [
-                        {
-                            "type": "text",
-                            "text": date,
-                            "margin": "none",
-                            "size": "sm",
-                            "color": "#111111",
-                            "weight": "regular",
-                            "align": "center"
-                        },
-                        {
-                            "type": "text",
-                            "text": location,
-                            "margin": "none",
-                            "size": "sm",
-                            "color": "#111111",
-                            "weight": "regular",
-                            "align": "center"
-                        },
-                        {
-                            "type": "text",
-                            "text": time,
-                            "margin": "none",
-                            "size": "sm",
-                            "color": "#111111",
-                            "weight": "regular",
-                            "align": "center"
-                        }
-                    ],
-                    "spacing": "none",
-                    "margin": "md"
-                },
-                {
-                    "type": "separator",
-                    "color": "#cccccc",
-                    "margin": "lg"
-                },
-                {
-                    "margin": "none",
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                        {
-                            "type": "text",
-                            "text": "อาหาร",
-                            "color": "#111111",
-                            "weight": "bold",
-                            "size": "sm",
-                            "align": "start",
-                            "gravity": "center",
-                            "margin": "none"
-                        },
-                        {
-                            "type": "text",
-                            "text": "สถานะ",
-                            "color": "#111111",
-                            "weight": "bold",
-                            "size": "sm",
-                            "align": "end",
-                            "gravity": "center",
-                            "margin": "none",
-                            "offsetEnd": "30px"
-                        }
-                    ],
-                    "spacing": "none",
-                    "paddingTop": "10px"
-                },
-                {
-                    "margin": "sm",
-                    "type": "box",
-                    "layout": "horizontal",
-                    "contents": [
-                        {
-                            "type": "text",
-                            "text": food,
-                            "color": "#111111",
-                            "weight": "regular",
-                            "size": "sm",
-                            "align": "start",
-                            "gravity": "center",
-                            "margin": "none",
-                            "wrap": true
-                        },
-                        {
-                            "type": "text",
-                            "text": status,
-                            "color": "#FF334B",
-                            "weight": "bold",
-                            "size": "sm",
-                            "align": "end",
-                            "gravity": "center",
-                            "margin": "none",
-                            "offsetEnd": "30px"
-                        }
-                    ],
-                    "spacing": "none"
-                },
-                {
-                    "type": "image",
-                    "url": timecard,
-                    "position": "absolute",
-                    "animated": true,
-                    "offsetStart": "250px",
-                    "offsetTop": "405px",
-                    "size": "xxs"
-                },
-                {
-                    "type": "image",
-                    "url": "https://lh3.googleusercontent.com/d/18lW8f6MR444Jm2lipdCjb-E0QqEKUTEo",
-                    "position": "absolute",
-                    "size": "xxs",
-                    "animated": true,
-                    "offsetTop": "10px",
-                    "offsetStart": "30px"
-                }
-            ],
-            "borderWidth": "normal",
+            const flexMessage = {
+  "type": "bubble",
+  "size": "mega",
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": "ยินดีต้อนรับเข้าสู่",
+            "color": "#06C755",
+            "align": "center",
+            "weight": "bold",
+            "size": "xl"
+          },
+          {
+            "type": "text",
+            "text": nameclass,
+            "color": "#111111",
+            "align": "center",
+            "size": "xs",
+            "wrap": true,
+            "weight": "bold",
+            "margin": "sm"
+          },
+          {
+            "type": "text",
+            "text": "ครูส้มโอ ส่งออก AEC",
+            "color": "#111111",
+            "align": "center",
+            "size": "sm",
+            "wrap": true,
+            "weight": "bold",
+            "margin": "xs"
+          }
+        ],
+        "backgroundColor": "#FEFEFE",
+        "borderWidth": "light"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "image",
+            "size": "full",
+            "aspectRatio": "16:9",
+            "align": "center",
+            "url": functions,
             "margin": "none",
-            "spacing": "none"
-        },
-        "styles": {
-            "body": {
-                "backgroundColor": "#FEFEFE",
-                "separator": false
-            }
-        }
-    };
+            "aspectMode": "fit"
+          }
+        ],
+        "cornerRadius": "10px",
+        "spacing": "none",
+        "margin": "md"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": name,
+            "size": "md",
+            "color": "#FFFFFF",
+            "align": "center",
+            "weight": "bold",
+            "style": "normal",
+            "margin": "md",
+            "wrap": true
+          }
+        ],
+        "margin": "md",
+        "backgroundColor": "#06C755",
+        "paddingAll": "10px",
+        "paddingTop": "2px",
+        "cornerRadius": "10px"
+      },
+      {
+        "type": "separator",
+        "color": "#cccccc",
+        "margin": "md"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "text",
+            "text": date,
+            "margin": "none",
+            "size": "sm",
+            "color": "#111111",
+            "weight": "regular",
+            "align": "center"
+          },
+          {
+            "type": "text",
+            "text": location,
+            "margin": "none",
+            "size": "sm",
+            "color": "#111111",
+            "weight": "regular",
+            "align": "center"
+          },
+          {
+            "type": "text",
+            "text": time,
+            "margin": "none",
+            "size": "sm",
+            "color": "#111111",
+            "weight": "regular",
+            "align": "center"
+          }
+        ],
+        "spacing": "none",
+        "margin": "md"
+      },
+      {
+        "type": "separator",
+        "color": "#cccccc",
+        "margin": "lg"
+      },
+      {
+        "margin": "none",
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "text",
+            "text": "อาหาร",
+            "color": "#111111",
+            "weight": "bold",
+            "size": "sm",
+            "align": "start",
+            "gravity": "center",
+            "margin": "none"
+          },
+          {
+            "type": "text",
+            "text": "สถานะ",
+            "color": "#111111",
+            "weight": "bold",
+            "size": "sm",
+            "align": "end",
+            "gravity": "center",
+            "margin": "none",
+            "offsetEnd": "30px"
+          }
+        ],
+        "spacing": "none",
+        "paddingTop": "10px"
+      },
+      {
+        "margin": "sm",
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "text",
+            "text": food,
+            "color": "#111111",
+            "weight": "regular",
+            "size": "sm",
+            "align": "start",
+            "gravity": "center",
+            "margin": "none",
+            "wrap": true
+          },
+          {
+            "type": "text",
+            "text": status,
+            "color": "#FF334B",
+            "weight": "bold",
+            "size": "sm",
+            "align": "end",
+            "gravity": "center",
+            "margin": "none",
+            "offsetEnd": "30px"
+          }
+        ],
+        "spacing": "none"
+      },
+      {
+        "type": "image",
+        "url": timecard,
+        "position": "absolute",
+        "animated": true,
+        "offsetStart": "250px",
+        "offsetTop": "405px",
+        "size": "xxs"
+      },
+      {
+        "type": "image",
+        "url": "https://lh3.googleusercontent.com/d/18lW8f6MR444Jm2lipdCjb-E0QqEKUTEo",
+        "position": "absolute",
+        "size": "xxs",
+        "animated": true,
+        "offsetTop": "10px",
+        "offsetStart": "30px"
+      }
+    ],
+    "borderWidth": "normal",
+    "margin": "none",
+    "spacing": "none"
+  },
+  "styles": {
+    "body": {
+      "backgroundColor": "#FEFEFE",
+      "separator": false
+    }
+  }
+};
 
             liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลการลงทะเบียน", contents: flexMessage }])
                 .then(() => liff.closeWindow())
