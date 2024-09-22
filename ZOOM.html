@@ -437,6 +437,16 @@
             const filePreview = document.getElementById('file-preview');
             const fileUrl = filePreview.getAttribute('data-file-url') || '';
 
+
+    console.log('Collected data:', { functions, time, role, ratio, room, day, topic, fileUrl});
+    
+    // ตรวจสอบข้อมูลที่จำเป็น
+    if (!functions || !time || !role || !ratio || !room || !day || !topic || !fileUrl) {
+        console.error('Missing required fields');
+        alert('กรุณากรอกข้อมูลให้ครบทุกช่อง');
+        return;
+    }
+		
             const flexMessage = {
   "type": "bubble",
   "size": "giga",
