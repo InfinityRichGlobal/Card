@@ -426,6 +426,16 @@
             const filePreview = document.getElementById('file-preview');
             const fileUrl = filePreview.getAttribute('data-file-url') || '';
 
+    console.log('Collected data:', { functions, nameclass, seat, total, bank, name, accname, fileUrl });
+    
+    // ตรวจสอบข้อมูลที่จำเป็น
+    if (!functions || !nameclass || !seat || !total || !bank || !name || !accname || !fileUrl) {
+        console.error('Missing required fields');
+        alert('กรุณากรอกข้อมูลให้ครบทุกช่อง');
+        return;
+    }
+
+            
             const flexMessage = {
                 "type": "bubble",
                 "body": {
