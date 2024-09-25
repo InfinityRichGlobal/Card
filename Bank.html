@@ -310,6 +310,15 @@
             const name = document.getElementById('name').value;
             const accname = document.getElementById('accname').value;
 
+    console.log('Collected data:', { functions, nameclass, seat, total, bank, name, accname });
+    
+    // ตรวจสอบข้อมูลที่จำเป็น
+    if (!functions || !nameclass || !seat || !total || !bank || !name || !accname) {
+        console.error('Missing required fields');
+        alert('กรุณากรอกข้อมูลให้ครบทุกช่อง');
+        return;
+    }
+
             const flexMessage = {
   "type": "bubble",
   "body": {
