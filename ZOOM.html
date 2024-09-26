@@ -422,7 +422,7 @@
       }, function (res) {
         if (res.status == 'success') {
           $('#userFlexList').empty();
-          console.log(res.data);
+          
           localStorage.setItem('userFlexData', JSON.stringify(res.data));
           $.each(res.data, function (i, item) {
             $('#userFlexList').append($('<li>').html('<button class="btn btn-link btn-sm w-100 text-truncate text-start" onclick="populateData(\'' + item.id + '\')">' + item.topic + '</button>'));
@@ -433,11 +433,11 @@
     }
 
     function populateData(id) {
-      console.log("🚀 !! id:", id)
+      
       let userFlexData = JSON.parse(localStorage.getItem('userFlexData'));
-      console.log("🚀 !! userFlexData:", userFlexData)
+      
       let flex_data = userFlexData.find(x => x.id == id);
-      console.log("🚀 !! flex_data:", flex_data)
+      
       if (!flex_data) return console.error('Data not found');
       $('#userFlex').offcanvas('hide');
       $('#functions input[value="' + flex_data.functions + '"]').prop('checked', true);
@@ -675,7 +675,7 @@
       }
 
       let flexMessage = getFlex({ id, functions, time, role, ratio, room, day, topic, fileUrl, shareOption });
-      console.log('Flex Message:', flexMessage);
+      
 
       liff.shareTargetPicker([{ type: "flex", altText: "คลาสเรียนจะเริ่มแล้วค่ะ", contents: flexMessage }])
         .then(() => {
