@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BANK CARD</title>
+  <title>ZOOM ROOM</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -42,6 +42,7 @@
       color: var(--text-color);
       line-height: 1.6;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
@@ -136,7 +137,7 @@
 
     .image-option img {
 
-      height: 150px;
+      height: 70px;
       object-fit: cover;
       border: 10px solid transparent;
       border-radius: 8px;
@@ -154,7 +155,8 @@
       /* หรือ visibility: hidden; */
     }
 
-    #qrShow {
+    #shareOption,
+    #saveOption {
       transform: scale(1.5);
       margin-right: 10px;
       margin-top: 7px;
@@ -163,56 +165,104 @@
   </style>
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 
 
 <body>
-  <div class="container mt-4">
-    <center><img src="https://cdn-icons-gif.flaticon.com/16104/16104537.gif" width="200" height="200"></center>
+  <nav class="navbar bg-transparent w-100 d-none wait-id">
+    <div class="container-fluid">
+      <button class="btn btn-secondary btn-sm ms-auto disabled" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#userFlex" aria-controls="userFlex" id="modal-btn">
+        <i class="bi bi-person-circle"></i>
+        ประวัติของฉัน
+      </button>
+    </div>
+  </nav>
+  <div class="container mt-4 d-none wait-id">
+    <center><img src="https://cdn-icons-gif.flaticon.com/14164/14164973.gif" width="200" height="200"></center>
     <p></p>
-    <h4 class="text-center mb-4">สร้างการ์ดบัญชีรับเงิน</h4>
+    <h4 class="text-center mb-4">สร้างการ์ดประกาศคลาส</h4>
     <p></p>
     <form id="shareForm">
       <div class="form-group mb-3">
         <label>เลือกรูปแบบการเรียน:</label>
         <div id="functions" class="image-options"></div>
       </div>
+
+
       <div class="form-group mb-3">
-        <label for="nameclass">ชื่อคลาสเรียน:</label>
-        <select class="form-control" id="nameclass"></select>
+        <label for="input11">ภาพโปรโมทคลาส:</label>
+        <input type="file" id="input11" name="input11" class="form-control" accept="image/*" onchange="previewFile()">
+
+        <div id="file-preview-container" style="display: none; text-align: center;">
+          <img id="file-preview" src="" alt="File Preview" style="max-height: 200px; margin-top: 10px;">
+        </div>
       </div>
+
+      <img
+        src="https://uploads-ssl.webflow.com/616e938268c8f0a92cb2b540/62aa4432f2e57ec55f3660b1_best%20aspect%20ratios%20for%20video.jpg"
+        alt="ratio" style="max-width: 100%; height: auto; margin: 10px;">
+
+
       <div class="form-group mb-3">
-        <label for="seat">จำนวนที่นั่ง:</label>
-        <select class="form-control" id="seat"></select>
+        <label for="ratio">สัดส่วนภาพ:</label>
+        <select class="form-control" id="ratio"></select>
       </div>
+
+
       <div class="form-group mb-3">
-        <label for="total">ยอดรวมโอน:</label>
-        <select class="form-control" id="total"></select>
+        <label for="topic">ชื่อคลาสเรียน:</label>
+        <input type="text" class="form-control" id="topic" placeholder="">
       </div>
+
       <div class="form-group mb-3">
-        <label for="bank">ธนาคารปลายทาง:</label>
-        <select class="form-control" id="bank"></select>
+        <label for="role">สำหรับใคร:</label>
+        <select class="form-control" id="role"></select>
       </div>
+
+
       <div class="form-group mb-3">
-        <label for="name">ชื่อเจ้าบัญชีธนาคาร:</label>
-        <input type="text" class="form-control" id="name" placeholder="ชื่อจริง-นามสกุล(เจ้าของบัญชี)">
+        <label for="room">เลขห้องซูม:</label>
+        <input type="text" class="form-control" id="room" placeholder="กรอกเลขเข้าห้องซูมติดกัน">
       </div>
+
+
       <div class="form-group mb-3">
-        <label for="accname">เลขบัญชี ระบุตามรูปแบบให้ถูกต้อง:</label>
-        <input type="text" class="form-control" id="accname" placeholder="XXX-X-XXXXX-X ">
+        <label for="day">วันที่:</label>
+        <input type="text" class="form-control" id="day" placeholder="EX. 12 มกราคม 2567">
+      </div>
+
+
+      <div class="form-group mb-3">
+        <label for="time">เวลา:</label>
+        <select class="form-control" id="time"></select>
+      </div>
+
+      <div class="form-group mb-3">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="saveOption">
+          <label class="form-check-label" for="shareOption">
+            บันทึกข้อมูล
+          </label>
+        </div>
       </div>
       <div class="form-group mb-3">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="qrShow">
-          <label class="form-check-label" for="qrShow">
-            แสดง QR Code สำหรับการโอนเงิน <i class="bi bi-qr-code"></i>
+          <input class="form-check-input" type="checkbox" value="" id="shareOption">
+          <label class="form-check-label" for="shareOption">
+            อนุญาตให้สามารถส่งต่อได้
           </label>
         </div>
       </div>
 
-      <button type="button" class="btn btn-primary btn-block" id="check-btn">ตรวจสอบและส่ง</button>
+
+      <button type="button" class="btn btn-primary btn-block" data-toggle="modal"
+        data-target="#previewModal">ตรวจสอบและส่ง</button>
     </form>
   </div>
 
@@ -223,8 +273,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="previewModalLabel">ตรวจสอบข้อมูลก่อนส่ง</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+          <button type="button" class=btn-close" data-dismiss="modal" aria-label="Close">
           </button>
         </div>
         <div class="modal-body">
@@ -246,36 +295,169 @@
     </div>
   </div>
 
+  <!-- Offcanvas -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="userFlex" aria-labelledby="userFlexLabel">
+    <div class="offcanvas-header text-bg-dark" data-bs-theme="dark">
+      <h5 class="offcanvas-title" id="userFlexLabel">ประวัติของฉัน</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <ul id="userFlexList" class="list-group gap-2">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                ไม่พบข้อมูล
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
+    const script_url = 'https://script.google.com/macros/s/AKfycby8srAy2mrK3fapZVBzULsWwetnM-OFvuseI0Aot0V8f8ppRdwwjzecaVxoP5vYN1-S/exec'
     function initializeLiff(myLiffId) {
       liff.init({ liffId: myLiffId })
         .then(() => {
+          if (!liff.isLoggedIn()) {
+            liff.login({
+              redirectUri: window.location.href
+            });
+            return;
+          }
+          let params = new URLSearchParams(window.location.search);
+          let id = params.get('id');
+          if (id) {
+            $('.wait-id').remove()
+            fowardFlexData(id);
+            return
+          }
+          $('.wait-id').removeClass('d-none');
           loadSelectOptions();
+          loadUserFlexData();
         })
         .catch((err) => {
           console.error('LIFF Initialization failed', err);
         });
     }
 
-    $('#check-btn').click(function () {
-      const accname = document.getElementById('accname').value.replace(/-/g, '').replace(/ /g, '').trim();
-      if(!(accname.length == 13 || accname.length == 10)){
-        alert("กรุณากรอกเลขบัญชีให้ถูกต้อง");
-        return;
-      }
+    $('[data-target="#previewModal"]').click(() => {
       $('#previewModal').modal('show');
+    })
+
+    $('#shareOption').on('change', function () {
+      if ($(this).is(':checked')) {
+        $('#saveOption').prop({
+          checked: true,
+          disabled: true
+        })
+      } else {
+        $('#saveOption').prop({
+          checked: false,
+          disabled: false
+        })
+      }
     });
 
-    function loadSelectOptions() {
-      $.getJSON('https://script.google.com/macros/s/AKfycbwfCoP_YnrbFqSGAfDnAL6_jaBg-G4jdloO5bFZwMWWhhC2Hq_T2pJm8mqXaxbRsDoj/exec', function (data) {
-        updateImageOptions('functions', data.functions);
-        updateSelect('nameclass', data.nameclass);
-        updateSelect('seat', data.seat);
-        updateSelect('total', data.total);
-        updateSelect('bank', data.bank);
+    function fowardFlexData(id) {
+      Swal.fire({
+        icon: 'info',
+        title: 'กำลังโหลดข้อมูล',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+      $.post(script_url, {
+        opt: 'loadflexdata',
+        id: id
+      }, function (res) {
+        if (res.status == 'success') {
+          Swal.update({
+            icon: 'success',
+            title: 'กำลังดึงรายชื่อเพื่อน',
+            allowOutsideClick: false
+          })
+          Swal.showLoading(Swal.getConfirmButton());
+          let flex = getFlex(res.data[0]);
+          liff.shareTargetPicker([{ type: "flex", altText: "คลาสเรียนจะเริ่มแล้วค่ะ", contents: flex }])
+            .then(() => {
+              console.log('message sent');
+              Swal.fire({
+                icon: 'success',
+                title: 'ส่งข้อมูลสำเร็จ',
+                showConfirmButton: false,
+                timer: 1000,
+              });
+              liff.closeWindow();
+            })
+            .catch(err => console.error('Error sending message:', err));
+        }else{
+          Swal.fire({
+            icon: 'error',
+            title: 'ไม่พบข้อมูล',
+            confirmButtonText: 'ปิด',
+            allowOutsideClick: false
+          })
+        }
       });
     }
 
+    function loadSelectOptions() {
+      $.getJSON(script_url, function (data) {
+        updateImageOptions('functions', data.functions);
+        updateSelect('role', data.role);
+        updateSelect('time', data.time);
+        updateSelect('ratio', data.ratio);
+      });
+    }
+
+    function loadUserFlexData() {
+      $.post(script_url, {
+        opt: 'loaduserflexdata',
+        uid: liff.getDecodedIDToken().sub
+      }, function (res) {
+        if (res.status == 'success') {
+          $('#userFlexList').empty();
+          
+          localStorage.setItem('userFlexData', JSON.stringify(res.data));
+          $.each(res.data, function (i, item) {
+            $('#userFlexList').append($('<li>').html('<button class="btn btn-link btn-sm w-100 text-truncate text-start" onclick="populateData(\'' + item.id + '\')">' + item.topic + '</button>'));
+          });
+          $('#modal-btn').removeClass('disabled');
+        }
+      });
+    }
+
+    function populateData(id) {
+      
+      let userFlexData = JSON.parse(localStorage.getItem('userFlexData'));
+      
+      let flex_data = userFlexData.find(x => x.id == id);
+      
+      if (!flex_data) return console.error('Data not found');
+      $('#userFlex').offcanvas('hide');
+      $('#functions input[value="' + flex_data.functions + '"]').prop('checked', true);
+      $('#ratio').val(flex_data.ratio);
+      $('#topic').val(flex_data.topic);
+      $('#role').val(flex_data.role);
+      $('#room').val(flex_data.room);
+      $('#day').val(flex_data.day);
+      $('#time').val(flex_data.time);
+      $('#file-preview').attr('src', flex_data.fileUrl).attr('data-file-url', flex_data.fileUrl);
+      $('#file-preview-container').show();
+      $('#saveOption').prop('checked', flex_data.saveOption).prop('disabled', flex_data.shareOption ? true : false);
+      $('#shareOption').prop('checked', flex_data.shareOption);
+      Swal.fire({
+        icon: 'success',
+        title: 'โหลดข้อมูลสำเร็จ',
+        showConfirmButton: false,
+        timer: 1000,
+      });
+    }
 
 
     function updateImageOptions(id, options) {
@@ -302,36 +484,111 @@
       select.empty();
       select.append($('<option>').val('').text('เลือก' + select.prev('label').text().slice(0, -1)).prop('disabled', true).prop('selected', true));
       $.each(options, function (i, option) {
-        let opt = $('<option>').val(option.value).text(option.text)
-        if (id == 'bank') opt.attr({ 'data-logo': option.logo, 'data-bg': option['background color'] });
-        select.append(opt);
+        select.append($('<option>').val(option.value).text(option.text));
       });
     }
 
 
 
 
+    async function uploadFile() {
+      const fileInput = document.getElementById('input11');
+      const file = fileInput.files[0];
+
+      if (!file) {
+        alert('Please select a file.');
+        return;
+      }
+
+      let fileUrl = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = async function (event) {
+          const base64Data = event.target.result.split(',')[1]; // Extract base64 data
+          const fileName = file.name;
+
+          try {
+            const response = await fetch(script_url, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+              },
+              body: new URLSearchParams({
+                fileData: base64Data,
+                fileName: fileName
+              })
+            });
+
+            const result = await response.json();
+            console.log('File uploaded:', result.fileUrl);
+            resolve(result.fileUrl);
+          } catch (error) {
+            console.error('Error uploading file:', error);
+            reject(error);
+          }
+        };
+
+        reader.readAsDataURL(file);
+      });
+      return fileUrl;
+    }
+
+
+
+    function previewFile() {
+      const fileInput = document.getElementById('input11');
+      const filePreview = document.getElementById('file-preview');
+      const filePreviewContainer = document.getElementById('file-preview-container');
+
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        // max size is 10mb
+        if (fileInput.files[0].size > 10 * 1024 * 1024) {
+          alert('ไฟล์ขนาดใหญ่เกินไป กรุณาเลือกไฟล์ที่มีขนาดไม่เกิน 10 MB');
+          fileInput.value = '';
+          return;
+        }
+
+        reader.onload = async function (e) {
+          filePreview.src = e.target.result;
+          filePreviewContainer.style.display = 'block';
+          // เก็บ URL ของภาพใน data attribute
+          let fileUrl = await uploadFile();
+          filePreview.setAttribute('data-file-url', fileUrl);
+        };
+
+        reader.readAsDataURL(fileInput.files[0]);
+      } else {
+        filePreviewContainer.style.display = 'none';
+      }
+    }
+
+
+
     function updatePreview() {
       const functions = $('input[name="functions"]:checked').val();
-      const nameclass = document.getElementById('nameclass').value;
-      const seat = document.getElementById('seat').value;
-      const total = document.getElementById('total').value;
-      const bank = document.getElementById('bank').value;
-      const name = document.getElementById('name').value;
-      const accname = document.getElementById('accname').value.replace(/-/g, '').replace(/ /g, '').trim();
-    
+      const time = document.getElementById('time').value;
+      const role = document.getElementById('role').value;
+      const ratio = document.getElementById('ratio').value;
+      const room = document.getElementById('room').value;
+      const day = document.getElementById('day').value;
+      const topic = document.getElementById('topic').value;
+      const filePreview = document.getElementById('file-preview');
+      const fileUrl = filePreview.getAttribute('data-file-url') || '';
+
 
 
       const previewHtml = `
         <div>
-            <img src="${functions}" alt="Selected function" style="max-width: 100%; height: auto; margin-bottom: 15px;">
-            <p>ชื่อคลาส: ${nameclass}</p>
-            <p>จำนวนลงทะเบียน(ที่นั่ง): ${seat}</p>
-            <p>ยอดชำระเงิน: ${total}</p>
-            <p>แจ้งโอนเข้าบัญชีธนาคาร: ${bank}</p>
+            <img src="${fileUrl}" alt="Pic Class" style="max-width: 100%; height: auto; margin-bottom: 15px;">
             <hr>
-            <p>ชื่อบัญชี: ${name}</p>
-            <p>เลขบัญชี: ${accname}</p>
+            <p>สัดส่วนภาพ: ${ratio}</p>	
+			<p>ชื่อคลาส: ${topic}</p>
+            <p>วันที่: ${day}</p>
+            <p>เวลา: ${time}</p>
+            <p>สำหรับ: ${role}</p>
+            <hr>
+            <img src="${functions}" alt="ZOOM" style="max-width: 20%; height: auto; margin-bottom: 15px;">
+            <p>เลขห้อง: ${room}</p>
         </div>
     `;
 
@@ -344,235 +601,270 @@
 
 
 
-    function shareMessage() {
+    async function shareMessage() {
       const functions = $('input[name="functions"]:checked').val();
-      const nameclass = document.getElementById('nameclass').value;
-      const seat = document.getElementById('seat').value;
-      const total = document.getElementById('total').value;
-      const bank = document.getElementById('bank').value;
-      const name = document.getElementById('name').value;
-      const accname = document.getElementById('accname').value;
+      const time = document.getElementById('time').value;
+      const role = document.getElementById('role').value;
+      const ratio = document.getElementById('ratio').value;
+      const room = document.getElementById('room').value;
+      const day = document.getElementById('day').value;
+      const topic = document.getElementById('topic').value;
 
-      const flexMessage = {
+      const filePreview = document.getElementById('file-preview');
+      const fileUrl = filePreview.getAttribute('data-file-url') || '';
+      const shareOption = $('#shareOption').is(':checked');
+      const saveOption = $('#saveOption').is(':checked');
+
+
+      console.log('Collected data:', { functions, time, role, ratio, room, day, topic, fileUrl });
+
+      // ตรวจสอบข้อมูลที่จำเป็น
+      if (!functions || !time || !role || !ratio || !room || !day || !topic || !fileUrl) {
+        console.error('Missing required fields');
+        alert('กรุณากรอกข้อมูลให้ครบทุกช่อง');
+        return;
+      }
+      let id
+      if (saveOption) {
+        await new Promise((resolve, reject) => {
+          $.post(script_url, {
+            opt: 'save',
+            functions: functions,
+            time: time,
+            role: role,
+            ratio: ratio,
+            room: room,
+            day: day,
+            topic: topic,
+            fileUrl: fileUrl,
+            shareOption: shareOption,
+            saveOption: saveOption,
+            uid: liff.getDecodedIDToken().sub
+          }, function (res) {
+            if (res.status == 'success') {
+              console.log('Data saved successfully');
+              let userFlexData = JSON.parse(localStorage.getItem('userFlexData'));
+              let newFlexData = {
+                id: res.id,
+                functions: functions,
+                time: time,
+                role: role,
+                ratio: ratio,
+                room: room,
+                day: day,
+                topic: topic,
+                fileUrl: fileUrl,
+                shareOption: shareOption,
+                saveOption: saveOption,
+                uid: liff.getDecodedIDToken().sub
+              };
+              if (userFlexData) {
+                userFlexData.push(newFlexData);
+              } else {
+                userFlexData = [newFlexData];
+              }
+              localStorage.setItem('userFlexData', JSON.stringify(userFlexData));
+              $('#userFlexList').append($('<li>').html('<button class="btn btn-link btn-sm w-100 text-truncate text-start" onclick="populateData(\'' + res.id + '\')">' + topic + '</button>'));
+              id = res.id
+              resolve()
+            } else {
+              reject()
+            }
+          });
+        });
+      }
+
+      let flexMessage = getFlex({ id, functions, time, role, ratio, room, day, topic, fileUrl, shareOption });
+      
+
+      liff.shareTargetPicker([{ type: "flex", altText: "คลาสเรียนจะเริ่มแล้วค่ะ", contents: flexMessage }])
+        .then(() => {
+          console.log('message sent');
+          $('#previewModal').modal('hide');
+          liff.closeWindow();
+        })
+        .catch(err => console.error('Error sending message:', err));
+    }
+
+    function getFlex({ id, functions, time, role, ratio, room, day, topic, fileUrl, shareOption }) {
+      let flex = {
         "type": "bubble",
+        "size": "giga",
+        "hero": {
+          "type": "image",
+          "url": fileUrl,
+          "size": "full",
+          "aspectRatio": ratio,
+          "aspectMode": "cover"
+        },
         "body": {
           "type": "box",
           "layout": "vertical",
           "contents": [
             {
-              "type": "image",
-              "url": "https://lh3.googleusercontent.com/d/1tKVP5FVXa4zZFbeVUQRCU3YapD5yu0I0",
-              "size": "xxs",
-              "animated": true,
-              "position": "absolute",
-              "flex": 1,
-              "offsetTop": "10px",
-              "offsetStart": "250px"
-            },
-            {
               "type": "text",
-              "text": "ชำระค่าลงทะเบียน",
+              "text": topic,
               "weight": "bold",
-              "color": "#06C755",
-              "size": "md"
+              "size": "md",
+              "style": "normal",
+              "align": "center",
+              "offsetBottom": "10px",
+              "color": "#0B5CFF"
             },
             {
               "type": "text",
-              "text": nameclass,
-              "size": "xs",
-              "color": "#111111",
-              "wrap": true,
-              "margin": "none",
-              "weight": "regular"
+              "text": role,
+              "weight": "bold",
+              "size": "md",
+              "style": "normal",
+              "align": "center",
+              "offsetBottom": "10px",
+              "color": "#555555",
+              "margin": "xs"
+            },
+            {
+              "type": "box",
+              "layout": "vertical",
+              "margin": "lg",
+              "spacing": "sm",
+              "contents": [
+                {
+                  "type": "box",
+                  "layout": "baseline",
+                  "spacing": "sm",
+                  "contents": [
+                    {
+                      "type": "text",
+                      "text": "วันที่:",
+                      "size": "sm",
+                      "flex": 5,
+                      "offsetStart": "90px"
+                    },
+                    {
+                      "type": "text",
+                      "text": day,
+                      "wrap": true,
+                      "size": "sm",
+                      "flex": 9
+                    }
+                  ]
+                },
+                {
+                  "type": "box",
+                  "layout": "baseline",
+                  "spacing": "sm",
+                  "contents": [
+                    {
+                      "type": "text",
+                      "text": "เวลา:",
+                      "size": "sm",
+                      "flex": 5,
+                      "offsetStart": "90px"
+                    },
+                    {
+                      "type": "text",
+                      "text": time,
+                      "wrap": true,
+                      "size": "sm",
+                      "flex": 9
+                    }
+                  ]
+                },
+                {
+                  "type": "box",
+                  "layout": "vertical",
+                  "spacing": "none",
+                  "contents": [
+                    {
+                      "type": "text",
+                      "text": "รหัสเข้าห้องเรียน",
+                      "size": "sm",
+                      "flex": 22,
+                      "color": "#FFFFFF",
+                      "weight": "regular",
+                      "margin": "md"
+                    },
+                    {
+                      "type": "text",
+                      "text": room,
+                      "wrap": true,
+                      "color": "#FFFFFF",
+                      "size": "3xl",
+                      "flex": 5,
+                      "margin": "lg",
+                      "offsetBottom": "10px"
+                    },
+                    {
+                      "type": "text",
+                      "text": "คลิ๊กเพื่อเข้าห้องเรียน ZOOM",
+                      "size": "sm",
+                      "flex": 22,
+                      "color": "#FFFFFF",
+                      "weight": "regular",
+                      "margin": "sm",
+                      "offsetBottom": "10px"
+                    }
+                  ],
+                  "backgroundColor": "#0B5CFF",
+                  "cornerRadius": "10px",
+                  "alignItems": "center",
+                  "action": {
+                    "type": "uri",
+                    "label": "action",
+                    "uri": `https://zoom.us/j/${room}`
+                  },
+                  "offsetTop": "5px"
+                },
+                {
+                  "type": "text",
+                  "text": "ห้องเรียนเปิดก่อนเวลา 15 นาที",
+                  "size": "sm",
+                  "flex": 22,
+                  "weight": "regular",
+                  "margin": "lg",
+                  "align": "center"
+                }
+              ],
+              "offsetBottom": "10px"
             },
             {
               "type": "image",
               "url": functions,
-              "size": "full",
-              "margin": "md",
-              "align": "center",
-              "aspectMode": "fit",
-              "aspectRatio": "16:9"
-            },
-            {
-              "type": "box",
-              "layout": "vertical",
-              "margin": "md",
-              "spacing": "sm",
-              "contents": [
-                {
-                  "type": "box",
-                  "layout": "horizontal",
-                  "contents": [
-                    {
-                      "type": "text",
-                      "text": "จำนวนที่นั่ง:",
-                      "size": "sm",
-                      "color": "#111111",
-                      "flex": 0,
-                      "weight": "bold"
-                    },
-                    {
-                      "type": "text",
-                      "text": seat,
-                      "size": "sm",
-                      "color": "#111111",
-                      "align": "end",
-                      "weight": "bold"
-                    }
-                  ],
-                  "spacing": "none",
-                  "margin": "none"
-                },
-                {
-                  "type": "box",
-                  "layout": "horizontal",
-                  "contents": [
-                    {
-                      "type": "text",
-                      "text": "รวมทั้งหมด:",
-                      "size": "md",
-                      "color": "#06C755",
-                      "flex": 0,
-                      "weight": "bold"
-                    },
-                    {
-                      "type": "text",
-                      "text": total,
-                      "size": "md",
-                      "color": "#FF334B",
-                      "align": "end",
-                      "weight": "bold",
-                      "margin": "none"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "box",
-              "layout": "vertical",
-              "margin": "md",
-              "spacing": "sm",
-              "contents": [
-                {
-                  "type": "image",
-                  "url": $("#bank option:selected").attr('data-logo'),
-                  "position": "absolute",
-                  "size": "xxs",
-                  "offsetStart": "210px",
-                  "margin": "xxl",
-                  "offsetTop": "10px"
-                },
-                {
-                  "type": "box",
-                  "layout": "horizontal",
-                  "margin": "none",
-                  "contents": [
-                    {
-                      "type": "text",
-                      "text": "ธนาคาร",
-                      "size": "md",
-                      "color": "#111111",
-                      "offsetStart": "15px"
-                    },
-                    {
-                      "type": "text",
-                      "size": "md",
-                      "color": "#FFFFFF",
-                      "align": "start",
-                      "text": bank,
-                      "offsetEnd": "50px",
-                      "weight": "bold"
-                    }
-                  ]
-                },
-                {
-                  "type": "box",
-                  "layout": "horizontal",
-                  "contents": [
-                    {
-                      "type": "text",
-                      "text": "ชื่อบัญชี",
-                      "size": "md",
-                      "color": "#111111",
-                      "offsetStart": "15px"
-                    },
-                    {
-                      "type": "text",
-                      "text": name,
-                      "size": "md",
-                      "color": "#FFFFFF",
-                      "align": "start",
-                      "offsetEnd": "50px",
-                      "weight": "bold",
-                      "wrap": true
-                    }
-                  ]
-                },
-                {
-                  "type": "box",
-                  "layout": "horizontal",
-                  "contents": [
-                    {
-                      "type": "text",
-                      "text": "เลขบัญชี",
-                      "size": "md",
-                      "color": "#111111",
-                      "offsetStart": "15px"
-                    },
-                    {
-                      "type": "text",
-                      "text": accname,
-                      "size": "md",
-                      "color": "#FFFFFF",
-                      "align": "start",
-                      "offsetEnd": "50px",
-                      "weight": "bold",
-                      "offsetTop": "2px",
-                      "wrap": true
-                    }
-                  ],
-                  "cornerRadius": "none",
-                  "justifyContent": "flex-start",
-                  "alignItems": "center",
-                  "flex": 1
-                }
-              ],
-              "backgroundColor": $("#bank option:selected").attr('data-bg'),
-              "paddingTop": "12px",
-              "paddingBottom": "15px",
-              "cornerRadius": "5px",
-              "flex": 1
-            },
-          ]
-        },
-        "styles": {
-          "footer": {
-            "separator": true
-          }
-        }
-      };
-      if ($('#qrShow').is(':checked')) {
-        flexMessage.footer = {
-          "type": "box",
-          "layout": "vertical",
-          "contents": [
-            {
-              "type": "image",
-              "url": "https://promptpay.io/" + accname+"/"+ total.replace(/,/g, '').replace('บาท', '').replace(/ /g, '') + ".png",
-              "size": "200px"
+              "position": "absolute",
+              "size": "xxs",
+              "offsetTop": "72px",
+              "offsetStart": "60px",
+              "animated": true
             }
           ]
         }
+      };
+      if (shareOption) {
+        flex.footer = {
+          "type": "box",
+          "layout": "vertical",
+          "spacing": "sm",
+          "contents": [
+            {
+              "type": "button",
+              "action": {
+                "type": "uri",
+                "label": "ส่งต่อ",
+                "uri": 'https://liff.line.me/' + liff.getContext().liffId + '?id=' + id
+              }
+            }
+          ]
+        };
+        flex.body.contents.push({ type: "separator" });
       }
-    console.log(flexMessage);
-    liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลการชำระเงินค่ะ", contents: flexMessage }])
-      .then(() => liff.closeWindow())
-      .catch(err => console.error('Error sending message:', err));
+      return flex;
     }
 
-    initializeLiff('2006306490-ZK4L42nO');
+    initializeLiff('2006306490-rlWaW7pA');
+  </script>
+  <script type="module">
+    import promptpayQr from 'https://fastly.jsdelivr.net/npm/promptpay-qr@0.5.0/+esm'
+    window.promptpayQr = promptpayQr
   </script>
 </body>
 
