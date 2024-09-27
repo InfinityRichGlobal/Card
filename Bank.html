@@ -259,11 +259,38 @@
 
     $('#check-btn').click(function () {
       const accname = document.getElementById('accname').value.replace(/-/g, '').replace(/ /g, '').trim();
-      if(!(accname.length == 13 || accname.length == 10)){
+      if (!(accname.length == 13 || accname.length == 10)) {
         alert("กรุณากรอกเลขบัญชีให้ถูกต้อง");
         return;
       }
       $('#previewModal').modal('show');
+    });
+
+    $('#qrShow').change(function () {
+      Swal.fire({
+        title: 'QR Code การโอนเงิน',
+        input: 'text',
+        inputLabel: 'หมายเลขพร้อมเพย์',
+        inputPlaceholder: '08X-XXX-XXXX',
+        showCancelButton: true,
+        confirmButtonText: 'ตกลง',
+        cancelButtonText: 'ยกเลิก',
+        inputValidator: (value) => {
+          if (!value) {
+            return 'กรุณากรอกหมายเลขพร้อมเพย์';
+          }
+          value = value.replace(/-/g, '').replace(/ /g, '').trim();
+          if(!(value.length == 10 || value.length == 13)) {
+            return 'หมายเลขพร้อมเพย์ไม่ถูกต้อง';
+          }
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $('#qrShow').prop('checked', true).attr('data-promptpay', result.value);
+        } else {
+          $('#qrShow').prop('checked', false).removeAttr('data-promptpay');
+        }
+      })
     });
 
     function loadSelectOptions() {
@@ -319,7 +346,7 @@
       const bank = document.getElementById('bank').value;
       const name = document.getElementById('name').value;
       const accname = document.getElementById('accname').value.replace(/-/g, '').replace(/ /g, '').trim();
-    
+
 
 
       const previewHtml = `
@@ -560,21 +587,21 @@
           "contents": [
             {
               "type": "image",
-              "url": "https://promptpay.io/" + accname+"/"+ total.replace(/,/g, '').replace('บาท', '').replace(/ /g, '') + ".png",
+              "url": "https://promptpay.io/" + $('#qrShow').data('promppay') + "/" + total.replace(/,/g, '').replace('บาท', '').replace(/ /g, '') + ".png",
               "size": "200px",
               "action": {
                 "type": "uri",
                 "label": "action",
-                "uri": "https://promptpay.io/" + accname+"/"+ total.replace(/,/g, '').replace('บาท', '').replace(/ /g, '') + ".png"
+                "uri": "https://promptpay.io/" + $('#qrShow').data('promppay') + "/" + total.replace(/,/g, '').replace('บาท', '').replace(/ /g, '') + ".png"
               }
             }
           ]
         }
       }
-    console.log(flexMessage);
-    liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลการชำระเงินค่ะ", contents: flexMessage }])
-      .then(() => liff.closeWindow())
-      .catch(err => console.error('Error sending message:', err));
+      console.log(flexMessage);
+      liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลการชำระเงินค่ะ", contents: flexMessage }])
+        .then(() => liff.closeWindow())
+        .catch(err => console.error('Error sending message:', err));
     }
 
     initializeLiff('2006306490-ZK4L42nO');
