@@ -207,7 +207,7 @@
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="" id="qrShow">
           <label class="form-check-label" for="qrShow">
-            แสดง QR Code สำหรับการโอนเงิน <i class="bi bi-qr-code"></i>
+            แสดง QR Code การโอนเงิน <i class="bi bi-qr-code"></i>
           </label>
         </div>
       </div>
@@ -561,7 +561,12 @@
             {
               "type": "image",
               "url": "https://promptpay.io/" + accname+"/"+ total.replace(/,/g, '').replace('บาท', '').replace(/ /g, '') + ".png",
-              "size": "200px"
+              "size": "200px",
+              "action": {
+                "type": "uri",
+                "label": "action",
+                "uri": "https://promptpay.io/" + accname+"/"+ total.replace(/,/g, '').replace('บาท', '').replace(/ /g, '') + ".png"
+              }
             }
           ]
         }
