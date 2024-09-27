@@ -693,10 +693,7 @@
     }
 
     function getFlex({ id, functions, time, role, ratio, room, day, topic, fileUrl, shareOption }) {
-      let year = new Date(day).getFullYear();
-      if(year > 2300) {
-        date = new Date(day).setFullYear(year - 543);
-      }
+	
       let flex = {
         "type": "bubble",
         "size": "giga",
@@ -752,7 +749,7 @@
                     },
                     {
                       "type": "text",
-                      "text": day.toLocaleString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' }),
+                      "text": day.toString(),
                       "wrap": true,
                       "size": "sm",
                       "flex": 9
