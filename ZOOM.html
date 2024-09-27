@@ -395,7 +395,7 @@
               liff.closeWindow();
             })
             .catch(err => console.error('Error sending message:', err));
-        }else{
+        } else {
           Swal.fire({
             icon: 'error',
             title: 'ไม่พบข้อมูล',
@@ -422,7 +422,7 @@
       }, function (res) {
         if (res.status == 'success') {
           $('#userFlexList').empty();
-          
+
           localStorage.setItem('userFlexData', JSON.stringify(res.data));
           $.each(res.data, function (i, item) {
             $('#userFlexList').append($('<li>').html('<button class="btn btn-link btn-sm w-100 text-truncate text-start" onclick="populateData(\'' + item.id + '\')">' + item.topic + '</button>'));
@@ -433,11 +433,11 @@
     }
 
     function populateData(id) {
-      
+
       let userFlexData = JSON.parse(localStorage.getItem('userFlexData'));
-      
+
       let flex_data = userFlexData.find(x => x.id == id);
-      
+
       if (!flex_data) return console.error('Data not found');
       $('#userFlex').offcanvas('hide');
       $('#functions input[value="' + flex_data.functions + '"]').prop('checked', true);
@@ -675,12 +675,18 @@
       }
 
       let flexMessage = getFlex({ id, functions, time, role, ratio, room, day, topic, fileUrl, shareOption });
-      
+
 
       liff.shareTargetPicker([{ type: "flex", altText: "คลาสเรียนจะเริ่มแล้วค่ะ", contents: flexMessage }])
         .then(() => {
           console.log('message sent');
           $('#previewModal').modal('hide');
+          Swal.fire({
+            icon: 'success',
+            title: 'ส่งข้อมูลสำเร็จ',
+            showConfirmButton: false,
+            timer: 1000,
+          });
           liff.closeWindow();
         })
         .catch(err => console.error('Error sending message:', err));
@@ -857,13 +863,13 @@
         };
         flex.body.contents.push({ type: "separator" });
       }
-	    console.log(flex)
+      console.log(flex)
       return flex;
     }
 
     initializeLiff('2006306490-rlWaW7pA');
   </script>
-	
+
 </body>
 
 </html>
