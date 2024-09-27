@@ -164,6 +164,7 @@
   <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 
@@ -267,11 +268,17 @@
     });
 
     $('#qrShow').change(function () {
+      if(!$(this).is(':checked')) return
       Swal.fire({
+        iconHtml: '<img src="https://img.icons8.com/color/100/qr-code--v1.png" width="100" height="100">',
         title: 'QR Code การโอนเงิน',
         input: 'text',
         inputLabel: 'หมายเลขพร้อมเพย์',
         inputPlaceholder: '08X-XXX-XXXX',
+        customClass: {
+          input: 'text-center',
+          icon: 'border-0'
+        },
         showCancelButton: true,
         confirmButtonText: 'ตกลง',
         cancelButtonText: 'ยกเลิก',
@@ -283,6 +290,12 @@
           if(!(value.length == 10 || value.length == 13)) {
             return 'หมายเลขพร้อมเพย์ไม่ถูกต้อง';
           }
+          if(value.length == 10 && !/^0[689]\d{8}$/.test(value)) {
+            return 'หมายเลขพร้อมเพย์ไม่ถูกต้อง';
+          }
+          if(value.length == 13 && !checkCitizenId(value)) {
+            return 'หมายเลขพร้อมเพย์ไม่ถูกต้อง';
+          }
         }
       }).then((result) => {
         if (result.isConfirmed) {
@@ -292,6 +305,13 @@
         }
       })
     });
+
+    function checkCitizenId(id) {
+      if (id.length != 13) return false;
+      for (i = 0, sum = 0; i < 12; i++) sum += parseFloat(id.charAt(i)) * (13 - i);
+      if ((11 - sum % 11) % 10 != parseFloat(id.charAt(12))) return false;
+      return true;
+    }
 
     function loadSelectOptions() {
       $.getJSON('https://script.google.com/macros/s/AKfycbwfCoP_YnrbFqSGAfDnAL6_jaBg-G4jdloO5bFZwMWWhhC2Hq_T2pJm8mqXaxbRsDoj/exec', function (data) {
