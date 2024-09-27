@@ -629,13 +629,13 @@
         await new Promise((resolve, reject) => {
           $.post(script_url, {
             opt: 'save',
-            functions: functions.toSring(),
-            time: time.toSring(),
-            role: role.toSring(),
-            ratio: ratio.toSring(),
-            room: room.toSring(),
-            day: day.toSring(),
-            topic: topic.toSring(),
+            functions: functions,
+            time: time,
+            role: role,
+            ratio: ratio,
+            room: room,
+            day: day,
+            topic: topic,
             fileUrl: fileUrl,
             shareOption: shareOption,
             saveOption: saveOption,
@@ -703,7 +703,7 @@
           "contents": [
             {
               "type": "text",
-              "text": topic,
+              "text": topic.toString(),
               "weight": "bold",
               "size": "md",
               "style": "normal",
@@ -713,7 +713,7 @@
             },
             {
               "type": "text",
-              "text": role,
+              "text": role.toString(),
               "weight": "bold",
               "size": "md",
               "style": "normal",
@@ -742,7 +742,7 @@
                     },
                     {
                       "type": "text",
-                      "text": day,
+                      "text": day.toString(),
                       "wrap": true,
                       "size": "sm",
                       "flex": 9
@@ -763,7 +763,7 @@
                     },
                     {
                       "type": "text",
-                      "text": time,
+                      "text": time.toString(),
                       "wrap": true,
                       "size": "sm",
                       "flex": 9
@@ -786,7 +786,7 @@
                     },
                     {
                       "type": "text",
-                      "text": room,
+                      "text": room.toString(),
                       "wrap": true,
                       "color": "#FFFFFF",
                       "size": "3xl",
@@ -811,7 +811,7 @@
                   "action": {
                     "type": "uri",
                     "label": "action",
-                    "uri": `https://zoom.us/j/${room}`
+                    "uri": `https://zoom.us/j/${room.toString()}`
                   },
                   "offsetTop": "5px"
                 },
@@ -829,7 +829,7 @@
             },
             {
               "type": "image",
-              "url": functions,
+              "url": functions.toString(),
               "position": "absolute",
               "size": "xxs",
               "offsetTop": "72px",
@@ -850,7 +850,7 @@
               "action": {
                 "type": "uri",
                 "label": "ส่งต่อ",
-                "uri": 'https://liff.line.me/' + liff.getContext().liffId + '?id=' + id
+                "uri": 'https://liff.line.me/' + liff.getContext().liffId + '?id=' + id.toString()
               }
             }
           ]
