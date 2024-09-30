@@ -711,24 +711,25 @@
             {
               "type": "text",
               "text": topic.toString(),
-              "weight": "bold",
-              "size": "md",
-              "style": "normal",
-              "align": "center",
-              "offsetBottom": "10px",
-              "color": "#0B5CFF"
-            },
+        "weight": "bold",
+        "size": "md",
+        "style": "normal",
+        "align": "center",
+        "offsetBottom": "10px",
+        "color": "#0B5CFF",
+        "wrap": true
+      },
             {
               "type": "text",
               "text": role.toString(),
-              "weight": "bold",
-              "size": "md",
-              "style": "normal",
-              "align": "center",
-              "offsetBottom": "10px",
-              "color": "#555555",
-              "margin": "xs"
-            },
+        "weight": "bold",
+        "size": "md",
+        "style": "normal",
+        "align": "center",
+        "offsetBottom": "10px",
+        "color": "#555555",
+        "margin": "xs"
+      },
             {
               "type": "box",
               "layout": "vertical",
@@ -736,47 +737,51 @@
               "spacing": "sm",
               "contents": [
                 {
-                  "type": "box",
-                  "layout": "baseline",
-                  "spacing": "sm",
-                  "contents": [
-                    {
-                      "type": "text",
-                      "text": "วันที่:",
-                      "size": "sm",
-                      "flex": 5,
-                      "offsetStart": "90px"
-                    },
+            "type": "box",
+            "layout": "horizontal",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "text",
+                "text": "วันที่:",
+                "size": "sm",
+                "align": "end",
+                "offsetEnd": "10px"
+              },
                     {
                       "type": "text",
                       "text": day.toString().split('-').reverse().join('-'),
-                      "wrap": true,
-                      "size": "sm",
-                      "flex": 9
-                    }
-                  ]
-                },
-                {
-                  "type": "box",
-                  "layout": "baseline",
-                  "spacing": "sm",
-                  "contents": [
-                    {
-                      "type": "text",
-                      "text": "เวลา:",
-                      "size": "sm",
-                      "flex": 5,
-                      "offsetStart": "90px"
-                    },
+                "wrap": true,
+                "size": "md",
+                "weight": "bold",
+                "color": "#0B5CFF"
+              }
+            ],
+            "alignItems": "center"
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "spacing": "sm",
+            "contents": [
+              {
+                "type": "text",
+                "text": "เวลา:",
+                "size": "sm",
+                "align": "end",
+                "offsetEnd": "10px"
+              },
                     {
                       "type": "text",
                       "text": time.toString(),
-                      "wrap": true,
-                      "size": "sm",
-                      "flex": 9
-                    }
-                  ]
-                },
+                "wrap": true,
+                "size": "md",
+                "weight": "bold",
+                "color": "#0B5CFF"
+              }
+            ],
+            "alignItems": "center"
+          },
                 {
                   "type": "box",
                   "layout": "vertical",
@@ -837,31 +842,44 @@
             {
               "type": "image",
               "url": functions.toString(),
-              "position": "absolute",
-              "size": "xxs",
-              "offsetTop": "72px",
-              "offsetStart": "60px",
-              "animated": true
-            }
-          ]
-        }
-      };
+        "size": "xs",
+        "offsetTop": "60px",
+        "offsetStart": "80px",
+        "animated": true,
+        "position": "absolute"
+      }
+    ],
+    "paddingBottom": "0px"
+  }
+};
       if (shareOption) {
         flex.footer = {
-          "type": "box",
-          "layout": "vertical",
-          "spacing": "sm",
-          "contents": [
-            {
-              "type": "button",
-              "action": {
-                "type": "uri",
-                "label": "ส่งต่อ",
-                "uri": 'https://liff.line.me/' + liff.getContext().liffId + '?id=' + id.toString()
-              }
-            }
-          ]
-        };
+    "type": "box",
+    "layout": "vertical",
+    "spacing": "sm",
+    "contents": [
+      {
+        "type": "button",
+        "action": {
+          "type": "uri",
+          "label": "กดปุ่มเพื่อ แชร์",
+          "uri": 'https://liff.line.me/' + liff.getContext().liffId + '?id=' + id.toString()
+        },
+        "offsetTop": "0px",
+        "offsetBottom": "0px",
+        "offsetStart": "0px",
+        "offsetEnd": "0px",
+        "color": "#FFFFFF",
+        "height": "sm"
+      }
+    ],
+    "paddingEnd": "0px",
+    "paddingStart": "0px",
+    "paddingTop": "0px",
+    "paddingBottom": "0px",
+    "backgroundColor": "#e63946"
+  }
+};
         flex.body.contents.push({ type: "separator" });
       }
       console.log(flex)
