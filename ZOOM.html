@@ -847,11 +847,10 @@
         "offsetStart": "80px",
         "animated": true,
         "position": "absolute"
-      }
-    ],
-    "paddingBottom": "0px"
-  }
-};
+            }
+          ]
+        }
+      };
       if (shareOption) {
         flex.footer = {
           "type": "box",
@@ -862,24 +861,12 @@
               "type": "button",
               "action": {
                 "type": "uri",
-          "label": "กดปุ่มเพื่อ แชร์",
-          "uri": 'https://liff.line.me/' + liff.getContext().liffId + '?id=' + id.toString()
-        },
-        "offsetTop": "0px",
-        "offsetBottom": "0px",
-        "offsetStart": "0px",
-        "offsetEnd": "0px",
-        "color": "#FFFFFF",
-        "height": "sm"
-      }
-    ],
-    "paddingEnd": "0px",
-    "paddingStart": "0px",
-    "paddingTop": "0px",
-    "paddingBottom": "0px",
-    "backgroundColor": "#e63946"
-  }
-};
+                "label": "ส่งต่อ",
+                "uri": 'https://liff.line.me/' + liff.getContext().liffId + '?id=' + id.toString()
+              }
+            }
+          ]
+        };
         flex.body.contents.push({ type: "separator" });
       }
       console.log(flex)
@@ -887,7 +874,7 @@
     }
 
     initializeLiff('2006306490-rlWaW7pA');
-	  
-</script>
+  </script>
+
 </body>
-</html>
+
