@@ -594,29 +594,44 @@
             },
           ]
         },
-        "styles": {
-          "footer": {
-            "separator": true
-          }
-        }
       };
       if ($('#qrShow').is(':checked')) {
         flexMessage.footer = {
-          "type": "box",
-          "layout": "vertical",
-          "contents": [
-            {
-              "type": "image",
-              "url": "https://promptpay.io/" + $('#qrShow').data('promptpay') + "/" + total.replace(/,/g, '').replace('บาท', '').replace(/ /g, '') + ".png",
-              "size": "200px",
-              "action": {
-                "type": "uri",
-                "label": "action",
-                "uri": "https://promptpay.io/" + $('#qrShow').data('promptpay') + "/" + total.replace(/,/g, '').replace('บาท', '').replace(/ /g, '') + ".png"
-              }
-            }
-          ]
-        }
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "image",
+        "url": "https://lh3.googleusercontent.com/d/1DXeQa3zkAZ8ZCRZOmK6nSPNn5FOwpglR",
+        "size": "full",
+        "offsetTop": "0px",
+        "offsetBottom": "0px",
+        "offsetStart": "0px",
+        "offsetEnd": "0px",
+        "aspectMode": "fit",
+        "aspectRatio": "16:3"
+      },
+      {
+        "type": "image",
+        "url": "https://promptpay.io/" + $('#qrShow').data('promptpay') + "/" + total.replace(/,/g, '').replace('บาท', '').replace(/ /g, '') + ".png",
+        "size": "xl",
+        "action": {
+          "type": "uri",
+          "label": "action",
+          "uri": "https://promptpay.io/" + $('#qrShow').data('promptpay') + "/" + total.replace(/,/g, '').replace('บาท', '').replace(/ /g, '') + ".png"
+        },
+        "margin": "none",
+        "aspectMode": "fit"
+      }
+    ],
+    "paddingAll": "0px",
+    "paddingTop": "0px",
+    "paddingBottom": "15px",
+    "spacing": "none",
+    "margin": "none",
+    "backgroundColor": "#0e3e68"
+  }
+}
       }
       console.log(flexMessage);
       liff.shareTargetPicker([{ type: "flex", altText: "ข้อมูลการชำระเงินค่ะ", contents: flexMessage }])
